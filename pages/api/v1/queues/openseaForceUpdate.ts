@@ -1,8 +1,7 @@
 import { Queue } from 'quirrel/next';
-
-import { ipfsUrlToCIDString } from '@utils/ipfs';
-import { LogData, logError, logSuccess, logWarning } from '@utils/logging';
-import { forceUpdateOpenSeaMetadata } from '@utils/requests';
+import { ipfsUrlToCIDString } from 'utils/ipfs';
+import { LogData, logError, logSuccess, logWarning } from 'utils/logging';
+import { forceUpdateOpenSeaMetadata } from 'utils/requests';
 
 type Job = {
     tokenId: string;

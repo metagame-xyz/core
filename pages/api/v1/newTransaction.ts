@@ -1,8 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import { isValidEventForwarderSignature } from '@utils';
-import { addOrUpdateNft } from '@utils/addOrUpdateNft';
-import { LogData, logError, logSuccess } from '@utils/logging';
+import { isValidEventForwarderSignature } from 'utils';
+import { addOrUpdateNft } from 'utils/addOrUpdateNft';
+import { LogData, logError, logSuccess } from 'utils/logging';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     console.log('tokenId:', req.query.tokenId);

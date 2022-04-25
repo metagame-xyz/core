@@ -3,9 +3,8 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { extend } from '@react-three/fiber';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
+import noise from 'utils/noise';
 import Web3 from 'web3';
-
-import noise from '@utils/noise';
 
 const web3 = new Web3(Web3.givenProvider);
 
@@ -335,7 +334,7 @@ const generateColor = (address) => {
 };
 
 const interpolators = {
-    spikes: lerp(5, 8.00),
+    spikes: lerp(5, 8.0),
     speed: lerp(0, 0.7),
     intensity: lerp(1, 2),
     polygonActivity: lerp(0, 4),
@@ -359,7 +358,7 @@ const Heart = ({ address, record, attributes, onSaveGif, frameCount }) => {
         [attributes],
     );
 
-    interpolatedAttributes.noiseStrength = lerp(.1, .6)(attributes.spikes)
+    interpolatedAttributes.noiseStrength = lerp(0.1, 0.6)(attributes.spikes);
 
     return (
         <BaseHeart

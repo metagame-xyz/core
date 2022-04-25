@@ -11,16 +11,13 @@
         "esModuleInterop": true,
         "module": "esnext",
         "moduleResolution": "node",
+        "sourceMap": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
         "jsx": "preserve",
         "baseUrl": ".",
         "paths": {
-            "@api/*": ["pages/api/v1/*"],
-            "@components/*": ["components/*"],
-            "@providers/*": ["providers/*"],
-            "@utils/*": ["utils/*"],
-            "@utils": ["utils/index.ts"]
+            "api/*": ["pages/api/v1/*"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

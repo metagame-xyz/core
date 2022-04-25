@@ -1,8 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import { addOrUpdateNft } from '@utils/addOrUpdateNft';
-import { LogData, logError, logSuccess } from '@utils/logging';
-import { getAddressForTokenId } from '@utils/metadata';
+import { addOrUpdateNft } from 'utils/addOrUpdateNft';
+import { LogData, logError, logSuccess } from 'utils/logging';
+import { getAddressForTokenId } from 'utils/metadata';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { tokenId } = req.query;

@@ -2,11 +2,10 @@ import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { Box, Button } from '@chakra-ui/react';
 import { InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
-
-import { ioredisClient } from '@utils';
-import { CONTRACT_ADDRESS } from '@utils/constants';
-import { clickableIPFSLink } from '@utils/frontend';
-import { Metadata } from '@utils/metadata';
+import { ioredisClient } from 'utils';
+import { CONTRACT_ADDRESS } from 'utils/constants';
+import { clickableIPFSLink } from 'utils/frontend';
+import { Metadata } from 'utils/metadata';
 
 export const getServerSideProps = async (context) => {
     const { tokenId } = context.query;

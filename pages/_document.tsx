@@ -1,7 +1,6 @@
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
-
-import { WEBSITE_URL } from '@utils/constants';
-import { headMetadata as meta } from '@utils/content';
+import { WEBSITE_URL } from 'utils/constants';
+import { headMetadata as meta } from 'utils/content';
 
 class MyDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {

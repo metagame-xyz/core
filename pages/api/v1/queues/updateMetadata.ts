@@ -1,8 +1,7 @@
 import { Queue } from 'quirrel/next';
-
-import { addOrUpdateNft } from '@utils/addOrUpdateNft';
-import { LogData, logError, logSuccess } from '@utils/logging';
-import { getAddressForTokenId } from '@utils/metadata';
+import { addOrUpdateNft } from 'utils/addOrUpdateNft';
+import { LogData, logError, logSuccess } from 'utils/logging';
+import { getAddressForTokenId } from 'utils/metadata';
 
 export type UpdateMetadataJob = {
     tokenId: string;

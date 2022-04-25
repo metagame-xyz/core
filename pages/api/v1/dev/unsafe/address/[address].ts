@@ -1,14 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import { getUserName } from '@utils';
-import { LogData, logError } from '@utils/logging';
+import { getUserName } from 'utils';
+import { LogData, logError } from 'utils/logging';
 import {
     formatNewMetadata,
     getTxnData,
     Metadata,
     metadataToOpenSeaMetadata,
     TxnCounts,
-} from '@utils/metadata';
+} from 'utils/metadata';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { address } = req.query as { address: string };

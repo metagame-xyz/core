@@ -1,8 +1,7 @@
+import OpenseaForceUpdate from 'api/queues/openseaForceUpdate';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import OpenseaForceUpdate from '@api/queues/openseaForceUpdate';
-
-import { ioredisClient } from '@utils';
+import { ioredisClient } from 'utils';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { tokenId } = req.query;

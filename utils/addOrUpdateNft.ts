@@ -1,11 +1,11 @@
-import { getUserName, ioredisClient } from '@utils';
+import { getUserName, ioredisClient } from 'utils';
 import {
     formatMetadataWithOldMetadata,
     formatNewMetadata,
     getTxnData,
     Metadata,
     TxnCounts,
-} from '@utils/metadata';
+} from 'utils/metadata';
 
 import { LogData, logError, logSuccess } from './logging';
 

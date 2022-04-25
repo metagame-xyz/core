@@ -5,9 +5,8 @@ import { ethers } from 'ethers';
 import Redis from 'ioredis';
 import type { NextApiRequest } from 'next';
 import fetch from 'node-fetch-retry';
-
 // import fetch, { Response } from 'node-fetch';
-import { logger } from '@utils/logging';
+import { logger } from 'utils/logging';
 
 import {
     ALCHEMY_NOTIFY_TOKEN,

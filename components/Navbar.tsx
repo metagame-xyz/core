@@ -9,16 +9,17 @@ import {
     Text,
     useBreakpointValue,
 } from '@chakra-ui/react';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { Etherscan, Logo, Opensea, Twitter } from 'components/Icons';
 import React from 'react';
 
-import { useEthereum } from '@providers/EthereumProvider';
-
-import { Etherscan, Logo, Opensea, Twitter } from '@components/Icons';
-
-import { copy } from '@utils/content';
+import { copy } from 'utils/content';
 
 function Navbar(props) {
-    const { userName, openWeb3Modal, avatarUrl } = useEthereum();
+    // const { userName, openWeb3Modal, avatarUrl } = useEthereum();
+    const userName = null;
+    const openWeb3Modal = (a) => {};
+    const avatarUrl = null;
 
     const showName = useBreakpointValue({ base: false, md: true });
 
@@ -53,17 +54,18 @@ function Navbar(props) {
                             </HStack>
                         </Box>
                     ) : (
-                        <Button
-                            onClick={() => openWeb3Modal('Navbar')}
-                            fontWeight="normal"
-                            colorScheme="brand"
-                            bg="brand.700"
-                            size="lg"
-                            boxShadow="lg"
-                            fontSize="2xl"
-                            borderRadius="full">
-                            Connect
-                        </Button>
+                        <ConnectButton />
+                        // <Button
+                        //     onClick={() => openWeb3Modal('Navbar')}
+                        //     fontWeight="normal"
+                        //     colorScheme="brand"
+                        //     bg="brand.700"
+                        //     size="lg"
+                        //     boxShadow="lg"
+                        //     fontSize="2xl"
+                        //     borderRadius="full">
+                        //     Connect
+                        // </Button>
                     )}
                 </HStack>
             </HStack>

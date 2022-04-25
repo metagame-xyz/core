@@ -6,11 +6,11 @@
     "jsxBracketSameLine": true,
     "trailingComma": "all",
     "importOrder": [
+        "^react$|^next.*$",
         "<THIRD_PARTY_MODULES>",
-        "^@api/(.*)$",
-        "^@providers/(.*)$",
-        "^@components/(.*)$",
-        "^@utils(.*)$",
+        "^api/(.*)$",
+        "^utils(.*)$",
+        "^components/(.*)$",
         "^[./]"
     ],
     "importOrderSeparation": true,

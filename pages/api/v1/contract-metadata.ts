@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import { THE_METAGAME_ETH_ADDRESS, WEBSITE_URL } from '@utils/constants';
-import { copy } from '@utils/content';
+import { THE_METAGAME_ETH_ADDRESS, WEBSITE_URL } from 'utils/constants';
+import { copy } from 'utils/content';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const metadata = {

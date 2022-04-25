@@ -1,28 +1,28 @@
-import { ExternalLinkIcon } from '@chakra-ui/icons';
-import { Box, Button, Heading, Link, SimpleGrid, Text, VStack } from '@chakra-ui/react';
-import { parseEther } from '@ethersproject/units';
-import { BigNumber, Contract } from 'ethers';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 
-import { useEthereum, wrongNetworkToast } from '@providers/EthereumProvider';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
+import {
+    AccordionButton,
+    Box,
+    Button,
+    Heading,
+    Link,
+    SimpleGrid,
+    Text,
+    VStack,
+} from '@chakra-ui/react';
+import { parseEther } from '@ethersproject/units';
+import { BigNumber, Contract } from 'ethers';
+import { addressToNameObject } from 'onoma';
+import { useAccount } from 'wagmi';
 
-import { maxW } from '@components/Layout';
+import { blackholeAddress, CONTRACT_ADDRESS, networkStrings, WEBSITE_URL } from 'utils/constants';
+import { copy } from 'utils/content';
+import { debug, event } from 'utils/frontend';
+import { Metadata } from 'utils/metadata';
 
-import { ioredisClient } from '@utils';
-import { blackholeAddress, CONTRACT_ADDRESS, networkStrings, WEBSITE_URL } from '@utils/constants';
-import { copy } from '@utils/content';
-import { debug, event } from '@utils/frontend';
-import { Metadata } from '@utils/metadata';
-
-export const getServerSideProps = async () => {
-    const metadata = await ioredisClient.hget('2', 'metadata');
-    return {
-        props: {
-            metadata: JSON.parse(metadata),
-        },
-    };
-};
+import { maxW } from 'components/Layout';
 
 function About({ heading, text }) {
     return (
@@ -35,22 +35,13 @@ function About({ heading, text }) {
     );
 }
 
-const toastErrorData = (title: string, description: string) => ({
-    title,
-    description,
-    status: 'error',
-    position: 'top',
-    duration: 8000,
-    isClosable: true,
-});
-
 function heartbeatShowerLink(tokenId: number): string {
     return `https://${WEBSITE_URL}/heart/${tokenId}`;
 }
 
 function Home({ metadata }) {
-    const { provider, signer, userAddress, userName, eventParams, openWeb3Modal, toast } =
-        useEthereum();
+    // const { provider, signer, userAddress, userName, eventParams, openWeb3Modal, toast } = useEthereum();
+    const [{ data: account, error, loading }] = useAccount({ fetchEns: true });
 
     console.log(metadata);
 
@@ -188,6 +179,8 @@ function Home({ metadata }) {
                 </Heading>
                 <Text fontSize={[16, 22, 30]} fontWeight="light" maxW={['container.md']} pb={4}>
                     {copy.heroSubheading}
+                    <br />
+                    {account?.address}
                 </Text>
                 <div
                     style={{

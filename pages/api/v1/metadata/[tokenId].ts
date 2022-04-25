@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import { ioredisClient } from '@utils';
-import { metadataToOpenSeaMetadata } from '@utils/metadata';
+import { ioredisClient } from 'utils';
+import { metadataToOpenSeaMetadata } from 'utils/metadata';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { tokenId } = req.query;

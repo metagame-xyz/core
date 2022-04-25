@@ -1,4 +1,4 @@
-import { WEBSITE_URL } from '@utils/constants';
+import { WEBSITE_URL } from 'utils/constants';
 
 export interface MetaProps {
     description?: string;

@@ -1,8 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { InferGetServerSidePropsType } from 'next';
-
-import { ioredisClient } from '@utils';
-import { Metadata } from '@utils/metadata';
+import { ioredisClient } from 'utils';
+import { Metadata } from 'utils/metadata';
 
 export const getServerSideProps = async (context) => {
     const { tokenId } = context.query;
@@ -19,13 +18,9 @@ function View({
     tokenId,
     metadata: metadataStr,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-
     const metadata = JSON.parse(metadataStr);
 
-    return (
-        <Box h="100vh" w="100vw">
-        </Box>
-    );
+    return <Box h="100vh" w="100vw"></Box>;
 }
 
 export default View;

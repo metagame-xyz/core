@@ -1,5 +1,5 @@
-import { ioredisClient } from '@utils';
-import { ProductionNetworks, WEBSITE_URL } from '@utils/constants';
+import { ioredisClient } from 'utils';
+import { ProductionNetworks, WEBSITE_URL } from 'utils/constants';
 
 import { getBeatsPerMinute } from './frontend';
 import { debug } from './logging';

@@ -1,6 +1,5 @@
 import { CID, create, urlSource } from 'ipfs-http-client';
-
-import { INFURA_IPFS_PROJECT_ID, INFURA_IPFS_SECRET } from '@utils/constants';
+import { INFURA_IPFS_PROJECT_ID, INFURA_IPFS_SECRET } from 'utils/constants';
 
 const auth =
     'Basic ' + Buffer.from(INFURA_IPFS_PROJECT_ID + ':' + INFURA_IPFS_SECRET).toString('base64');

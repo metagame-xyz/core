@@ -1,3 +1,3 @@
-## Birthblock-Service
+## Minting-Service
 
-Serves the mint page and the APIs for the metadata and generative art
+Serves the mint page and the APIs for the metadata
