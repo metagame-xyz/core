@@ -1,9 +1,8 @@
 {
-    "semi": true,
+    "semi": false,
     "tabWidth": 4,
-    "printWidth": 100,
+    "printWidth": 120,
     "singleQuote": true,
-    "jsxBracketSameLine": true,
     "trailingComma": "all",
     "importOrder": [
         "^react$|^next.*$",

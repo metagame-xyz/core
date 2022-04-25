@@ -1,54 +1,53 @@
-import { ExternalLinkIcon } from '@chakra-ui/icons';
-import { Box, Button } from '@chakra-ui/react';
-import { InferGetServerSidePropsType } from 'next';
-import Head from 'next/head';
-import { ioredisClient } from 'utils';
-import { CONTRACT_ADDRESS } from 'utils/constants';
-import { clickableIPFSLink } from 'utils/frontend';
-import { Metadata } from 'utils/metadata';
+import { InferGetServerSidePropsType } from 'next'
+import Head from 'next/head'
+
+import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { Box, Button } from '@chakra-ui/react'
+
+import { ioredisClient } from 'utils'
+import { CONTRACT_ADDRESS } from 'utils/constants'
+import { clickableIPFSLink } from 'utils/frontend'
+import { Metadata } from 'utils/metadata'
 
 export const getServerSideProps = async (context) => {
-    const { tokenId } = context.query;
-    const metadata = await ioredisClient.hget(tokenId, 'metadata');
+    const { tokenId } = context.query
+    const metadata = await ioredisClient.hget(tokenId, 'metadata')
     return {
         props: {
             metadata,
             tokenId,
         },
-    };
-};
+    }
+}
 
-function HeartPage({
-    tokenId,
-    metadata: metadataStr,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    const keysToKeep = ['name', 'description', 'address'];
+function HeartPage({ tokenId, metadata: metadataStr }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+    const keysToKeep = ['name', 'description', 'address']
 
     const getOpenSeaUrl = (tokenId: string) => {
-        return `https://opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId}`;
-    };
+        return `https://opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId}`
+    }
 
-    const metadata: Metadata = JSON.parse(metadataStr);
+    const metadata: Metadata = JSON.parse(metadataStr)
     const attributes = (metadata: Metadata) => {
         return (
             <>
                 {Object.entries(metadata)
                     .filter(([v, k]) => keysToKeep.includes(v))
                     .map(([key, value]) => {
-                        console.log('key', key);
-                        console.log('value', value);
+                        console.log('key', key)
+                        console.log('value', value)
                         return (
                             <>
                                 <p key={key}>
                                     {key}: {value}
                                 </p>
                             </>
-                        );
+                        )
                     })}
             </>
-        );
-    };
-    const size = ['80vw'];
+        )
+    }
+    const size = ['80vw']
     return (
         <Box p="16px" minH="calc(100vh - 146px)" w="auto">
             <Head>
@@ -71,12 +70,13 @@ function HeartPage({
                     fontSize="2xl"
                     bg="brand.700"
                     rightIcon={<ExternalLinkIcon />}
-                    onClick={() => window.open(getOpenSeaUrl(tokenId))}>
+                    onClick={() => window.open(getOpenSeaUrl(tokenId))}
+                >
                     View on OpenSea
                 </Button>
             </Box>
         </Box>
-    );
+    )
 }
 
-export default HeartPage;
+export default HeartPage

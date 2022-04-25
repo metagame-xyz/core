@@ -1,28 +1,19 @@
-import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import Head from 'next/head'
+import React, { useEffect, useState } from 'react'
 
-import { ExternalLinkIcon } from '@chakra-ui/icons';
-import {
-    AccordionButton,
-    Box,
-    Button,
-    Heading,
-    Link,
-    SimpleGrid,
-    Text,
-    VStack,
-} from '@chakra-ui/react';
-import { parseEther } from '@ethersproject/units';
-import { BigNumber, Contract } from 'ethers';
-import { addressToNameObject } from 'onoma';
-import { useAccount } from 'wagmi';
+import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { AccordionButton, Box, Button, Heading, Link, SimpleGrid, Text, VStack } from '@chakra-ui/react'
+import { parseEther } from '@ethersproject/units'
+import { BigNumber, Contract } from 'ethers'
+import { addressToNameObject } from 'onoma'
+import { useAccount } from 'wagmi'
 
-import { blackholeAddress, CONTRACT_ADDRESS, networkStrings, WEBSITE_URL } from 'utils/constants';
-import { copy } from 'utils/content';
-import { debug, event } from 'utils/frontend';
-import { Metadata } from 'utils/metadata';
+import { blackholeAddress, CONTRACT_ADDRESS, networkStrings, WEBSITE_URL } from 'utils/constants'
+import { copy } from 'utils/content'
+import { debug, event } from 'utils/frontend'
+import { Metadata } from 'utils/metadata'
 
-import { maxW } from 'components/Layout';
+import { maxW } from 'components/Layout'
 
 function About({ heading, text }) {
     return (
@@ -32,18 +23,18 @@ function About({ heading, text }) {
             </Heading>
             <Text align="center">{text}</Text>
         </VStack>
-    );
+    )
 }
 
 function heartbeatShowerLink(tokenId: number): string {
-    return `https://${WEBSITE_URL}/heart/${tokenId}`;
+    return `https://${WEBSITE_URL}/heart/${tokenId}`
 }
 
 function Home({ metadata }) {
     // const { provider, signer, userAddress, userName, eventParams, openWeb3Modal, toast } = useEthereum();
-    const [{ data: account, error, loading }] = useAccount({ fetchEns: true });
+    const [{ data: account, error, loading }] = useAccount({ fetchEns: true })
 
-    console.log(metadata);
+    console.log(metadata)
 
     // const contract = new Contract(CONTRACT_ADDRESS, heartbeat.abi, provider);
 
@@ -187,7 +178,8 @@ function Home({ metadata }) {
                         aspectRatio: '1/1',
                         width: '80%',
                         maxWidth: '800px',
-                    }}></div>
+                    }}
+                ></div>
             </Box>
 
             <Box px={8} py={8} width="fit-content" margin="auto" maxW={maxW}>
@@ -249,7 +241,7 @@ function Home({ metadata }) {
                 </Text>
             </Box>
         </Box>
-    );
+    )
 }
 
-export default Home;
+export default Home

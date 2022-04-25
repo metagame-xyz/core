@@ -1,20 +1,20 @@
-import { WEBSITE_URL } from 'utils/constants';
+import { WEBSITE_URL } from 'utils/constants'
 
 export interface MetaProps {
-    description?: string;
-    image?: string;
-    title: string;
-    type?: string;
+    description?: string
+    image?: string
+    title: string
+    type?: string
 }
 
-const description = 'DESCRIPTION';
+const description = 'DESCRIPTION'
 
 export const headMetadata: MetaProps = {
     title: 'TITLE',
     description,
     image: `https://${WEBSITE_URL}/site-preview.png`,
     type: 'website',
-};
+}
 
 export const copy = {
     title: 'TITLE',
@@ -28,4 +28,4 @@ export const copy = {
     text3: 'TEXT 3',
     bottomSectonHeading: 'bottomSectonHeading',
     bottomSectionText: `bottomSectionText`,
-};
+}

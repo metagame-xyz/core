@@ -1,7 +1,9 @@
-import { Icon, Link } from '@chakra-ui/react';
-import React from 'react';
-import { CONTRACT_ADDRESS, networkStrings } from 'utils/constants';
-import { copy } from 'utils/content';
+import React from 'react'
+
+import { Icon, Link } from '@chakra-ui/react'
+
+import { CONTRACT_ADDRESS, networkStrings } from 'utils/constants'
+import { copy } from 'utils/content'
 
 function IconLink({ Icon, url, ...props }) {
     return (
@@ -14,12 +16,12 @@ function IconLink({ Icon, url, ...props }) {
                 {...props}
             />
         </Link>
-    );
+    )
 }
 
-const etherscanUrl = `https://${networkStrings.etherscan}etherscan.io/address/${CONTRACT_ADDRESS}`;
-const twitterUrl = 'https://twitter.com/The_Metagame';
-const openseaUrl = `https://opensea.io/collection/heartbeat-metagame`;
+const etherscanUrl = `https://${networkStrings.etherscan}etherscan.io/address/${CONTRACT_ADDRESS}`
+const twitterUrl = 'https://twitter.com/The_Metagame'
+const openseaUrl = `https://opensea.io/collection/heartbeat-metagame`
 
 const EtherscanIcon = (props) => (
     <Icon viewBox="0 0 52 52" {...props}>
@@ -32,7 +34,7 @@ const EtherscanIcon = (props) => (
             fill="currentColor"
         />
     </Icon>
-);
+)
 
 export const EtherscanSquare = (props) => (
     <Icon viewBox="0 0 100 100" {...props}>
@@ -59,7 +61,7 @@ export const EtherscanSquare = (props) => (
             fill="currentColor"
         />
     </Icon>
-);
+)
 
 const OpenseaIcon = (props) => (
     <Icon viewBox="0 0 90 90" {...props}>
@@ -70,7 +72,7 @@ const OpenseaIcon = (props) => (
             fill="currentColor"
         />
     </Icon>
-);
+)
 
 export const OpenseaSquare = (props) => (
     <Icon viewBox="0 0 90 90" {...props}>
@@ -87,7 +89,7 @@ export const OpenseaSquare = (props) => (
             fill="currentColor"
         />
     </Icon>
-);
+)
 
 const TwitterIcon = (props) => (
     <Icon viewBox="0 0 71 71" {...props}>
@@ -96,7 +98,7 @@ const TwitterIcon = (props) => (
             fill="currentColor"
         />
     </Icon>
-);
+)
 
 export const TwitterSquare = (props) => (
     <Icon viewBox="0 0 90 90" {...props}>
@@ -111,11 +113,11 @@ export const TwitterSquare = (props) => (
             fill="currentColor"
         />
     </Icon>
-);
+)
 
-export const Twitter = (props) => <IconLink Icon={TwitterSquare} url={twitterUrl} {...props} />;
-export const Opensea = (props) => <IconLink Icon={OpenseaSquare} url={openseaUrl} {...props} />;
-export const Etherscan = (props) => <IconLink Icon={EtherscanIcon} url={etherscanUrl} {...props} />;
+export const Twitter = (props) => <IconLink Icon={TwitterSquare} url={twitterUrl} {...props} />
+export const Opensea = (props) => <IconLink Icon={OpenseaSquare} url={openseaUrl} {...props} />
+export const Etherscan = (props) => <IconLink Icon={EtherscanIcon} url={etherscanUrl} {...props} />
 export const Logo = (props) => (
     <Icon viewBox="0 0 919 919" {...props}>
         <path
@@ -123,41 +125,13 @@ export const Logo = (props) => (
             fill="currentColor"
         />
     </Icon>
-);
+)
 export const TwelveCircles = (props) => (
     <Icon viewBox="0 0 336 338" {...props}>
-        <circle
-            cx="167.9"
-            cy="34.9"
-            r="32.9"
-            stroke="currentColor"
-            strokeWidth="4"
-            fillOpacity="0%"
-        />
-        <circle
-            cx="100.9"
-            cy="52.9"
-            r="32.9"
-            stroke="currentColor"
-            strokeWidth="4"
-            fillOpacity="0%"
-        />
-        <circle
-            cx="51.9"
-            cy="101.9"
-            r="32.9"
-            stroke="currentColor"
-            strokeWidth="4"
-            fillOpacity="0%"
-        />
-        <circle
-            cx="34.9"
-            cy="168.9"
-            r="32.9"
-            stroke="currentColor"
-            strokeWidth="4"
-            fillOpacity="0%"
-        />
+        <circle cx="167.9" cy="34.9" r="32.9" stroke="currentColor" strokeWidth="4" fillOpacity="0%" />
+        <circle cx="100.9" cy="52.9" r="32.9" stroke="currentColor" strokeWidth="4" fillOpacity="0%" />
+        <circle cx="51.9" cy="101.9" r="32.9" stroke="currentColor" strokeWidth="4" fillOpacity="0%" />
+        <circle cx="34.9" cy="168.9" r="32.9" stroke="currentColor" strokeWidth="4" fillOpacity="0%" />
         <circle
             r="32.9"
             transform="matrix(1 0 0 -1 51.9 235.9)"
@@ -220,4 +194,4 @@ export const TwelveCircles = (props) => (
         />
         <circle cx="168" cy="169" r="98" stroke="currentColor" strokeWidth="4" fillOpacity="0%" />
     </Icon>
-);
+)

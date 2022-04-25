@@ -1,8 +1,8 @@
-import { Center, Flex, Grid, Link, Stack, Text } from '@chakra-ui/react';
+import { Center, Flex, Grid, Link, Stack, Text } from '@chakra-ui/react'
 
-import { Etherscan, Opensea, TwelveCircles, Twitter } from './Icons';
+import { Etherscan, Opensea, TwelveCircles, Twitter } from './Icons'
 
-const hover = { color: 'brand.300' };
+const hover = { color: 'brand.300' }
 
 export default function Footer(props) {
     return (
@@ -15,7 +15,8 @@ export default function Footer(props) {
                 gap={1}
                 templateColumns="repeat(3, 1fr)"
                 color="brand.50"
-                {...props}>
+                {...props}
+            >
                 <Flex align="center">
                     <Text fontSize="sm">
                         {`code & art by `}
@@ -24,28 +25,19 @@ export default function Footer(props) {
                         </Link>
                     </Text>
                 </Flex>
-                <Stack
-                    direction={['column', 'column', 'row']}
-                    spacing={2}
-                    align="center"
-                    justify="center">
+                <Stack direction={['column', 'column', 'row']} spacing={2} align="center" justify="center">
                     <TwelveCircles boxSize={8} color="white" />
                     {/* pt=1 cuz this font sits too high */}
                     <Center fontFamily="courier prime" pt={1} fontSize={['sm', 'md', 'xl', 'xl']}>
                         The Metagame
                     </Center>
                 </Stack>
-                <Stack
-                    direction={'row'}
-                    spacing={2}
-                    align="center"
-                    justify="flex-end"
-                    color="brand.100">
+                <Stack direction={'row'} spacing={2} align="center" justify="flex-end" color="brand.100">
                     <Twitter boxSize={[6, 8]} _hover={hover} boxShadow={''} />
                     <Opensea boxSize={[6, 8]} _hover={hover} boxShadow={''} />
                     <Etherscan boxSize={[6, 8]} _hover={hover} boxShadow={''} />
                 </Stack>
             </Grid>
         </Flex>
-    );
+    )
 }

@@ -1,38 +1,23 @@
-import {
-    Avatar,
-    Box,
-    Button,
-    Flex,
-    Heading,
-    HStack,
-    Spacer,
-    Text,
-    useBreakpointValue,
-} from '@chakra-ui/react';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { Etherscan, Logo, Opensea, Twitter } from 'components/Icons';
-import React from 'react';
+import React from 'react'
 
-import { copy } from 'utils/content';
+import { Avatar, Box, Button, Flex, Heading, HStack, Spacer, Text, useBreakpointValue } from '@chakra-ui/react'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
+
+import { copy } from 'utils/content'
+
+import { Etherscan, Logo, Opensea, Twitter } from 'components/Icons'
 
 function Navbar(props) {
     // const { userName, openWeb3Modal, avatarUrl } = useEthereum();
-    const userName = null;
-    const openWeb3Modal = (a) => {};
-    const avatarUrl = null;
+    const userName = null
+    const openWeb3Modal = (a) => {}
+    const avatarUrl = null
 
-    const showName = useBreakpointValue({ base: false, md: true });
+    const showName = useBreakpointValue({ base: false, md: true })
 
     return (
         <Flex width="100%" bgColor="transparent" boxShadow="md">
-            <HStack
-                as="nav"
-                width="100%"
-                margin="auto"
-                justify="center"
-                align="center"
-                p={4}
-                {...props}>
+            <HStack as="nav" width="100%" margin="auto" justify="center" align="center" p={4} {...props}>
                 <HStack align="center" spacing={2} pr={[0, 2]}>
                     <Logo boxSize={10} />
                     {showName && (
@@ -70,7 +55,7 @@ function Navbar(props) {
                 </HStack>
             </HStack>
         </Flex>
-    );
+    )
 }
 
-export default Navbar;
+export default Navbar

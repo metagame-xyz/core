@@ -1,12 +1,13 @@
-import updateMetadata from 'api/queues/updateMetadata';
-import { BigNumber, Contract } from 'ethers';
-import { CronJob } from 'quirrel/next';
+import { BigNumber, Contract } from 'ethers'
+import { CronJob } from 'quirrel/next'
 
-import { defaultProvider } from 'utils';
-import { CONTRACT_ADDRESS } from 'utils/constants';
-import { LogData, logError, logSuccess } from 'utils/logging';
+import updateMetadata from 'api/queues/updateMetadata'
 
-const jobSpacingInSeconds = 15;
+import { defaultProvider } from 'utils'
+import { CONTRACT_ADDRESS } from 'utils/constants'
+import { LogData, logError, logSuccess } from 'utils/logging'
+
+const jobSpacingInSeconds = 15
 
 // export default CronJob(
 //     'api/v1/cronJobs/batchFetchMetadata', // 👈 the route it's reachable on
