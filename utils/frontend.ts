@@ -102,7 +102,7 @@ const updateImageFetchOptions = (EVENT_FORWARDER_AUTH_TOKEN: string, body: { ipf
     },
 })
 
-async function fetcher(url: string, options) {
+export async function fetcher(url: string, options) {
     let retry = 3
     while (retry > 0) {
         const response: Response = await fetch(url, options)
