@@ -8,12 +8,13 @@ import { BigNumber, Contract } from 'ethers'
 import { addressToNameObject } from 'onoma'
 import { useAccount } from 'wagmi'
 
-import { blackholeAddress, CONTRACT_ADDRESS, networkStrings, WEBSITE_URL } from 'utils/constants'
+import { ALCHEMY_PROJECT_ID, blackholeAddress, CONTRACT_ADDRESS, METABOT_API_URL, networkStrings, WEBSITE_URL } from 'utils/constants'
 import { copy } from 'utils/content'
 import { debug, event } from 'utils/frontend'
 import { Metadata } from 'utils/metadata'
 
 import { maxW } from 'components/Layout'
+import { fetcher } from 'utils/frontend'
 
 function About({ heading, text }) {
     return (
@@ -32,9 +33,35 @@ function heartbeatShowerLink(tokenId: number): string {
 
 function Home({ metadata }) {
     // const { provider, signer, userAddress, userName, eventParams, openWeb3Modal, toast } = useEthereum();
-    const [{ data: account, error, loading }] = useAccount({ fetchEns: true })
+    const [{ data: account, error, loading }] = useAccount({ 
+        fetchEns: true, 
+    })
+    const [isWhitelisted, setWhitelisted] = useState(false);
+    const [whitelistLoading, setWhitelistLoading] = useState(true)
 
-    console.log(metadata)
+    useEffect(() => {
+        if (account) {
+            const data = 
+            console.log(account.address);
+            const body = JSON.stringify(data)
+            fetcher(`${METABOT_API_URL}premintCheck`, { 
+                params: { 
+                    address: account.address 
+                }, 
+                headers: { 'Content-Type': 'application/json' },
+                mode: 'no-cors'
+            })
+            .then((resp) => {
+                setWhitelisted(true)
+                setWhitelistLoading(false)
+            })
+            .catch((err) => {
+                console.log('WHITELIST ERR', err)
+                setWhitelistLoading(false)
+            })
+        }
+    }, [account])
+
 
     // const contract = new Contract(CONTRACT_ADDRESS, heartbeat.abi, provider);
 
@@ -173,6 +200,13 @@ function Home({ metadata }) {
                     <br />
                     {account?.address}
                 </Text>
+                <Text fontSize={[16, 22, 30]} fontWeight="light" maxW={['container.md']} pb={4}>
+                    {!whitelistLoading ? (
+                        <>
+                        {isWhitelisted ? "Mint" : "Not whitelisted" }
+                        </>
+                    ) : null}
+                </Text>
                 <div
                     style={{
                         aspectRatio: '1/1',
@@ -181,7 +215,6 @@ function Home({ metadata }) {
                     }}
                 ></div>
             </Box>
-
             <Box px={8} py={8} width="fit-content" margin="auto" maxW={maxW}>
                 <SimpleGrid columns={[1, 1, 1, 3]} spacing={16}>
                     <About heading={copy.heading1} text={copy.text1} />

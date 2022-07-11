@@ -1,7 +1,6 @@
 import DatadogWinston from 'datadog-winston'
 import winston, { format } from 'winston'
-
-import { DATADOG_API_KEY } from './constants'
+import { DATADOG_API_KEY, METABOT_API_URL } from './constants'
 
 const { combine, printf, colorize, errors } = format
 

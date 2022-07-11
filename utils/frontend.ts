@@ -4,6 +4,7 @@ import { create } from 'ipfs-http-client'
 
 import { WEBSITE_URL } from './constants'
 import { TxnCounts } from './metadata'
+import axios from 'axios'
 
 export function getTruncatedAddress(address: string): string {
     if (address && address.startsWith('0x')) {
@@ -102,7 +103,7 @@ const updateImageFetchOptions = (EVENT_FORWARDER_AUTH_TOKEN: string, body: { ipf
     },
 })
 
-async function fetcher(url: string, options) {
+export async function fetcher(url: string, options) {
     let retry = 3
     while (retry > 0) {
         const response: Response = await fetch(url, options)

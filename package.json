@@ -22,6 +22,7 @@
         "@slack/web-api": "^6.5.1",
         "@walletconnect/web3-provider": "^1.6.6",
         "datadog-winston": "^1.5.1",
+        "dotenv": "^16.0.1",
         "ethers": "^5.5.1",
         "framer-motion": "^4",
         "ioredis": "^4.27.9",
