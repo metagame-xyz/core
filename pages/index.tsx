@@ -42,12 +42,9 @@ function Home({ metadata }) {
     useEffect(() => {
         if (account) {
             const data = 
-            console.log(account.address);
+            console.log('calling', account.address);
             const body = JSON.stringify(data)
-            fetcher(`${METABOT_API_URL}premintCheck`, { 
-                params: { 
-                    address: account.address 
-                }, 
+            fetcher(`${METABOT_API_URL}premintCheck?` + new URLSearchParams({ address: account.address }), { 
                 headers: { 'Content-Type': 'application/json' },
                 mode: 'no-cors'
             })
@@ -201,7 +198,7 @@ function Home({ metadata }) {
                     {account?.address}
                 </Text>
                 <Text fontSize={[16, 22, 30]} fontWeight="light" maxW={['container.md']} pb={4}>
-                    {!whitelistLoading ? (
+                    {(!whitelistLoading && account) ? (
                         <>
                         {isWhitelisted ? "Mint" : "Not whitelisted" }
                         </>

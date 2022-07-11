@@ -4,7 +4,6 @@ import { create } from 'ipfs-http-client'
 
 import { WEBSITE_URL } from './constants'
 import { TxnCounts } from './metadata'
-import axios from 'axios'
 
 export function getTruncatedAddress(address: string): string {
     if (address && address.startsWith('0x')) {
