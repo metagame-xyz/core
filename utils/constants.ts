@@ -19,8 +19,8 @@ export const DATADOG_API_KEY = process.env.DATADOG_API_KEY
 export const SLACK_API_TOKEN = process.env.SLACK_API_TOKEN
 
 /* Frontend Constants */
-export const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS.toLowerCase()
-export const NETWORK = process.env.NEXT_PUBLIC_NETWORK.toLowerCase()
+export const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS?.toLowerCase()
+export const NETWORK = process.env.NEXT_PUBLIC_NETWORK?.toLowerCase()
 export const INFURA_PROJECT_ID = process.env.NEXT_PUBLIC_INFURA_PROJECT_ID
 export const ALCHEMY_PROJECT_ID = process.env.NEXT_PUBLIC_ALCHEMY_PROJECT_ID
 // export const GOOGLE_ANALYTICS_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
