@@ -8,7 +8,8 @@
         "build": "next build",
         "start": "next start",
         "format": "prettier --write \"**/*.ts\" \"**/*.tsx\"",
-        "lint": "eslint --ignore-path .eslintignore --ext .ts,.tsx ."
+        "lint": "eslint --ignore-path .eslintignore --ext .ts,.tsx . && tsc",
+        "type-check": "tsc"
     },
     "dependencies": {
         "@chakra-ui/icons": "^1.0.16",
