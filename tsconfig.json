@@ -17,7 +17,7 @@
         "jsx": "preserve",
         "baseUrl": ".",
         "paths": {
-            "api/*": ["pages/api/v1/*"]
+            "api/*": ["pages/api/*"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

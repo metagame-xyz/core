@@ -86,7 +86,7 @@ export async function fetcher(url: string, options = fetchOptions) {
 
 export async function forceUpdateOpenSeaMetadata(tokenId, forceMainnet = false): Promise<any> {
     const networkString = forceMainnet ? 'api.' : networkStrings.openseaAPI
-    const url = `https://${networkString}opensea.io/api/v1/asset/${CONTRACT_ADDRESS}/${tokenId}/?force_update=true`
+    const url = `https://${networkString}opensea.io/api/asset/${CONTRACT_ADDRESS}/${tokenId}/?force_update=true`
     return fetcher(url, openseaFetchOptions)
 }
 

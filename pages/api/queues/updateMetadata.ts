@@ -9,7 +9,7 @@ export type UpdateMetadataJob = {
 }
 
 export default Queue(
-    'api/v1/queues/updateMetadata', // 👈 the route it's reachable on
+    'api/queues/updateMetadata', // 👈 the route it's reachable on
     async (job: UpdateMetadataJob) => {
         const { tokenId } = job
 

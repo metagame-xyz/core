@@ -136,7 +136,7 @@ export async function updateImage(
         secondsElapsed,
     }
     const options = updateImageFetchOptions(EVENT_FORWARDER_AUTH_TOKEN, body)
-    const url = `https://${WEBSITE_URL}/api/v1/updateImage`
+    const url = `https://${WEBSITE_URL}/api/updateImage`
     const response = await fetcher(url, options)
     return response
 }
