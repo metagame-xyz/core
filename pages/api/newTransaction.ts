@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const { minterAddress, tokenId } = req.body
-    let address: string = minterAddress.toLowerCase()
+    const address: string = minterAddress.toLowerCase()
 
     const logData: LogData = {
         level: 'info',

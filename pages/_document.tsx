@@ -1,7 +1,9 @@
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document'
+
+import dotenv from 'dotenv'
+
 import { WEBSITE_URL } from 'utils/constants'
 import { headMetadata as meta } from 'utils/content'
-import dotenv from 'dotenv'
 
 dotenv.config()
 

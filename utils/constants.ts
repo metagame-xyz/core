@@ -19,6 +19,10 @@ export const DATADOG_API_KEY = process.env.DATADOG_API_KEY
 export const SLACK_API_TOKEN = process.env.SLACK_API_TOKEN
 export const METABOT_API_URL = process.env.NEXT_PUBLIC_METABOT_API_URL
 
+export const METABOT_DB_CONNECTION_STRING = process.env.METABOT_DB_CONNECTION_STRING
+export const LOGBOOK_DB_CONNECTION_STRING = process.env.LOGBOOK_DB_CONNECTION_STRING
+export const EVM_TRANSLATOR_CONNECTION_STRING = process.env.EVM_TRANSLATOR_CONNECTION_STRING
+
 /* Frontend Constants */
 export const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS?.toLowerCase()
 export const NETWORK = process.env.NEXT_PUBLIC_NETWORK?.toLowerCase()

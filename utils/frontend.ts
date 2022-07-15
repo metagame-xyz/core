@@ -12,13 +12,13 @@ export function getTruncatedAddress(address: string): string {
     return address
 }
 
-export function debug(varObj: object): void {
+export function debug(varObj: Record<string, any>): void {
     Object.keys(varObj).forEach((str) => {
         console.log(`${str}:`, varObj[str])
     })
 }
 
-export const event = (action: string, params?: Object) => {
+export const event = (action: string, params?: Record<string, any>) => {
     // window.gtag('event', action, params);
 }
 

@@ -122,7 +122,7 @@ export async function getAllTransactions(
     let page = 1
     let eventsInLastPage = 1000
 
-    let totalResult = []
+    const totalResult = []
 
     while (eventsInLastPage === 1000 && page <= 10) {
         let status, message, result

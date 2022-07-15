@@ -1,0 +1,560 @@
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xfa653ad64d7824d1370717f4ffdc1b7fcc5b63f1a6c89d81aceafbc5affc99fb',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xac07b4ca21392d96a854d31667de8e93e71de178693e4304b61be49121fccbe8',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+  address: '0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}
+{
+  tx_hash: '0x5edfd4dfc760a496a59656df7946ae3a1812414c7b8d7bd9ddf28f2dc659df2d',
+  address: '0xa951c5d226d532b54cb8bcf771811895a70c2d84',
+  function_name: 'interpretGnosisExecution',
+  level: 'warning',
+  message: 'Gnosis tx didnt include ExecutionSuccess event'
+}

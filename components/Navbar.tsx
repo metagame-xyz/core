@@ -10,7 +10,9 @@ import { Etherscan, Logo, Opensea, Twitter } from 'components/Icons'
 function Navbar(props) {
     // const { userName, openWeb3Modal, avatarUrl } = useEthereum();
     const userName = null
-    const openWeb3Modal = (a) => {}
+    const openWeb3Modal = (a) => {
+        a
+    }
     const avatarUrl = null
 
     const showName = useBreakpointValue({ base: false, md: true })
