@@ -20,7 +20,7 @@ export const SLACK_API_TOKEN = process.env.SLACK_API_TOKEN
 export const METABOT_API_URL = process.env.NEXT_PUBLIC_METABOT_API_URL
 
 export const METABOT_DB_CONNECTION_STRING = process.env.METABOT_DB_CONNECTION_STRING
-export const LOGBOOK_DB_CONNECTION_STRING = process.env.LOGBOOK_DB_CONNECTION_STRING
+export const LOGBOOK_DB_CONNECTION_STRING = process.env.LOGBOOK_MONGODB_CONNECTION_STRING
 export const EVM_TRANSLATOR_CONNECTION_STRING = process.env.EVM_TRANSLATOR_CONNECTION_STRING
 
 /* Frontend Constants */
@@ -34,6 +34,7 @@ export const ALCHEMY_PROJECT_ID = process.env.NEXT_PUBLIC_ALCHEMY_PROJECT_ID
 export const WEBSITE_URL = process.env.NEXT_PUBLIC_WEBSITE_URL
 export const networkStrings = getNetworkString(NETWORK)
 export const THE_METAGAME_ETH_ADDRESS = '0x902A37155438982884ca26A5DBccf73f5ae8194b'
+export const VALIDATOR_PRIVATE_KEY = process.env.NEXT_PUBLIC_VALIDATOR_PRIVATE_KEY
 
 /* Events */
 export const connect_button_clicked = 'Connect Button Clicked'

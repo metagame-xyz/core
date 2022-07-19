@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import { AccordionButton, Box, Button, Heading, Link, SimpleGrid, Text, VStack } from '@chakra-ui/react'
 import { parseEther } from '@ethersproject/units'
-import { BigNumber, Contract } from 'ethers'
+import { BigNumber, Contract, ethers, Wallet } from 'ethers'
 import { addressToNameObject } from 'onoma'
 import { useAccount } from 'wagmi'
 
@@ -18,10 +19,12 @@ import {
 } from 'utils/constants'
 import { copy } from 'utils/content'
 import { debug, event } from 'utils/frontend'
-import { fetcher } from 'utils/frontend'
 import { Metadata } from 'utils/metadata'
-
 import { maxW } from 'components/Layout'
+import { fetcher } from 'utils/frontend'
+import logbookAbi from 'utils/logbookAbi'
+
+const LOGBOOK_CONTRACT_ADDRESS = "0x536ea5d11e914bcef00889a8e790947cd8603e29"
 
 function About({ heading, text }) {
     return (
@@ -44,17 +47,22 @@ function Home({ metadata }) {
         fetchEns: true,
     })
     const [isWhitelisted, setWhitelisted] = useState(false)
-    const [whitelistLoading, setWhitelistLoading] = useState(true)
+    const [whitelistLoading, setWhitelistLoading] = useState(false)
+    const [expandedSignature, setExpandedSignature] = useState()
 
     useEffect(() => {
-        if (account) {
-            const data = console.log('calling', account.address)
-            const body = JSON.stringify(data)
-            fetcher(`${METABOT_API_URL}premintCheck?` + new URLSearchParams({ address: account.address }), {
-                headers: { 'Content-Type': 'application/json' },
-                mode: 'no-cors',
+
+        if (account && !whitelistLoading) {
+            setWhitelistLoading(true)
+            console.log('calling', account.address);
+            const response = axios.get(`${METABOT_API_URL}premintCheck?` + new URLSearchParams({ address: account.address }), { 
+                headers: { 
+                    'content-type': 'application/json',
+                },
             })
                 .then((resp) => {
+                    console.log(resp.data)
+                    setExpandedSignature(resp.data)
                     setWhitelisted(true)
                     setWhitelistLoading(false)
                 })
@@ -63,7 +71,23 @@ function Home({ metadata }) {
                     setWhitelistLoading(false)
                 })
         }
-    }, [account])
+    }, [account && account.address])
+
+
+
+    const mint = async () => {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner()
+        const contract = new ethers.Contract(LOGBOOK_CONTRACT_ADDRESS, logbookAbi, provider)
+        const contractWithSigner = contract.connect(signer)
+
+        let tx = await contractWithSigner.mintWithSignature(account.address, expandedSignature.v, expandedSignature.r, expandedSignature.s, {
+            gasLimit: 2100000,
+            gasPrice: 8000000000,
+            value: ethers.utils.parseEther("0.01")
+        });
+        console.log("Transaction:", tx.hash);
+    }
 
     // const contract = new Contract(CONTRACT_ADDRESS, heartbeat.abi, provider);
 
@@ -203,7 +227,11 @@ function Home({ metadata }) {
                     {account?.address}
                 </Text>
                 <Text fontSize={[16, 22, 30]} fontWeight="light" maxW={['container.md']} pb={4}>
-                    {!whitelistLoading && account ? <>{isWhitelisted ? 'Mint' : 'Not whitelisted'}</> : null}
+                    {(!whitelistLoading && account) ? (
+                        <>
+                        {isWhitelisted ? "Whitelistedddd" : "Not whitelisted" }
+                        </>
+                    ) : null}
                 </Text>
                 <div
                     style={{
@@ -220,6 +248,22 @@ function Home({ metadata }) {
                     <About heading={copy.heading3} text={copy.text3} />
                 </SimpleGrid>
             </Box>
+            <Button
+                onClick={mint}
+                loadingText="Minting..."
+                fontWeight="normal"
+                colorScheme="brand"
+                bgColor="brand.600"
+                // color="brand.900"
+                _hover={{ bg: 'brand.500' }}
+                size="lg"
+                height="60px"
+                minW="xs"
+                boxShadow="lg"
+                fontSize="4xl"
+                borderRadius="full">
+                Mint
+            </Button>
 
             {/* <VStack justifyContent="center" spacing={4} px={4} py={8} bgColor="brand.700">
                 {!minted && !userTokenId ? (

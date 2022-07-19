@@ -30,6 +30,7 @@
         "framer-motion": "^4",
         "ioredis": "^4.27.9",
         "ipfs-http-client": "50.1.2",
+        "mongoose": "^6.4.4",
         "next": "11.1.2",
         "node-fetch": "^3.1.0",
         "node-fetch-retry": "^2.0.0",
