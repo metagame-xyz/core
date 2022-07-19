@@ -2,7 +2,7 @@ import { createConnection } from 'mongoose'
 
 import { LOGBOOK_DB_CONNECTION_STRING } from 'utils/constants'
 
-import { NftMetadata } from './models'
+import { NftMetadata, NftMetadataSchema } from './models'
 
 /**
  * Global is used here to maintain a cached connection across hot reloads
@@ -38,7 +38,7 @@ export class LogbookMongoose {
                 })
         }
         cached.conn = await cached.promise
-        // this.NftMetadataModel = cached.conn.model('NftMetadata', NftMetadataSchema)
+        cached.conn.model('NftMetadata', NftMetadataSchema)
         this.connected = true
         return cached.conn
     }
@@ -55,6 +55,8 @@ export class LogbookMongoose {
             const { address } = nftMetadata
 
             const existingData = await cached.conn.models.NftMetadata.findOne({ address })
+
+            debugger
 
             if (existingData?.tokenId) {
                 nftMetadata.tokenId = existingData.tokenId
