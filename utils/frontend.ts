@@ -77,7 +77,7 @@ const updateImageFetchOptions = (EVENT_FORWARDER_AUTH_TOKEN: string, body: { ipf
     headers: {
         'content-type': 'application/json',
         'x-event-forwarder-signature': signMessage(body, EVENT_FORWARDER_AUTH_TOKEN),
-    }
+    },
 })
 
 export async function fetcher(url: string, options) {

@@ -1,26 +1,23 @@
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import { AccordionButton, Box, Button, Heading, Link, SimpleGrid, Text, VStack } from '@chakra-ui/react'
 import { parseEther } from '@ethersproject/units'
 import axios from 'axios'
-
 import { BigNumber, Contract, ethers, Wallet } from 'ethers'
 import { addressToNameObject } from 'onoma'
 import { useAccount, useProvider, useSigner } from 'wagmi'
 
 import { ALCHEMY_PROJECT_ID, blackholeAddress, CONTRACT_ADDRESS, networkStrings, WEBSITE_URL } from 'utils/constants'
-
 import { copy } from 'utils/content'
 import { debug, event } from 'utils/frontend'
 import logbookAbi from 'utils/logbookAbi'
 import { Metadata } from 'utils/metadata'
+
 import { maxW } from 'components/Layout'
 
 const LOGBOOK_CONTRACT_ADDRESS = '0x536ea5d11e914bcef00889a8e790947cd8603e29'
-
 
 function About({ heading, text }) {
     return (
@@ -244,7 +241,6 @@ function Home({ metadata }) {
                 </Text>
                 <Text fontSize={[16, 22, 30]} fontWeight="light" maxW={['container.md']} pb={4}>
                     {!allowlistLoading && address ? <>{isAllowlisted ? 'Whitelistedddd' : 'Not whitelisted'}</> : null}
-
                 </Text>
                 <div
                     style={{
@@ -276,7 +272,6 @@ function Home({ metadata }) {
                 fontSize="4xl"
                 borderRadius="full"
             >
-
                 Mint
             </Button>
 
