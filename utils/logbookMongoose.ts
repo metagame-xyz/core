@@ -1,8 +1,9 @@
-import mongoose, { createConnection } from 'mongoose'
+import { createConnection } from 'mongoose'
 
 import { LOGBOOK_DB_CONNECTION_STRING } from 'utils/constants'
 
-import { NftMetadata, NftMetadataSchema  } from './models'
+import { NftMetadata, NftMetadataSchema, nftMetadataZ } from './models'
+
 
 /**
  * Global is used here to maintain a cached connection across hot reloads
@@ -53,39 +54,87 @@ export class LogbookMongoose {
         await this.connect()
         try {
             const { address } = nftMetadata
+
+            console.log('nftMetadata', nftMetadata)
+
             const existingData = await cached.conn.models.NftMetadata.findOne({ address })
 
-            debugger
 
             if (existingData?.tokenId) {
                 nftMetadata.tokenId = existingData.tokenId
             }
 
-            await cached.conn.models.NftMetadata.findOneAndUpdate({ address }, nftMetadata, { upsert: true })
+            const result = await cached.conn.models.NftMetadata.findOneAndUpdate({ address }, nftMetadata, {
+                upsert: true,
+            })
+
+            console.log('result', result)
         } catch (err) {
             console.error('mongoose addOrUpdateNftMetadata error', err)
         }
     }
 
-    async addTokenIdForAddress(address: string, tokenId: number): Promise<void> {
+    async addTokenIdForAddress(address: string, tokenId: number): Promise<NftMetadata> {
         await this.connect()
         try {
-            console.log('address', address, tokenId)
-            const data = await cached.conn.models.NftMetadata.findOne({ address })
+            const metadata = await cached.conn.models.NftMetadata.findOneAndUpdate(
+                { address },
+                { tokenId },
+                { upsert: true },
+            )
 
-            console.log(data)
-            let count = await cached.conn.models.NftMetadata.countDocuments()
-            console.log(count)
+            return metadata.toObject()
 
-            await cached.conn.models.NftMetadata.findOneAndUpdate({ address }, { tokenId }, { upsert: true })
-            count = await cached.conn.models.NftMetadata.countDocuments()
-            console.log(count)
         } catch (err) {
             console.error('mongoose addOrUpdateNftMetadata error', err)
         }
     }
 
-    
+    async getMetadataForAddress(address: string): Promise<NftMetadata | null> {
+        await this.connect()
+        try {
+            const user = await cached.conn.models.NftMetadata.findOne({ address })
+
+            console.log(user)
+
+            if (!user) return null
+
+            const parsedUser = nftMetadataZ.safeParse(user.toObject())
+
+            if (!parsedUser.success) {
+                console.error('Error', parsedUser)
+                return null
+            }
+
+            return parsedUser.success ? parsedUser.data : null
+        } catch (err) {
+            console.error('mongoose getUserForAddress error', err)
+            return null
+        }
+    }
+
+    async getMetadataForTokenId(tokenId: string): Promise<NftMetadata | null> {
+        await this.connect()
+        try {
+            const user = await cached.conn.models.NftMetadata.findOne({ tokenId })
+
+            console.log(user)
+
+            if (!user) return null
+
+            const parsedUser = nftMetadataZ.safeParse(user.toObject())
+
+            if (!parsedUser.success) {
+                console.error('Error', parsedUser)
+                return null
+            }
+
+            return parsedUser.success ? parsedUser.data : null
+        } catch (err) {
+            console.error('mongoose getUserForAddress error', err)
+            return null
+        }
+    }
 }
 
 export default new LogbookMongoose()

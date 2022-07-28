@@ -17,11 +17,13 @@ export const ALCHEMY_NOTIFY_TOKEN = process.env.ALCHEMY_NOTIFY_TOKEN
 export const OPENSEA_API_KEY = process.env.OPENSEA_API_KEY
 export const DATADOG_API_KEY = process.env.DATADOG_API_KEY
 export const SLACK_API_TOKEN = process.env.SLACK_API_TOKEN
-export const METABOT_API_URL = process.env.NEXT_PUBLIC_METABOT_API_URL
+export const METABOT_BASE_API_URL = process.env.METABOT_BASE_API_URL
 
 export const METABOT_DB_CONNECTION_STRING = process.env.METABOT_DB_CONNECTION_STRING
-export const LOGBOOK_DB_CONNECTION_STRING = process.env.LOGBOOK_MONGODB_CONNECTION_STRING
+export const LOGBOOK_DB_CONNECTION_STRING = process.env.LOGBOOK_DB_CONNECTION_STRING
 export const EVM_TRANSLATOR_CONNECTION_STRING = process.env.EVM_TRANSLATOR_CONNECTION_STRING
+
+export const isProdEnv = process.env.NODE_ENV === 'production'
 
 /* Frontend Constants */
 export const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS?.toLowerCase()
@@ -30,7 +32,7 @@ export const INFURA_PROJECT_ID = process.env.NEXT_PUBLIC_INFURA_PROJECT_ID
 export const ALCHEMY_PROJECT_ID = process.env.NEXT_PUBLIC_ALCHEMY_PROJECT_ID
 // export const GOOGLE_ANALYTICS_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
 
-// heartbeat.loca.lt, dev.heartbeat.art, heartbeat.art
+// heartbeat.loca.lt, logbook-dev.themetagame.xyz, logbook.themetagame.xyz
 export const WEBSITE_URL = process.env.NEXT_PUBLIC_WEBSITE_URL
 export const networkStrings = getNetworkString(NETWORK)
 export const THE_METAGAME_ETH_ADDRESS = '0x902A37155438982884ca26A5DBccf73f5ae8194b'

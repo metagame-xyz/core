@@ -18,9 +18,16 @@ export const ipfsUrlToCIDString = (url: string): string => {
     return url.replace(ipfsScheme, '')
 }
 
-export const addToIPFS = async (url: string): Promise<string> => {
+export const addToIpfsFromUrl = async (url: string): Promise<string> => {
     // TODO: use the mutable folder structure
     const file = await client.add(urlSource(url).content)
+    return ipfsScheme + file.path
+}
+
+export const addToIpfsFromSvgStr = async (svgStr: string): Promise<string> => {
+    const arr = new TextEncoder().encode(svgStr)
+
+    const file = await client.add(arr)
     return ipfsScheme + file.path
 }
 
@@ -32,7 +39,7 @@ export const removeFromIPFS = async (ipfsURL: string): Promise<CID> => {
 
 export const listIPFSPins = async (): Promise<any> => {
     for await (const { cid, type } of client.pin.ls()) {
-        console.log(`https://ipfs.infura.io/ipfs/${cid.toString()}`)
+        console.log(`https://logbook.infura-ipfs.io/${cid.toString()}`)
         // console.log({ cid, type });
     }
 }

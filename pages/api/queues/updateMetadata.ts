@@ -1,8 +1,6 @@
 import { Queue } from 'quirrel/next'
 
-import { addOrUpdateNft } from 'utils/addOrUpdateNft'
 import { LogData, logError, logSuccess } from 'utils/logging'
-import { getAddressForTokenId } from 'utils/metadata'
 
 export type UpdateMetadataJob = {
     tokenId: string
@@ -21,10 +19,11 @@ export default Queue(
         }
 
         try {
-            const address = await getAddressForTokenId(tokenId)
+            // const address = await getAddressForTokenId(tokenId)
+            const address = 'str'
             logData.wallet_address = address
 
-            await addOrUpdateNft(address, tokenId)
+            // await addOrUpdateNft(address, tokenId)
 
             logSuccess(logData, `success: ${tokenId}`)
         } catch (error) {

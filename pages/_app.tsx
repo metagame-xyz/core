@@ -7,9 +7,10 @@ import '@fontsource/courier-prime'
 import '@fontsource/lato'
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
-import { WagmiProvider } from 'wagmi'
+import '@rainbow-me/rainbowkit/styles.css'
+import { WagmiConfig } from 'wagmi'
 
-import { chains, connectors, provider } from 'utils/rainbowkit'
+import { chains, wagmiClient } from 'utils/rainbowkit'
 
 // import Layout from 'components/Layout';
 // import EthereumProvider from '../providers/EthereumProvider';
@@ -25,15 +26,15 @@ function App({ Component, pageProps }: AppProps): JSX.Element {
 
     return (
         <ChakraProvider theme={theme}>
-            <RainbowKitProvider chains={chains}>
-                <WagmiProvider autoConnect connectors={connectors} provider={provider}>
+            <WagmiConfig client={wagmiClient}>
+                <RainbowKitProvider chains={chains}>
                     <Flex bgColor="brand.100opaque" width="100%" minH="100vh">
                         <Layout>
                             <Component {...pageProps} />
                         </Layout>
                     </Flex>
-                </WagmiProvider>
-            </RainbowKitProvider>
+                </RainbowKitProvider>
+            </WagmiConfig>
         </ChakraProvider>
     )
 }

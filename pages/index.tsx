@@ -5,26 +5,22 @@ import axios from 'axios'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import { AccordionButton, Box, Button, Heading, Link, SimpleGrid, Text, VStack } from '@chakra-ui/react'
 import { parseEther } from '@ethersproject/units'
+import axios from 'axios'
+
 import { BigNumber, Contract, ethers, Wallet } from 'ethers'
 import { addressToNameObject } from 'onoma'
-import { useAccount } from 'wagmi'
+import { useAccount, useProvider, useSigner } from 'wagmi'
 
-import {
-    ALCHEMY_PROJECT_ID,
-    blackholeAddress,
-    CONTRACT_ADDRESS,
-    METABOT_API_URL,
-    networkStrings,
-    WEBSITE_URL,
-} from 'utils/constants'
+import { ALCHEMY_PROJECT_ID, blackholeAddress, CONTRACT_ADDRESS, networkStrings, WEBSITE_URL } from 'utils/constants'
+
 import { copy } from 'utils/content'
 import { debug, event } from 'utils/frontend'
+import logbookAbi from 'utils/logbookAbi'
 import { Metadata } from 'utils/metadata'
 import { maxW } from 'components/Layout'
-import { fetcher } from 'utils/frontend'
-import logbookAbi from 'utils/logbookAbi'
 
-const LOGBOOK_CONTRACT_ADDRESS = "0x536ea5d11e914bcef00889a8e790947cd8603e29"
+const LOGBOOK_CONTRACT_ADDRESS = '0x536ea5d11e914bcef00889a8e790947cd8603e29'
+
 
 function About({ heading, text }) {
     return (
@@ -43,50 +39,70 @@ function heartbeatShowerLink(tokenId: number): string {
 
 function Home({ metadata }) {
     // const { provider, signer, userAddress, userName, eventParams, openWeb3Modal, toast } = useEthereum();
-    const [{ data: account, error, loading }] = useAccount({
-        fetchEns: true,
-    })
-    const [isWhitelisted, setWhitelisted] = useState(false)
-    const [whitelistLoading, setWhitelistLoading] = useState(false)
-    const [expandedSignature, setExpandedSignature] = useState()
+    const { address, isConnecting, isDisconnected } = useAccount()
+
+    const provider = useProvider()
+    const { data: signer, isError, isLoading } = useSigner()
+
+    const [isAllowlisted, setAllowlisted] = useState<boolean | false>(null)
+    const [errorCode, setErrorCode] = useState<number | null>(null)
+    const [allowlistLoading, setAllowlistLoading] = useState(false)
+    const [expandedSignature, setExpandedSignature] = useState({ v: null, r: null, s: null })
+
+    let cantMintReason = null
+
+    if (errorCode === 1) cantMintReason = `You're not on the allowlist yet. Plz message Metabot`
+    if (errorCode === 2)
+        cantMintReason = `You're on the allowlist but the Enigma Machine hasn't finished processing your data`
 
     useEffect(() => {
-
-        if (account && !whitelistLoading) {
-            setWhitelistLoading(true)
-            console.log('calling', account.address);
-            const response = axios.get(`${METABOT_API_URL}premintCheck?` + new URLSearchParams({ address: account.address }), { 
-                headers: { 
-                    'content-type': 'application/json',
-                },
-            })
+        if (address && !allowlistLoading) {
+            setAllowlistLoading(true)
+            console.log('calling', address)
+            const response = axios
+                .get(`api/premintCheck/${address}`, {
+                    // headers: {
+                    //     'content-type': 'application/json',
+                    // },
+                })
                 .then((resp) => {
+                    const { allowlist, signature, errorCode } = resp.data
                     console.log(resp.data)
-                    setExpandedSignature(resp.data)
-                    setWhitelisted(true)
-                    setWhitelistLoading(false)
+
+                    if (resp.data.allowlist) {
+                        setExpandedSignature(signature)
+                        setAllowlisted(allowlist)
+                        setAllowlistLoading(false)
+                    } else {
+                        setErrorCode(errorCode)
+                        setAllowlisted(allowlist)
+                        setAllowlistLoading(false)
+                    }
                 })
                 .catch((err) => {
-                    console.log('WHITELIST ERR', err)
-                    setWhitelistLoading(false)
+                    console.log('ERR', err)
                 })
         }
-    }, [account && account.address])
-
-
+    }, [address])
 
     const mint = async () => {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner()
+        // const provider = new ethers.providers.Web3Provider(provider)
+        // const signer = provider.getSigner()
         const contract = new ethers.Contract(LOGBOOK_CONTRACT_ADDRESS, logbookAbi, provider)
         const contractWithSigner = contract.connect(signer)
 
-        let tx = await contractWithSigner.mintWithSignature(account.address, expandedSignature.v, expandedSignature.r, expandedSignature.s, {
-            gasLimit: 2100000,
-            gasPrice: 8000000000,
-            value: ethers.utils.parseEther("0.01")
-        });
-        console.log("Transaction:", tx.hash);
+        const tx = await contractWithSigner.mintWithSignature(
+            address,
+            expandedSignature.v,
+            expandedSignature.r,
+            expandedSignature.s,
+            {
+                gasLimit: 2100000,
+                gasPrice: 8000000000,
+                value: ethers.utils.parseEther('0.01'),
+            },
+        )
+        console.log('Transaction:', tx.hash)
     }
 
     // const contract = new Contract(CONTRACT_ADDRESS, heartbeat.abi, provider);
@@ -224,14 +240,11 @@ function Home({ metadata }) {
                 <Text fontSize={[16, 22, 30]} fontWeight="light" maxW={['container.md']} pb={4}>
                     {copy.heroSubheading}
                     <br />
-                    {account?.address}
+                    {address}
                 </Text>
                 <Text fontSize={[16, 22, 30]} fontWeight="light" maxW={['container.md']} pb={4}>
-                    {(!whitelistLoading && account) ? (
-                        <>
-                        {isWhitelisted ? "Whitelistedddd" : "Not whitelisted" }
-                        </>
-                    ) : null}
+                    {!allowlistLoading && address ? <>{isAllowlisted ? 'Whitelistedddd' : 'Not whitelisted'}</> : null}
+
                 </Text>
                 <div
                     style={{
@@ -261,7 +274,9 @@ function Home({ metadata }) {
                 minW="xs"
                 boxShadow="lg"
                 fontSize="4xl"
-                borderRadius="full">
+                borderRadius="full"
+            >
+
                 Mint
             </Button>
 

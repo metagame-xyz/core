@@ -1,23 +1,24 @@
-import { Chain, connectorsForWallets, getDefaultWallets } from '@rainbow-me/rainbowkit'
-import { providers } from 'ethers'
-import { chain } from 'wagmi'
+import { getDefaultWallets } from '@rainbow-me/rainbowkit'
+import { chain, configureChains, createClient } from 'wagmi'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { publicProvider } from 'wagmi/providers/public'
 
-import { INFURA_PROJECT_ID } from './constants'
+import { ALCHEMY_PROJECT_ID } from 'utils/constants'
 
-export const provider = ({ chainId }: { chainId?: number }) => new providers.InfuraProvider(chainId, INFURA_PROJECT_ID)
+const { chains, provider } = configureChains(
+    [chain.mainnet, chain.rinkeby],
+    [alchemyProvider({ alchemyId: ALCHEMY_PROJECT_ID }), publicProvider()],
+)
 
-export const chains: Chain[] = [
-    { ...chain.mainnet, name: 'Ethereum' },
-    { ...chain.polygonMainnet, name: 'Polygon' },
-    { ...chain.optimism, name: 'Optimism' },
-    { ...chain.arbitrumOne, name: 'Arbitrum' },
-]
-
-const wallets = getDefaultWallets({
+const { connectors } = getDefaultWallets({
+    appName: 'Logbook',
     chains,
-    infuraId: INFURA_PROJECT_ID,
-    appName: 'Onoma',
-    jsonRpcUrl: ({ chainId }) => chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0],
 })
 
-export const connectors = connectorsForWallets(wallets)
+const wagmiClient = createClient({
+    autoConnect: true,
+    connectors,
+    provider,
+})
+
+export { chains, wagmiClient }

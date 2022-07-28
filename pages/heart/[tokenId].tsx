@@ -7,11 +7,13 @@ import { Box, Button } from '@chakra-ui/react'
 import { ioredisClient } from 'utils'
 import { CONTRACT_ADDRESS } from 'utils/constants'
 import { clickableIPFSLink } from 'utils/frontend'
-import { Metadata } from 'utils/metadata'
+import logbookMongoose from 'utils/logbookMongoose'
 
 export const getServerSideProps = async (context) => {
     const { tokenId } = context.query
-    const metadata = await ioredisClient.hget(tokenId, 'metadata')
+
+    const metadata = await logbookMongoose.getMetadataForTokenId(tokenId)
+
     return {
         props: {
             metadata,
@@ -20,33 +22,31 @@ export const getServerSideProps = async (context) => {
     }
 }
 
-function HeartPage({ tokenId, metadata: metadataStr }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+function HeartPage({ tokenId, metadata }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const keysToKeep = ['name', 'description', 'address']
 
     const getOpenSeaUrl = (tokenId: string) => {
         return `https://opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId}`
     }
-
-    const metadata: Metadata = JSON.parse(metadataStr)
-    const attributes = (metadata: Metadata) => {
-        return (
-            <>
-                {Object.entries(metadata)
-                    .filter(([v, k]) => keysToKeep.includes(v))
-                    .map(([key, value]) => {
-                        console.log('key', key)
-                        console.log('value', value)
-                        return (
-                            <>
-                                <p key={key}>
-                                    {key}: {value}
-                                </p>
-                            </>
-                        )
-                    })}
-            </>
-        )
-    }
+    // const attributes = (metadata: Metadata) => {
+    //     return (
+    //         <>
+    //             {Object.entries(metadata)
+    //                 .filter(([v, k]) => keysToKeep.includes(v))
+    //                 .map(([key, value]) => {
+    //                     console.log('key', key)
+    //                     console.log('value', value)
+    //                     return (
+    //                         <>
+    //                             <p key={key}>
+    //                                 {key}: {value}
+    //                             </p>
+    //                         </>
+    //                     )
+    //                 })}
+    //         </>
+    //     )
+    // }
     const size = ['80vw']
     return (
         <Box p="16px" minH="calc(100vh - 146px)" w="auto">
@@ -60,7 +60,9 @@ function HeartPage({ tokenId, metadata: metadataStr }: InferGetServerSidePropsTy
                 <meta name="twitter:image" content={clickableIPFSLink(metadata.image)} />
                 <meta name="twitter:image:alt" content={metadata.name} />
             </Head>
-            <Box w={size} h={size} maxW="800px" maxH="800px"></Box>
+            <Box w={size} h={size} maxW="800px" maxH="800px">
+                here i am
+            </Box>
             <Box>
                 <Button
                     colorScheme="brand"

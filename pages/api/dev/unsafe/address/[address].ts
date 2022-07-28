@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { getUserName } from 'utils'
 import { LogData, logError } from 'utils/logging'
-import { formatNewMetadata, getTxnData, Metadata, metadataToOpenSeaMetadata, TxnCounts } from 'utils/metadata'
+import { formatNewMetadata, metadataToOpenSeaMetadata } from 'utils/metadata'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { address } = req.query as { address: string }
@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     /* DRAFT OF METADATA */
     /*********************/
 
-    let metadata: Metadata
+    let metadata
     try {
         const userName = await getUserName(address)
         metadata = formatNewMetadata(address, userName, '1')
