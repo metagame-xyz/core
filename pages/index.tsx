@@ -250,7 +250,11 @@ function Home({}) {
     }
 
     const PlusBorder = () => (
-        <Box align="center">
+        <Box
+            align="center"
+            height={`${contentContainer ? contentContainer.clientHeight : 0}px`}
+            style={{ overflowY: 'hidden' }}
+        >
             {[...Array(100).keys()].map((i) => (
                 <Text key={i} color="brand">
                     +
