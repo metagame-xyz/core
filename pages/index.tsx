@@ -11,7 +11,7 @@ import { AddressZ } from 'evm-translator/lib/interfaces/utils'
 import { Avatar, Box, Button, Heading, Image, Layer, ResponsiveContext, Stack, Text } from 'grommet'
 import Lottie, { useLottie } from 'lottie-react'
 import { addressToNameObject } from 'onoma'
-import newThing from 'public/static/animations/enigma-small.json'
+import newThing from 'public/static/animations/enigma-2.json'
 import { useAccount, useEnsName, useNetwork, useProvider, useSigner } from 'wagmi'
 
 import {
@@ -283,14 +283,14 @@ function Home({}) {
 
     const clickable = [MintStatus.can_mint, MintStatus.metabot, MintStatus.processing].includes(mintStatus)
 
+    // <Head>
+    //     <title>Logbook</title>
+    //     <meta property="og:title" content="Logbook" />
+    //     {/* <meta property="og:description" content={description} /> */}
+    //     <meta name="twitter:title" content="Logbook" />
+    // </Head>
     return (
         <Stack fill="horizontal" className="main-stack">
-            <Head>
-                <title>Logbook</title>
-                <meta property="og:title" content="Logbook" />
-                {/* <meta property="og:description" content={description} /> */}
-                <meta name="twitter:title" content="Logbook" />
-            </Head>
             <Box height="100vh" className="zoom" justify="center">
                 <>{View}</>
                 {/* {animationLoaded ? (
