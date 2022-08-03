@@ -1,28 +1,58 @@
 import { NftMetadata } from './models'
 
-export default function generateSvg(metadata: NftMetadata): string {
-    const { sentences, name, lastUpdated } = metadata
+export const getSize = (metadata: NftMetadata): { width: number; height: number } => {
+    const { sentences, name, userName } = metadata
+
+    const deployoooooor = sentences.find((s) => s.split(' ')[0] === 'deployed')
 
     const titleOffset = 30
     const dividerOffset = titleOffset + 20
     const sentenceOffset = dividerOffset + 20
 
-    const backgroundColor = 'beige'
-    const fontColor = 'rgb(21, 61, 38)'
+    const backgroundColor = 'rgb(251, 247, 241)' //FBF7F1 light beige
+    const green = 'rgb(21, 61, 38)' //163D26
+    const orange = 'rgb(200, 68, 20)' //C84414
+    const fontColor = deployoooooor ? green : orange
     const fontFamily = 'monospace'
     const sentenceSize = 16
-    const sentenceSpaceSize = sentenceSize * 1.1
+    const sentenceSpaceSize = sentenceSize * 1.15
 
     /**********/
     /* Canvas */
     /**********/
-    const canvasWidth = 600
+    const canvasWidth = 550
+    const canvasHeight = sentences.length * sentenceSpaceSize + sentenceOffset + titleOffset
+
+    return { width: canvasWidth, height: canvasHeight }
+}
+
+export default function generateSvg(metadata: NftMetadata): string {
+    const { sentences, name, lastUpdated, userName } = metadata
+
+    const dateStr = lastUpdated.toDateString().split(' ').slice(1).join(' ')
+
+    const deployoooooor = sentences.find((s) => s.split(' ')[0] === 'deployed')
+
+    const titleOffset = 30
+    const dividerOffset = titleOffset + 20
+    const sentenceOffset = dividerOffset + 20
+
+    const backgroundColor = 'rgb(251, 247, 241)' //FBF7F1 light beige
+    const green = 'rgb(21, 61, 38)' //163D26
+    const orange = 'rgb(200, 68, 20)' //C84414
+    const fontColor = deployoooooor ? green : orange
+    const fontFamily = 'monospace'
+    const sentenceSize = 16
+    const sentenceSpaceSize = sentenceSize * 1.15
+
+    /**********/
+    /* Canvas */
+    /**********/
+    const canvasWidth = 550
     const canvasHeight = sentences.length * sentenceSpaceSize + sentenceOffset + titleOffset
     const canvasSvg = `<svg width="${canvasWidth}" height="${canvasHeight}" viewBox="0 0 ${canvasWidth} ${canvasHeight}" xmlns="http://www.w3.org/2000/svg">`
     const backgroundSvg = `<rect width="${canvasWidth}" height="${canvasHeight}" fill="${backgroundColor}" />`
-    const styleSvg = `<style> text { fill: ${fontColor}; font-family: ${fontFamily};}</style>`
-    const defsOpenTag = '<defs>'
-    const defsCloseTag = '</defs>'
+    const styleSvg = `<style> text { fill: ${fontColor}; font-family: ${fontFamily};} .date { fill: rgb(36, 36, 36); font-weight: bold} </style>`
     const closingSvgTag = `</svg>`
 
     /**************/
@@ -43,11 +73,25 @@ export default function generateSvg(metadata: NftMetadata): string {
     const sentencesSvgArr = []
 
     for (let i = 0; i < sentences.length; i++) {
-        sentencesSvgArr.push(
-            `<text x="20" y="${sentenceSpaceSize * (i + 1) + sentenceOffset}" font-size="${sentenceSize}">${
-                sentences[i]
-            }</text>`,
-        )
+        const sentence = sentences[i]
+
+        if (sentence.includes('waiting to be interpreted')) {
+            const sentenceArr = sentence.split(' ')
+            const partOne = sentenceArr.slice(0, 4).join(' ')
+            const partTwo = sentenceArr.slice(4).join(' ')
+
+            sentencesSvgArr.push(
+                `<a href="https://evm-translator.xyz/contribute?ref=${userName}" target="_blank"><text x="20" y="${
+                    sentenceSpaceSize * (i + 1) + sentenceOffset
+                }" font-size="${sentenceSize}">${partOne} <tspan text-decoration="underline">${partTwo}</tspan></text></a>`,
+            )
+        } else {
+            sentencesSvgArr.push(
+                `<text x="20" y="${
+                    sentenceSpaceSize * (i + 1) + sentenceOffset
+                }" font-size="${sentenceSize}">${sentence}</text>`,
+            )
+        }
     }
 
     const sentencesSvg = sentencesSvgArr.join('')
@@ -57,14 +101,9 @@ export default function generateSvg(metadata: NftMetadata): string {
     /**************/
 
     const xCoord = canvasWidth - 140
-    const yCoord = canvasHeight - 50
+    const yCoord = 20
+    const dateSvg = `<text x="${0}" y="${0}" transform="translate(${xCoord} ${yCoord}) rotate(30)" class="date">${dateStr}</text>`
 
-    const xOffset = xCoord + canvasHeight / 2
-    const yOffset = yCoord + canvasWidth / 2
-
-    const dateSvg = `<text x="${0}" y="${0}" transform="translate(${xCoord} ${yCoord}) rotate(-45)">${lastUpdated.toISOString()}</text>`
-
-    // const timeGradientSVG = timeGradientArr.join('')
     /**************/
     /* SVG concat */
     /**************/
@@ -72,9 +111,6 @@ export default function generateSvg(metadata: NftMetadata): string {
     svgData.push(canvasSvg)
     svgData.push(backgroundSvg)
     svgData.push(styleSvg)
-    // svgData.push(defsOpenTag)
-    // svgData.push(timeGradientSVG)
-    // svgData.push(defsCloseTag)
     svgData.push(titleSvg)
     svgData.push(dividerSvg)
     svgData.push(sentencesSvg)

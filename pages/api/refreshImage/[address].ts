@@ -34,6 +34,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
         timer.stopTimer('addToIpfsFromSvgStr')
 
         nftMetadata.image = ipfsUrl
+        nftMetadata.externalUrl = `https://logbook.themetagame.xyz/logbook/${nftMetadata.address}`
 
         logData.third_party_name = 'logbookMongoose'
         timer.startTimer('logbookMongoose.addOrUpdateNftMetadata')

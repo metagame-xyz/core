@@ -5,7 +5,9 @@ div#__next,
 div#__next > div {
     padding: 0;
     margin: 0;
+    font-family: 'Lars', monospace;
     /* font-family: 'Lato', sans-serif; */
+    min-width: 100%;
 }
 
 a {
@@ -13,18 +15,22 @@ a {
     text-decoration: none;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 * {
     box-sizing: border-box;
 }
 
-.gui {
-    position: absolute;
-    top: 0;
-    right: 0;
-    /* bottom: 0; */
-    pointer-events: none;
+@font-face {
+    font-family: 'Lars';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: optional;
+    src: url(/fonts/LarsMono-RegularWeb.woff2) format('woff2');
 }
 
-#heart > .gui {
-    pointer-events: all;
+.grommet-container {
+    overflow: hidden;
 }

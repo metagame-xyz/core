@@ -2,27 +2,24 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import OpenseaForceUpdate from 'api/queues/openseaForceUpdate'
 
-import { ioredisClient } from 'utils'
+import logbookMongoose from 'utils/logbookMongoose'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { tokenId } = req.query
-    const tokenIdString: string = Array.isArray(tokenId) ? tokenId[0] : tokenId
+    const { tokenId } = req.query as { tokenId: string }
 
-    const metadataStr = await ioredisClient.hget(tokenIdString.toLowerCase(), 'metadata')
+    const metadata = await logbookMongoose.getMetadataForTokenId(tokenId)
 
-    if (!metadataStr) {
+    if (!metadata) {
         return res.status(404).json({ message: `Token id ${tokenId} not found.` })
     }
 
-    const metadata = JSON.parse(metadataStr)
-
     const jobData = await OpenseaForceUpdate.enqueue(
         {
-            tokenId: tokenIdString,
+            tokenId,
             attempt: 1,
             newImageUrl: metadata.image,
         },
-        { id: tokenIdString, override: true },
+        { id: tokenId, override: true },
     )
     res.send(jobData)
     // res.send({});

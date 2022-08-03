@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Icon, Link } from '@chakra-ui/react'
 
-import { CONTRACT_ADDRESS, networkStrings } from 'utils/constants'
+import { LOGBOOK_CONTRACT_ADDRESS, networkStrings } from 'utils/constants'
 import { copy } from 'utils/content'
 
 function IconLink({ Icon, url, ...props }) {
@@ -19,7 +19,7 @@ function IconLink({ Icon, url, ...props }) {
     )
 }
 
-const etherscanUrl = `https://${networkStrings.etherscan}etherscan.io/address/${CONTRACT_ADDRESS}`
+const etherscanUrl = `https://${networkStrings.etherscan}etherscan.io/address/${LOGBOOK_CONTRACT_ADDRESS}`
 const twitterUrl = 'https://twitter.com/The_Metagame'
 const openseaUrl = `https://opensea.io/collection/heartbeat-metagame`
 

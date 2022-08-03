@@ -19,6 +19,10 @@ export const DATADOG_API_KEY = process.env.DATADOG_API_KEY
 export const SLACK_API_TOKEN = process.env.SLACK_API_TOKEN
 export const METABOT_BASE_API_URL = process.env.METABOT_BASE_API_URL
 
+export const DATADOG_RUM_APPLICATION_ID = process.env.NEXT_PUBLIC_DATADOG_RUM_APPLICATION_ID
+export const DATADOG_RUM_CLIENT_TOKEN = process.env.NEXT_PUBLIC_DATADOG_RUM_CLIENT_TOKEN
+export const DATADOG_RUM_ENV = process.env.NEXT_PUBLIC_DATADOG_RUM_ENV
+
 export const METABOT_DB_CONNECTION_STRING = process.env.METABOT_DB_CONNECTION_STRING
 export const LOGBOOK_DB_CONNECTION_STRING = process.env.LOGBOOK_DB_CONNECTION_STRING
 export const EVM_TRANSLATOR_CONNECTION_STRING = process.env.EVM_TRANSLATOR_CONNECTION_STRING
@@ -26,7 +30,7 @@ export const EVM_TRANSLATOR_CONNECTION_STRING = process.env.EVM_TRANSLATOR_CONNE
 export const isProdEnv = process.env.NODE_ENV === 'production'
 
 /* Frontend Constants */
-export const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS?.toLowerCase()
+export const LOGBOOK_CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_LOGBOOK_CONTRACT_ADDRESS?.toLowerCase()
 export const NETWORK = process.env.NEXT_PUBLIC_NETWORK?.toLowerCase()
 export const INFURA_PROJECT_ID = process.env.NEXT_PUBLIC_INFURA_PROJECT_ID
 export const ALCHEMY_PROJECT_ID = process.env.NEXT_PUBLIC_ALCHEMY_PROJECT_ID

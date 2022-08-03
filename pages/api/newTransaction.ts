@@ -7,20 +7,20 @@ import withMiddleware from 'utils/middleware'
 // import OpenseaForceUpdate from './queues/openseaForceUpdate'
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { address, tokenId } = req.body
+    const { minterAddress, tokenId } = req.body
 
     const logData: LogData = {
         level: 'info',
         function_name: 'newTransaction',
         message: `begin`,
         token_id: tokenId,
-        wallet_address: address,
+        wallet_address: minterAddress,
     }
 
     try {
         await logbookMongoose.connect()
 
-        const metadata = await logbookMongoose.addTokenIdForAddress(address, tokenId)
+        const metadata = await logbookMongoose.addTokenIdForAddress(minterAddress, tokenId)
 
         const result = {
             minterAddress: metadata.address,

@@ -54,15 +54,15 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
         // debugger
 
         logData.third_party_name = 'createSentences'
-        const { sentences, actions, nftMintNames } = createSentences(interpretedData)
+        const { sentences, actions, nftMintNames, unknownTxs, reverted, paidByFwb } = createSentences(interpretedData)
 
         const userName = user.ens || addressToName(user.address)
 
         const nftMetadata: NftMetadata = {
             name: `${userName}'s Logbook`,
             description: 'A compilation of all the transactions this address has been involved in',
-            image: 'failed to load to ipfs',
-            externalUrl: `https://${WEBSITE_URL}/logbook/${user.address}`,
+            image: `https://${WEBSITE_URL}/printing.png`,
+            externalUrl: `https://logbook.themetagame.xyz/logbook/${user.address}`,
             address: user.address,
             userName,
             sentences,
@@ -89,11 +89,21 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 
         // delete data['______TODO______']
 
+        logData.extra = { sentences: sentences.length }
+
         logSuccess(logData)
+
+        // const svgBuffer = Buffer.from(svgString, 'utf-8')
+        // res.setHeader('Content-Type', 'image/svg+xml')
+        // res.send(svgBuffer)
+
         res.status(200).json({
-            actions,
+            // actions,
+            paidByFwb,
             sentences,
             nftMintNames,
+            // unknownTxs,
+            reverted,
         })
     } catch (err: any) {
         logError(logData, err)

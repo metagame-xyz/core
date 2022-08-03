@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import React from 'react'
 
 import { Avatar, Box, Button, Flex, Heading, HStack, Spacer, Text, useBreakpointValue } from '@chakra-ui/react'
@@ -27,6 +28,7 @@ function Navbar(props) {
                             {copy.title}
                         </Heading>
                     )}
+                    <Image src="/static/assets/logbookLogo.svg" alt="Logbook Logo" width={200} height={100} />
                 </HStack>
                 <Spacer />
                 <HStack align="center" spacing={[3, 4, 5, 6]}>

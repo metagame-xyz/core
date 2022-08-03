@@ -33,6 +33,14 @@ class MyDocument extends Document {
                     <meta name="twitter:image:alt" content={meta.title} />
                     <meta name="twitter:card" content="summary_large_image" />
                     <meta name="twitter:site" content="@the_metagame" />
+
+                    <link
+                        rel="preload"
+                        href="/fonts/LarsMono-RegularWeb.woff2"
+                        as="font"
+                        type="font/woff2"
+                        crossOrigin="anonymous"
+                    />
                     {/* <script
                         async
                         src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}

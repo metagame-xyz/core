@@ -4,7 +4,7 @@ import { CronJob } from 'quirrel/next'
 import updateMetadata from 'api/queues/updateMetadata'
 
 import { defaultProvider } from 'utils'
-import { CONTRACT_ADDRESS } from 'utils/constants'
+import { LOGBOOK_CONTRACT_ADDRESS } from 'utils/constants'
 import { LogData, logError, logSuccess } from 'utils/logging'
 
 const jobSpacingInSeconds = 15

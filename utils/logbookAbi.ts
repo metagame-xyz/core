@@ -36,6 +36,11 @@ const logbookAbi = [
                 name: '_mintActive',
                 type: 'bool',
             },
+            {
+                internalType: 'address',
+                name: '_validSigner',
+                type: 'address',
+            },
         ],
         stateMutability: 'nonpayable',
         type: 'constructor',
@@ -135,19 +140,6 @@ const logbookAbi = [
         type: 'event',
     },
     {
-        inputs: [],
-        name: 'DOMAIN_SEPARATOR',
-        outputs: [
-            {
-                internalType: 'bytes32',
-                name: '',
-                type: 'bytes32',
-            },
-        ],
-        stateMutability: 'view',
-        type: 'function',
-    },
-    {
         inputs: [
             {
                 internalType: 'address',
@@ -205,6 +197,19 @@ const logbookAbi = [
                 internalType: 'uint256',
                 name: '',
                 type: 'uint256',
+            },
+        ],
+        stateMutability: 'view',
+        type: 'function',
+    },
+    {
+        inputs: [],
+        name: 'getAddress',
+        outputs: [
+            {
+                internalType: 'address',
+                name: '',
+                type: 'address',
             },
         ],
         stateMutability: 'view',
@@ -576,16 +581,16 @@ const logbookAbi = [
         type: 'function',
     },
     {
-        inputs: [],
-        name: 'signer',
-        outputs: [
+        inputs: [
             {
                 internalType: 'address',
-                name: '',
+                name: '_validSigner',
                 type: 'address',
             },
         ],
-        stateMutability: 'view',
+        name: 'setValidSigner',
+        outputs: [],
+        stateMutability: 'nonpayable',
         type: 'function',
     },
     {
@@ -673,6 +678,19 @@ const logbookAbi = [
         name: 'transferOwnership',
         outputs: [],
         stateMutability: 'nonpayable',
+        type: 'function',
+    },
+    {
+        inputs: [],
+        name: 'validSigner',
+        outputs: [
+            {
+                internalType: 'address',
+                name: '',
+                type: 'address',
+            },
+        ],
+        stateMutability: 'view',
         type: 'function',
     },
     {

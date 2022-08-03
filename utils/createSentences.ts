@@ -90,6 +90,12 @@ export default function createSentences(interpretedData: (Interpretation | null)
         Zora: '0xabefbc9fd2f806065b4f3c237d4b59d9a97bcac7',
         Zorbs: '0xca21d4228cdcc68d4e23807e5e370c07577dd152',
         TubbyCats: '0xca7ca7bcc765f77339be2d648ba53ce9c8a262bd',
+        BoysClub: '0x8158bdd0286e5b2384f2cf4eba94e741295d437e',
+        CompanionInABox: '0x13bd2ac3779cbbcb2ac874c33f1145dd71ce41ee',
+        AnimalColoringBook: '0x69c40e500b84660cb2ab09cb9614fa2387f95f64',
+        gallery: '0xe3d0fe9b7e0b951663267a3ed1e6577f6f79757e',
+        poolSuite: '0xb228d7b6e099618ca71bd5522b3a8c3788a8f172',
+        parallel: '0x76be3b62873462d2142405439777e971754e8e77',
     }
 
     const knownAddressArr = getValues(knownAddresses).flat()
@@ -283,6 +289,7 @@ export default function createSentences(interpretedData: (Interpretation | null)
         const plural = reverted.length > 1 ? 's' : ''
         revertedSentences.push(`had ${reverted.length} transaction${plural} reverted`)
     }
+
     // SENT
     // sent ETH
     // funded a gnosis safe TODO
@@ -391,6 +398,7 @@ export default function createSentences(interpretedData: (Interpretation | null)
                 case 'ERC721':
                     asset = 'NFT'
                     prefixIfNotPlural = 'an '
+                    break
                 case 'ERC1155':
                     asset = '1155'
                     prefixIfNotPlural = 'an '
@@ -447,6 +455,14 @@ export default function createSentences(interpretedData: (Interpretation | null)
         cancelledBidSentences.push(`cancelled ${cancelledBid.length} bid${plural}`)
     }
 
+    // transferred
+    const transferred = data['transferred']?.all() || ([] as FilteredData[])
+    const transferredSentences = []
+
+    if (transferred.length > 0) {
+        const plural = transferred.length > 1 ? 'es' : ''
+        transferredSentences.push(`received ${transferred.length} ENS${plural}`)
+    }
     // registered
     const registered = data['registered']?.all() || ([] as FilteredData[])
     const registeredSentences = []
@@ -474,20 +490,28 @@ export default function createSentences(interpretedData: (Interpretation | null)
         renewedSentences.push(`renewed an ENS${plural} ${renewed.length} time${plural}`)
     }
 
-    // transferred
-    const transferred = data['transferred']?.all() || ([] as FilteredData[])
-    const transferredSentences = []
-
-    if (transferred.length > 0) {
-        const plural = transferred.length > 1 ? 'es' : ''
-        transferredSentences.push(`received ${transferred.length} ENS${plural}`)
-    }
-
     // bridged (need contract-specific first)
 
+    const uniqueSentences = []
+
+    const hackTxHashes = [
+        '0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409',
+        '0xad59348372bbb710a3e03eb0e9861af71b436c4cb1d0fc6bc7d0de53dd0d8c78',
+    ]
     // issued fwb after the hack: https://etherscan.io/tx/0xc010aa0eda23ccd89a6bedf967652c1d8dfed9cc9d2ee02e9744e36a0392e409
+    const postHackTx = filteredData.find((tx) => hackTxHashes.includes(tx.txHash))
+    if (postHackTx) {
+        uniqueSentences.push(`was re-issued $FWB after the March '21 hack`)
+    }
 
     // paid by fwb: https://etherscan.io/tx/0xc840415316bc7ba172362117d4015babc9f9e0626746fca181f2b3f7c3b12c0d
+    const fwbAddresses = ['0x660f6d6c9bcd08b86b50e8e53b537f2b40f243bd', '0x33e626727b9ecf64e09f600a1e0f5adde266a0df']
+    const paidByFwb = filteredData.find(
+        (tx) => fwbAddresses.includes(tx.contractAddress) && !hackTxHashes.includes(tx.txHash),
+    )
+    if (paidByFwb) {
+        uniqueSentences.push(`was paid by FWB for being a contributor`)
+    }
 
     // const unknownTxs = []
     // for (const action of actions) {
@@ -497,33 +521,49 @@ export default function createSentences(interpretedData: (Interpretation | null)
     // }
 
     const sentences = [
-        ...mintSentences,
-        ...airdropSentences,
-        ...boughtSentences,
-        ...soldSentences,
-        ...claimedSentences,
+        ...uniqueSentences,
         ...deployedSentences,
         ...contributedSentences,
+        ...createdGnosisSentences,
+        ...executedSentences,
+        ...mintSentences,
+        ...receivedSentences,
+        ...claimedSentences,
+        ...sentSentences,
+        ...boughtSentences,
+        ...soldSentences,
         ...swappedSentences,
         ...burnedSentences,
-        ...revertedSentences,
-        ...sentSentences,
-        ...receivedSentences,
-        ...executedSentences,
         ...revokedSentences,
-        ...createdGnosisSentences,
         ...cancelledBidSentences,
         ...registeredSentences,
         ...setENSNameSentences,
         ...renewedSentences,
+        ...airdropSentences,
+        ...revertedSentences,
         ...transferredSentences,
 
         ...unknownSentences,
     ]
 
+    // const sortedSentences = sentences.sort((a: string[], b: string[]) => a.length - b.length)
+
+    // const maxLength = sortedSentences[sortedSentences.length - 1].length
+    // const filledOutSentences = sortedSentences.map((sentence) => {
+    //     const len = sentence.length
+    //     const missing = maxLength - len
+    //     const fillerStr = ' '.repeat(missing)
+    //     const arr = sentence.split(' ')
+    //     arr.splice(2, 0, fillerStr)
+    //     return arr.join(' ')
+    // })
+
     return {
+        paidByFwb,
         actions,
         sentences,
         nftMintNames,
+        unknownTxs,
+        reverted,
     }
 }

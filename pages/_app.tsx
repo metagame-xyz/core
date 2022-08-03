@@ -1,41 +1,56 @@
 import type { AppProps } from 'next/app'
-import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
-import { ChakraProvider, extendTheme, Flex } from '@chakra-ui/react'
-import '@fontsource/courier-prime'
-import '@fontsource/lato'
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { datadogRum } from '@datadog/browser-rum'
+import { darkTheme, RainbowKitProvider, Theme } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 import '@rainbow-me/rainbowkit/styles.css'
+import { Grommet } from 'grommet'
 import { WagmiConfig } from 'wagmi'
 
+import { DATADOG_RUM_APPLICATION_ID, DATADOG_RUM_CLIENT_TOKEN, DATADOG_RUM_ENV } from 'utils/constants'
 import { chains, wagmiClient } from 'utils/rainbowkit'
 
 // import Layout from 'components/Layout';
 // import EthereumProvider from '../providers/EthereumProvider';
 import '../styles/globals.css'
-import { theme } from '../styles/theme'
+import theme from '../styles/theme'
 
-const bgSize = ['100px', '120px', '220px', '300px']
+const customTheme: Theme = darkTheme()
+customTheme.fonts.body = 'Lars'
+customTheme.colors.modalBackground = '#FBF7F1'
+customTheme.colors.modalText = '#C84414'
+customTheme.colors.modalTextDim = '#C84414'
+customTheme.colors.accentColorForeground = '#FBF7F1'
+customTheme.colors.accentColor = '#C84414'
+customTheme.colors.modalTextSecondary = 'rgba(0,0,0,0.87)'
 
 function App({ Component, pageProps }: AppProps): JSX.Element {
-    const { route } = useRouter()
-
-    const Layout = dynamic(() => import('components/Layout'))
+    useEffect(() => {
+        datadogRum.init({
+            applicationId: DATADOG_RUM_APPLICATION_ID,
+            clientToken: DATADOG_RUM_CLIENT_TOKEN,
+            site: 'datadoghq.com',
+            service: 'logbook',
+            env: DATADOG_RUM_ENV,
+            // Specify a version number to identify the deployed version of your application in Datadog
+            // version: '1.0.0',
+            sampleRate: 100,
+            premiumSampleRate: 13,
+            trackInteractions: true,
+            defaultPrivacyLevel: 'mask-user-input',
+        })
+        // datadogRum.startSessionReplayRecording()
+    }, [])
 
     return (
-        <ChakraProvider theme={theme}>
-            <WagmiConfig client={wagmiClient}>
-                <RainbowKitProvider chains={chains}>
-                    <Flex bgColor="brand.100opaque" width="100%" minH="100vh">
-                        <Layout>
-                            <Component {...pageProps} />
-                        </Layout>
-                    </Flex>
-                </RainbowKitProvider>
-            </WagmiConfig>
-        </ChakraProvider>
+        <WagmiConfig client={wagmiClient}>
+            <RainbowKitProvider chains={chains} theme={customTheme}>
+                <Grommet theme={theme} background="backgroundDark" className="grommet-container">
+                    <Component {...pageProps} />
+                </Grommet>
+            </RainbowKitProvider>
+        </WagmiConfig>
     )
 }
 
