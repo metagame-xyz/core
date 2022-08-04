@@ -40,6 +40,7 @@ const theme = {
             backgroundDark: '#163D26',
             backgroundLight: '#FBF7F1',
             brand: '#C84414',
+            focus: 'brand',
         },
     },
 }
