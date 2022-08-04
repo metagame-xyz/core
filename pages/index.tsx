@@ -222,8 +222,6 @@ const Home = () => {
                 expandedSignature.r,
                 expandedSignature.s,
                 {
-                    gasLimit: 2100000,
-                    gasPrice: 8000000000,
                     value: parseEther('0.02'),
                 },
             )
