@@ -4,23 +4,20 @@ import { Button } from 'grommet'
 
 export const enum MintStatus {
     unknown = 'unknown',
-    loading = 'loading',
-    can_mint = 'Mint',
+    loading = 'Loading...',
+    can_mint = 'Mint for 0.02 ETH',
     minting = 'Minting...',
-    minted = 'Minted',
-    metabot = 'DM Metabot',
+    minted = 'See your logbook',
+    metabot = 'Get allowlisted',
     processing = 'Processing...',
 }
 
-const MintButton = ({ mintStatus, clickable, action }) => {
+const MintButton = ({ mintStatus, clickable, action = (a) => a }) => {
     const [actionLabel, setActionLabel] = useState<string>(mintStatus)
 
     useEffect(() => {
         setActionLabel(mintStatus)
     }, [mintStatus])
-
-    console.log('mintStatus', mintStatus)
-    console.log('actionLabel', actionLabel)
 
     return (
         <div

@@ -1,13 +1,14 @@
 import React from 'react'
 
 import { Icon, Link } from '@chakra-ui/react'
+import { Box } from 'grommet'
 
 import { LOGBOOK_CONTRACT_ADDRESS, networkStrings } from 'utils/constants'
 import { copy } from 'utils/content'
 
 function IconLink({ Icon, url, ...props }) {
     return (
-        <Link href={url} isExternal>
+        <Box onClick={() => window.open(url, '_blank')} width="xxsmall">
             <Icon
                 boxSize={[8, 8, 10, 10]}
                 borderRadius={'50%'}
@@ -15,13 +16,13 @@ function IconLink({ Icon, url, ...props }) {
                 _hover={{ color: 'brand.600' }}
                 {...props}
             />
-        </Link>
+        </Box>
     )
 }
 
 const etherscanUrl = `https://${networkStrings.etherscan}etherscan.io/address/${LOGBOOK_CONTRACT_ADDRESS}`
-const twitterUrl = 'https://twitter.com/The_Metagame'
-const openseaUrl = `https://opensea.io/collection/heartbeat-metagame`
+const twitterUrl = 'https://twitter.com/Metagame'
+const openseaUrl = `https://opensea.io/collection/logbook-xyz`
 
 const EtherscanIcon = (props) => (
     <Icon viewBox="0 0 52 52" {...props}>
@@ -127,71 +128,73 @@ export const Logo = (props) => (
     </Icon>
 )
 export const TwelveCircles = (props) => (
-    <Icon viewBox="0 0 336 338" {...props}>
-        <circle cx="167.9" cy="34.9" r="32.9" stroke="currentColor" strokeWidth="4" fillOpacity="0%" />
-        <circle cx="100.9" cy="52.9" r="32.9" stroke="currentColor" strokeWidth="4" fillOpacity="0%" />
-        <circle cx="51.9" cy="101.9" r="32.9" stroke="currentColor" strokeWidth="4" fillOpacity="0%" />
-        <circle cx="34.9" cy="168.9" r="32.9" stroke="currentColor" strokeWidth="4" fillOpacity="0%" />
-        <circle
-            r="32.9"
-            transform="matrix(1 0 0 -1 51.9 235.9)"
-            stroke="currentColor"
-            strokeWidth="4"
-            fillOpacity="0%"
-        />
-        <circle
-            r="32.9"
-            transform="matrix(1 0 0 -1 100.9 284.9)"
-            stroke="currentColor"
-            strokeWidth="4"
-            fillOpacity="0%"
-        />
-        <circle
-            r="32.9"
-            transform="matrix(1 0 0 -1 167.9 302.9)"
-            stroke="currentColor"
-            strokeWidth="4"
-            fillOpacity="0%"
-        />
-        <circle
-            cx="234.9"
-            cy="284.9"
-            r="32.9"
-            transform="rotate(-180 234.9 284.9)"
-            stroke="currentColor"
-            strokeWidth="4"
-            fillOpacity="0%"
-        />
-        <circle
-            cx="283.9"
-            cy="235.9"
-            r="32.9"
-            transform="rotate(-180 283.9 235.9)"
-            stroke="currentColor"
-            strokeWidth="4"
-            fillOpacity="0%"
-        />
-        <circle
-            r="32.9"
-            transform="matrix(-1 0 0 1 300.9 168.9)"
-            stroke="currentColor"
-            strokeWidth="4"
-            fillOpacity="0%"
-        />
-        <circle
-            r="32.9"
-            transform="matrix(-1 0 0 1 283.9 101.9)"
-            stroke="currentColor"
-            strokeWidth="4"
-            fillOpacity="0%"
-        />
-        <circle
-            r="32.9"
-            transform="matrix(-1 0 0 1 234.9 52.9)"
-            stroke="currentColor"
-            strokeWidth="4"
-            fillOpacity="0%"
-        />
-        <circle cx="168" cy="169" r="98" stroke="currentColor" strokeWidth="4" fillOpacity="0%" />
-    </Icon>
+    <Box width="xxsmall">
+        <Icon viewBox="0 0 336 338" {...props} boxSize={[8, 8, 10, 10]}>
+            <circle cx="167.9" cy="34.9" r="32.9" stroke="currentColor" strokeWidth="4" fillOpacity="0%" />
+            <circle cx="100.9" cy="52.9" r="32.9" stroke="currentColor" strokeWidth="4" fillOpacity="0%" />
+            <circle cx="51.9" cy="101.9" r="32.9" stroke="currentColor" strokeWidth="4" fillOpacity="0%" />
+            <circle cx="34.9" cy="168.9" r="32.9" stroke="currentColor" strokeWidth="4" fillOpacity="0%" />
+            <circle
+                r="32.9"
+                transform="matrix(1 0 0 -1 51.9 235.9)"
+                stroke="currentColor"
+                strokeWidth="4"
+                fillOpacity="0%"
+            />
+            <circle
+                r="32.9"
+                transform="matrix(1 0 0 -1 100.9 284.9)"
+                stroke="currentColor"
+                strokeWidth="4"
+                fillOpacity="0%"
+            />
+            <circle
+                r="32.9"
+                transform="matrix(1 0 0 -1 167.9 302.9)"
+                stroke="currentColor"
+                strokeWidth="4"
+                fillOpacity="0%"
+            />
+            <circle
+                cx="234.9"
+                cy="284.9"
+                r="32.9"
+                transform="rotate(-180 234.9 284.9)"
+                stroke="currentColor"
+                strokeWidth="4"
+                fillOpacity="0%"
+            />
+            <circle
+                cx="283.9"
+                cy="235.9"
+                r="32.9"
+                transform="rotate(-180 283.9 235.9)"
+                stroke="currentColor"
+                strokeWidth="4"
+                fillOpacity="0%"
+            />
+            <circle
+                r="32.9"
+                transform="matrix(-1 0 0 1 300.9 168.9)"
+                stroke="currentColor"
+                strokeWidth="4"
+                fillOpacity="0%"
+            />
+            <circle
+                r="32.9"
+                transform="matrix(-1 0 0 1 283.9 101.9)"
+                stroke="currentColor"
+                strokeWidth="4"
+                fillOpacity="0%"
+            />
+            <circle
+                r="32.9"
+                transform="matrix(-1 0 0 1 234.9 52.9)"
+                stroke="currentColor"
+                strokeWidth="4"
+                fillOpacity="0%"
+            />
+            <circle cx="168" cy="169" r="98" stroke="currentColor" strokeWidth="4" fillOpacity="0%" />
+        </Icon>
+    </Box>
 )

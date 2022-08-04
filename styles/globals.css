@@ -8,6 +8,7 @@ div#__next > div {
     font-family: 'Lars', monospace;
     /* font-family: 'Lato', sans-serif; */
     min-width: 100%;
+    overflow: hidden;
 }
 
 a {

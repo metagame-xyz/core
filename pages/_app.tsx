@@ -5,7 +5,7 @@ import { datadogRum } from '@datadog/browser-rum'
 import { darkTheme, RainbowKitProvider, Theme } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 import '@rainbow-me/rainbowkit/styles.css'
-import { Grommet } from 'grommet'
+import { Grommet, ThemeType } from 'grommet'
 import { WagmiConfig } from 'wagmi'
 
 import { DATADOG_RUM_APPLICATION_ID, DATADOG_RUM_CLIENT_TOKEN, DATADOG_RUM_ENV } from 'utils/constants'
@@ -46,7 +46,7 @@ function App({ Component, pageProps }: AppProps): JSX.Element {
     return (
         <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider chains={chains} theme={customTheme}>
-                <Grommet theme={theme} background="backgroundDark" className="grommet-container">
+                <Grommet theme={theme as ThemeType} background="backgroundDark" className="grommet-container">
                     <Component {...pageProps} />
                 </Grommet>
             </RainbowKitProvider>

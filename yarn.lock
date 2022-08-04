@@ -1806,6 +1806,16 @@
     "@gnosis.pm/safe-deployments" "1.15.0"
     web3-core "^1.7.1"
 
+"@gnosis.pm/safe-core-sdk-types@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@gnosis.pm/safe-core-sdk-types/-/safe-core-sdk-types-1.4.0.tgz#c6615333177765b58f03cd77e165d4d36b9d2c91"
+  integrity sha512-v+V6wqfFVgBl2sZ8FqCMwL/qFnr6wBCcJ/gllo4OvItYw/dmXlMCkxUrERoILSeHDezLkrWnnzA4tHfkEwYuwg==
+  dependencies:
+    "@ethersproject/bignumber" "^5.6.0"
+    "@ethersproject/contracts" "^5.6.0"
+    "@gnosis.pm/safe-deployments" "1.15.0"
+    web3-core "^1.7.1"
+
 "@gnosis.pm/safe-core-sdk-utils@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@gnosis.pm/safe-core-sdk-utils/-/safe-core-sdk-utils-1.2.1.tgz#1cc9de8187e724c02104a8c15c14fb77796d1240"
@@ -1822,15 +1832,15 @@
   dependencies:
     semver "^7.3.7"
 
-"@gnosis.pm/safe-ethers-lib@^1.1.0":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@gnosis.pm/safe-ethers-lib/-/safe-ethers-lib-1.2.1.tgz#d429480f187c6897fb9fcbfd7a526e3d422e6735"
-  integrity sha512-7A9t2fQW5VtfHVs++Fc5G+a45C/TO4/Tb0MB0G7eYfrrf/rnKZBsUaPIEm4J1ny5WMjGQv2f5DjA3hgaRL9VhA==
+"@gnosis.pm/safe-ethers-lib@^1.2.1":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@gnosis.pm/safe-ethers-lib/-/safe-ethers-lib-1.4.0.tgz#5d884c8c083c811f753a2602fba3decf73b3a5f9"
+  integrity sha512-ImKNocwoJB19g9nEcorLG1FuYQZyK+llcCIShSw0R7f3OHi30gjcQJek/rJv+wKetM66s7Dz26xtb2X9ARN3Gg==
   dependencies:
-    "@gnosis.pm/safe-core-sdk-types" "^1.2.1"
+    "@gnosis.pm/safe-core-sdk-types" "^1.4.0"
     "@gnosis.pm/safe-core-sdk-utils" "^1.2.1"
 
-"@gnosis.pm/safe-service-client@^1.1.2":
+"@gnosis.pm/safe-service-client@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@gnosis.pm/safe-service-client/-/safe-service-client-1.2.0.tgz#7dc4a5d7fb85a1628fb910140127712f05f8f54f"
   integrity sha512-KAgnSgviYuMDYP/GETi5AxJTq/196qf+TXdXD5P136btPQo9XQta63IumpXY8+EQTZPJGmL8vSInXEUySy9SAA==
@@ -4193,6 +4203,11 @@ crypto-browserify@3.12.0:
     randombytes "^2.0.0"
     randomfill "^1.0.3"
 
+crypto-js@^3.1.9-1:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-3.3.0.tgz#846dd1cce2f68aacfa156c8578f926a609b7976b"
+  integrity sha512-DIT51nX0dCfKltpRiXV+/TVZq+Qq2NgF4644+K7Ttnla7zEzqc+kjJyiB96BHNyUTBxyjzRcZYpUdZa+QAqi6Q==
+
 crypto-randomuuid@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/crypto-randomuuid/-/crypto-randomuuid-1.0.0.tgz#acf583e5e085e867ae23e107ff70279024f9e9e7"
@@ -5452,14 +5467,14 @@ events@^3.0.0, events@^3.3.0:
   resolved "https://registry.yarnpkg.com/events/-/events-3.3.0.tgz#31a95ad0a924e2d2c419a813aeb2c4e878ea7400"
   integrity sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==
 
-evm-translator@^0.2.51:
-  version "0.2.51"
-  resolved "https://registry.yarnpkg.com/evm-translator/-/evm-translator-0.2.51.tgz#2716d7882c9d0d99e76b314b7ba999c0d70a9af1"
-  integrity sha512-+dEygjuwN3LVuG5iBZzTQ5JlPv+wNPoBJwRBJjqRUo4rMSZc2alxmE5/BTuLqE6yQ2M4EeVWewtdgsLOjreN1A==
+evm-translator@^0.3.6:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/evm-translator/-/evm-translator-0.3.6.tgz#be0c2274c5df0b5ef8fd71cc3248687d2d6e36a9"
+  integrity sha512-K2H9OwhP5jfH+okrtaE1hirDKyfpiBqp+30f7azeon89vXJdPu7b1MKf+G2Er9TRkFlaIF3CPKXbGLzpMR263w==
   dependencies:
     "@alch/alchemy-sdk" "^1.0.3"
-    "@gnosis.pm/safe-ethers-lib" "^1.1.0"
-    "@gnosis.pm/safe-service-client" "^1.1.2"
+    "@gnosis.pm/safe-ethers-lib" "^1.2.1"
+    "@gnosis.pm/safe-service-client" "^1.2.0"
     axios "^0.26.1"
     bottleneck "^2.19.5"
     collect.js "^4.32.0"
@@ -5469,6 +5484,7 @@ evm-translator@^0.2.51:
     limiter "^2.1.0"
     mongoose "^6.3.4"
     node-fetch "2.6.6"
+    onoma "^0.1.1"
     require-context "^1.1.0"
     traverse "^0.6.6"
     winston "^3.7.2"
@@ -7568,7 +7584,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@4.17.21, lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.19, lodash@^4.17.21:
+lodash@4.17.21, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.19, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -8943,6 +8959,13 @@ qs@6.9.7:
   version "6.9.7"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.7.tgz#4610846871485e1e048f44ae3b94033f0e675afe"
   integrity sha512-IhMFgUmuNpyRfxA90umL7ByLlgRXu6tIfKPpF5TmcfRLlLCckfP/g3IQmju6jjpu+Hh8rA+2p6A27ZSPOOHdKw==
+
+qs@^6.5.2:
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.11.0.tgz#fd0d963446f7a65e1367e01abd85429453f0c37a"
+  integrity sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==
+  dependencies:
+    side-channel "^1.0.4"
 
 qs@~6.5.2:
   version "6.5.3"
@@ -10448,6 +10471,16 @@ url-to-options@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/url-to-options/-/url-to-options-1.0.1.tgz#1505a03a289a48cbd7a434efbaeec5055f5633a9"
   integrity sha1-FQWgOiiaSMvXpDTvuu7FBV9WM6k=
+
+urlbox@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/urlbox/-/urlbox-1.3.3.tgz#6795d71c5f445c0470647ea9cdc0108b2ecf65f7"
+  integrity sha512-ipl/PWbQKGfJRVnuIs1E81P8SBU2a7TaZOEG5kWX7/aOii+6QN/u9xxh0tiYZjRq4D5JH1g4VNyxDOaTuX49dQ==
+  dependencies:
+    crypto-js "^3.1.9-1"
+    lodash "^4.17.10"
+    lodash.includes "^4.3.0"
+    qs "^6.5.2"
 
 use-callback-ref@^1.2.3, use-callback-ref@^1.2.5, use-callback-ref@^1.3.0:
   version "1.3.0"

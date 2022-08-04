@@ -27,6 +27,9 @@ export const METABOT_DB_CONNECTION_STRING = process.env.METABOT_DB_CONNECTION_ST
 export const LOGBOOK_DB_CONNECTION_STRING = process.env.LOGBOOK_DB_CONNECTION_STRING
 export const EVM_TRANSLATOR_CONNECTION_STRING = process.env.EVM_TRANSLATOR_CONNECTION_STRING
 
+export const URLBOX_API_KEY = process.env.URLBOX_API_KEY
+export const URL_BOX_API_SECRET = process.env.URL_BOX_API_SECRET
+
 export const isProdEnv = process.env.NODE_ENV === 'production'
 
 /* Frontend Constants */

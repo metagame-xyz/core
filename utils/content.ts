@@ -10,14 +10,14 @@ export interface MetaProps {
 const description = 'DESCRIPTION'
 
 export const headMetadata: MetaProps = {
-    title: 'TITLE',
+    title: 'Logbook by the Metagame',
     description,
     image: `https://${WEBSITE_URL}/site-preview.png`,
     type: 'website',
 }
 
 export const copy = {
-    title: 'TITLE',
+    title: 'Logbook by the Metagame',
     nameLowercase: 'NAME_LOWERCASE',
     heroSubheading: description,
     heading1: 'HEADING 1',

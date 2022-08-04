@@ -1,41 +1,32 @@
 import Head from 'next/head'
 import React, { useContext, useEffect, useState } from 'react'
 
-import { ExternalLinkIcon } from '@chakra-ui/icons'
 import { datadogRum } from '@datadog/browser-rum'
 import { parseEther } from '@ethersproject/units'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 import axios from 'axios'
-import { BigNumber, Contract, ethers, Wallet } from 'ethers'
+import { BigNumber, ethers } from 'ethers'
 import { AddressZ } from 'evm-translator/lib/interfaces/utils'
-import { Avatar, Box, Button, Heading, Image, Layer, ResponsiveContext, Stack, Text } from 'grommet'
-import Lottie, { useLottie } from 'lottie-react'
-import { addressToNameObject } from 'onoma'
-import newThing from 'public/static/animations/enigma-2.json'
+import { Box, Button, Image, ResponsiveContext, Stack, Text } from 'grommet'
+import { useLottie } from 'lottie-react'
+import newThing from 'public/static/animations/enigma-small.json'
 import { useAccount, useEnsName, useNetwork, useProvider, useSigner } from 'wagmi'
 
-import {
-    ALCHEMY_PROJECT_ID,
-    blackholeAddress,
-    LOGBOOK_CONTRACT_ADDRESS,
-    networkStrings,
-    WEBSITE_URL,
-} from 'utils/constants'
-import { copy } from 'utils/content'
-import { debug, event } from 'utils/frontend'
+import { blackholeAddress, LOGBOOK_CONTRACT_ADDRESS } from 'utils/constants'
 import logbookAbi from 'utils/logbookAbi'
 
 import CustomConnectButton from 'components/ConnectButton'
+import Footer from 'components/Footer'
 import { Etherscan, Logo, Opensea, Twitter } from 'components/Icons'
-import { maxW } from 'components/Layout'
+import LgbkLayer from 'components/LgbkLayer'
 import MintButton, { MintStatus } from 'components/MintButton'
+import PlusBorder from 'components/PlusBorder'
 
 const options = {
     loop: true,
     animationData: newThing,
 }
 
-function Home({}) {
+const Home = () => {
     // const { provider, signer, userAddress, userName, eventParams, openWeb3Modal, toast } = useEthereum();
     const {
         address: uncleanAddress,
@@ -49,8 +40,6 @@ function Home({}) {
 
     const { View, animationLoaded } = useLottie(options)
 
-    // console.log('loaded', animationLoaded)
-
     useEffect(() => {
         if (address) {
             datadogRum.setUser({
@@ -61,11 +50,10 @@ function Home({}) {
     }, [address])
 
     const provider = useProvider()
-    const { data: signer, isError, isLoading } = useSigner()
+    const { data: signer } = useSigner()
     const contract = new ethers.Contract(LOGBOOK_CONTRACT_ADDRESS, logbookAbi, provider)
     const contractWithSigner = contract.connect(signer)
 
-    const [allowlistLoading, setAllowlistLoading] = useState(false)
     const [expandedSignature, setExpandedSignature] = useState({ v: null, r: null, s: null })
     const [contentContainer, setContentContainer] = useState<HTMLElement | null>(null)
     const [mintStatus, setMintStatus] = useState<MintStatus>(MintStatus.unknown)
@@ -74,6 +62,7 @@ function Home({}) {
 
     const [showMetabotModal, setShowMetabotModal] = useState(false)
     const [showProcessingModal, setShowProcessingModal] = useState(false)
+    const [showMintedModal, setShowMintedModal] = useState(false)
 
     // let cantMintReason = null
 
@@ -92,14 +81,17 @@ function Home({}) {
 
     useEffect(() => {
         const zoomElement = document.querySelector('.zoom') as HTMLElement
-        const baseZoom = isMobile ? 1 : 0.95
+        const BASE_ZOOM = isMobile ? 1.25 : 0.8
 
-        zoomElement.style.transform = `scale(${baseZoom})`
-        let zoom = baseZoom
-        const ZOOM_SPEED = 0.05
+        zoomElement.style.transform = `scale(${BASE_ZOOM})`
+
+        let zoom = BASE_ZOOM
+        const ZOOM_SPEED = isMobile ? 0.2 : 0.05
 
         let xDown = null
         let yDown = null
+
+        let hasContentAppeared = false // fix for ios safari scroll bug
 
         const handleWheel = (e) => {
             const svgElement = document.querySelector('.zoom')?.querySelector('g')
@@ -108,7 +100,7 @@ function Home({}) {
                 e.preventDefault()
                 zoom += ZOOM_SPEED
                 zoomElement.style.transform = `scale(${zoom})`
-            } else if (e.deltaY < 0 && zoom > baseZoom && !contentLayerElement.scrollTop) {
+            } else if (e.deltaY < 0 && zoom > BASE_ZOOM && !contentLayerElement.scrollTop) {
                 e.preventDefault()
                 zoom -= ZOOM_SPEED
                 zoomElement.style.transform = `scale(${zoom})`
@@ -143,10 +135,13 @@ function Home({}) {
                     e.preventDefault()
                     zoom += ZOOM_SPEED
                     zoomElement.style.transform = `scale(${zoom})`
-                } else if (yDiff < 0 && zoom > baseZoom && !contentLayerElement.scrollTop) {
+                } else if (yDiff < 0 && zoom > BASE_ZOOM && !contentLayerElement.scrollTop && !hasContentAppeared) {
                     e.preventDefault()
                     zoom -= ZOOM_SPEED
                     zoomElement.style.transform = `scale(${zoom})`
+                } else if (window.innerHeight <= svgElement.getBoundingClientRect().height) {
+                    // don't allow any more zooming out after content shows up
+                    hasContentAppeared = true
                 }
             }
             /* reset values */
@@ -158,7 +153,7 @@ function Home({}) {
 
         document.addEventListener('touchstart', handleTouchStart, { passive: false, capture: false })
         document.addEventListener('touchmove', handleTouchMove, { passive: false, capture: false })
-    }, [])
+    }, [isMobile])
 
     useEffect(() => {
         async function getUserMintedTokenId() {
@@ -182,7 +177,6 @@ function Home({}) {
                 }
 
                 if (address && localMintStatus !== MintStatus.minted) {
-                    setAllowlistLoading(true)
                     ;({ allowlist, signature, errorCode } = await axios
                         .get(`/api/premintCheck/${address}`)
                         .then((res) => res.data))
@@ -208,7 +202,6 @@ function Home({}) {
                 // toast(toastErrorData('Get User Minted Token Error', JSON.stringify(error)))
             } finally {
                 setUserTokenId(tokenId)
-                setAllowlistLoading(false)
                 setExpandedSignature(signature)
                 setMintStatus(localMintStatus)
             }
@@ -219,49 +212,43 @@ function Home({}) {
     const mint = async () => {
         // const provider = new ethers.providers.Web3Provider(provider)
         // const signer = provider.getSigner()
+        const previousMintStatus = mintStatus
+        setMintStatus(MintStatus.minting)
 
-        const tx = await contractWithSigner.mintWithSignature(
-            address,
-            expandedSignature.v,
-            expandedSignature.r,
-            expandedSignature.s,
-            {
-                gasLimit: 2100000,
-                gasPrice: 8000000000,
-                value: ethers.utils.parseEther('0.01'),
-            },
-        )
-        const txReceipt = await tx.wait()
-        const [fromAddress, toAddress, tokenId] = txReceipt.events.find((e) => (e.event = 'Transfer')).args as [
-            string,
-            string,
-            BigNumber,
-        ]
+        try {
+            const tx = await contractWithSigner.mintWithSignature(
+                address,
+                expandedSignature.v,
+                expandedSignature.r,
+                expandedSignature.s,
+                {
+                    gasLimit: 2100000,
+                    gasPrice: 8000000000,
+                    value: process.env.VERCEL_ENV === 'production' ? parseEther('0.02') : 0,
+                },
+            )
+            const txReceipt = await tx.wait()
+            const [fromAddress, toAddress, tokenId] = txReceipt.events.find((e) => (e.event = 'Transfer')).args as [
+                string,
+                string,
+                BigNumber,
+            ]
 
-        datadogRum.addAction('mint success', {
-            txHash: tx.hash,
-            tokenId: tokenId.toString(),
-        })
+            datadogRum.addAction('mint success', {
+                txHash: tx.hash,
+                tokenId: tokenId.toString(),
+            })
 
-        console.log('Transaction:', tx.hash)
+            console.log('Transaction:', tx.hash)
 
-        setUserTokenId(tokenId.toNumber())
-        setMintStatus(MintStatus.minted)
+            setUserTokenId(tokenId.toNumber())
+            setMintStatus(MintStatus.minted)
+            setShowMintedModal(true)
+        } catch (error) {
+            console.error(error)
+            setMintStatus(previousMintStatus)
+        }
     }
-
-    const PlusBorder = () => (
-        <Box
-            align="center"
-            height={`${contentContainer ? contentContainer.clientHeight : 0}px`}
-            style={{ overflowY: 'hidden' }}
-        >
-            {[...Array(100).keys()].map((i) => (
-                <Text key={i} color="brand">
-                    +
-                </Text>
-            ))}
-        </Box>
-    )
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     let mintButtonAction = () => {}
@@ -276,229 +263,160 @@ function Home({}) {
             mintButtonAction = () => setShowProcessingModal(true)
             break
         case MintStatus.minted:
+            mintButtonAction = () => {
+                window.open(`/logbook/${userTokenId}`, '_blank')
+            }
         case MintStatus.unknown:
         default:
             break
     }
 
-    const clickable = [MintStatus.can_mint, MintStatus.metabot, MintStatus.processing].includes(mintStatus)
+    const clickable = [MintStatus.can_mint, MintStatus.metabot, MintStatus.processing, MintStatus.minted].includes(
+        mintStatus,
+    )
 
-    // <Head>
-    //     <title>Logbook</title>
-    //     <meta property="og:title" content="Logbook" />
-    //     {/* <meta property="og:description" content={description} /> */}
-    //     <meta name="twitter:title" content="Logbook" />
-    // </Head>
     return (
-        <Stack fill="horizontal" className="main-stack">
-            <Box height="100vh" className="zoom" justify="center">
-                <>{View}</>
-                {/* {animationLoaded ? (
+        <>
+            <Head>
+                <title>Logbook</title>
+                <meta property="og:title" content="Logbook" />
+                {/* <meta property="og:description" content={description} /> */}
+                <meta name="twitter:title" content="Logbook" />
+            </Head>
+            <Stack fill="horizontal" className="main-stack" interactiveChild={1}>
+                <Box height="100vh" className="zoom" justify="center">
+                    <>{View}</>
+                    {/* {animationLoaded ? (
                     <div id="wtfguys">{View}</div>
                 ) : (
                     <div hidden id="hello">
                         {View}
                     </div>
                 )} */}
-                {/* <Lottie options={options} width="fit-content" /> */}
-            </Box>
-
-            <Box
-                style={{ marginTop: '100vh' }}
-                pad={isMobile ? 'none' : { horizontal: 'medium', top: 'medium', bottom: 'none' }}
-            >
-                <Box
-                    background="backgroundLight"
-                    round={isMobile ? 'none' : 'small'}
-                    pad="small"
-                    direction="row"
-                    gap="large"
-                    flex
-                    className="content-container"
-                >
-                    <PlusBorder />
-                    <Box margin="small" fill gap="large">
-                        <Image src="/static/assets/logbookLogo.svg" alt="Logbook Logo" />
-                        <Box direction={isMobile ? 'column' : 'row'} gap="medium">
-                            {showMetabotModal && (
-                                <Layer
-                                    id="Metabot"
-                                    position="center"
-                                    onClickOutside={() => setShowMetabotModal(false)}
-                                    onEsc={() => setShowMetabotModal(false)}
-                                    background="transparent"
-                                >
-                                    <Box
-                                        background="backgroundLight"
-                                        width="medium"
-                                        height="medium"
-                                        round="large"
-                                        justify="center"
-                                        align="center"
-                                        pad="medium"
-                                    >
-                                        Looks like your ENS isn't on the allowlist yet. Send your ENS to Metabot, our
-                                        Telegram bot, and they'll get you on there!
-                                        <Image src="/metabot_small.png" alt="Metabot Head" height="84px" />
-                                        <Button
-                                            size="medium"
-                                            secondary
-                                            label="Metabot"
-                                            margin="6px"
-                                            href="https://t.me/the_meta_bot"
-                                            target="_blank"
-                                        />
+                    {/* <Lottie options={options} width="fit-content" /> */}
+                </Box>
+                <Box>
+                    <Box style={{ height: `${isMobile ? '80' : '92'}vh` }} />
+                    <Box pad={isMobile ? 'none' : 'medium'}>
+                        <Box
+                            background="backgroundLight"
+                            round={isMobile ? 'none' : 'small'}
+                            pad="small"
+                            direction="row"
+                            gap="large"
+                            flex
+                        >
+                            {!isMobile ? <PlusBorder contentContainer={contentContainer} /> : null}
+                            <Box margin="small" fill gap="large" className="content-container">
+                                <Image src="/static/assets/logbookLogo.svg" alt="Logbook Logo" />
+                                <Box direction={isMobile ? 'column' : 'row'} gap="medium">
+                                    <Box basis="2/3">
+                                        <Text color="brand">
+                                            Welcome to Metagame's latest artifact, Logbook. Like all of our other
+                                            artifacts, you've already been collecting entries as you go about your days.{' '}
+                                            <br />
+                                            <br /> Now you can see your activities reflected and benefit from them in
+                                            new ways. Logbook is an aggregation of all the actions you've taken on-chain
+                                            in a way you've never seen before - in a digestible way that you and other
+                                            people can understand.
+                                            <br />
+                                            <br />
+                                            After you've minted your Logbook, you'll have access to $5,000 USDC worth of
+                                            bounties to help better interpret on-chain activity.
+                                        </Text>
                                     </Box>
-                                </Layer>
-                            )}
-                            {showProcessingModal && (
-                                <Layer
-                                    id="processing"
-                                    position="center"
-                                    onClickOutside={() => setShowProcessingModal(false)}
-                                    onEsc={() => setShowProcessingModal(false)}
-                                    background="transparent"
-                                >
-                                    <Box
-                                        background="backgroundLight"
-                                        width="medium"
-                                        height="medium"
-                                        round="large"
-                                        justify="center"
-                                        align="center"
-                                        pad="medium"
-                                    >
-                                        Your on-chain data is being retrieved and processed by evm-translator. Metabot
-                                        will send you a DM when it's ready! <br />
-                                        <br />
-                                        {/* In the meantime, you can check out more about evm-translator
+
+                                    <Box align="end" gap="medium" basis="1/3">
+                                        <CustomConnectButton />
+                                        {mintStatus !== MintStatus.unknown && (
+                                            <MintButton
+                                                mintStatus={mintStatus}
+                                                clickable={clickable}
+                                                action={mintButtonAction}
+                                            />
+                                        )}
+                                    </Box>
+                                </Box>
+                                <Box margin={{ vertical: 'xlarge' }}>
+                                    <Image
+                                        src={`/static/assets/pageDivider${isMobile ? 'Mobile' : 'Desktop'}.svg`}
+                                        alt="Page divider"
+                                    />
+                                </Box>
+
+                                <Box gap="xlarge" direction={isMobile ? 'column' : 'row'} justify="between">
+                                    <Box gap="large">
+                                        <Image src={`/static/assets/metagameAsciiLogo.svg`} alt="Metagame ASCII logo" />
+                                        <Text color="brand">
+                                            Metagame makes products that express activity and achievements in the
+                                            ultimate metagame - real life - to unlock access to new spaces, spectacles,
+                                            and spoils.
+                                            <br />
+                                            <br />
+                                            We're creating the environments and tooling needed to foster the emergence
+                                            of new and existing values-based communities by helping them recognize and
+                                            reward those that further their goals. We're starting with NFTs earned from
+                                            involvement gathered from on and off-chain activities and will expand into
+                                            more expressive mediums like inventory and avatars.
+                                            <br />
+                                            <br />
+                                            Each of us was created on earth without our own consent - we didn't hit
+                                            start, and we can't press pause. But we can decide why, how, and where we
+                                            play.
+                                        </Text>
+                                    </Box>
+                                    <Image src={`/static/assets/exampleLogbook.svg`} alt="Example logbook" />
+                                </Box>
+                                <Footer />
+                            </Box>
+                            {!isMobile ? <PlusBorder contentContainer={contentContainer} /> : null}
+                        </Box>
+                        <LgbkLayer show={showMetabotModal} close={() => setShowMetabotModal(false)}>
+                            <Text textAlign="center">
+                                Looks like your ENS isn't on the allowlist yet. Send your ENS to our Telegram bot,
+                                Metabot, and they'll get you on there!
+                            </Text>
+                            <Image src="/metabot_small.png" alt="Metabot Head" height="84px" />
+                            <Button
+                                size="medium"
+                                secondary
+                                label="DM Metabot"
+                                margin="6px"
+                                href="https://t.me/the_meta_bot"
+                                target="_blank"
+                            />
+                        </LgbkLayer>
+                        <LgbkLayer show={showProcessingModal} close={() => setShowProcessingModal(false)}>
+                            <Text textAlign="center">
+                                Your on-chain data is being retrieved and processed by evm-translator. Metabot will send
+                                you a DM when it's ready! <br />
+                                <br />
+                                {/* In the meantime, you can check out more about evm-translator
                                         <a href="https://evm-translator.xyz/contribute" target="_blank">
                                             here
                                         </a> */}
-                                        There are $5,000 worth of bounties available to help improve evm-translator.
-                                        <Button
-                                            size="medium"
-                                            secondary
-                                            label="Go Bounty Hunting"
-                                            margin="12px"
-                                            href="https://evm-translator.xyz/contribute"
-                                            target="_blank"
-                                        />
-                                    </Box>
-                                </Layer>
-                            )}
-                            <Box basis="2/3">
-                                <Text color="brand">
-                                    Welcome to Metagame's latest artifact, Logbook. Like all of our other artifacts,
-                                    you've already been collecting entries as you go about your days. <br />
-                                    <br /> Now you can see your activities reflected and benefit from them in new ways.
-                                    Logbook is an aggregation of all the actions you've taken on-chain in a way you've
-                                    never seen before - in a digestible way that you and other people can understand.
-                                    <br />
-                                    <br />
-                                    After you've minted your Logbook, you'll have access to $5,000 USDC worth of
-                                    bounties to help better interpret on-chain activity.
-                                </Text>
-                            </Box>
-
-                            <Box align="end" gap="medium" basis="1/3">
-                                <CustomConnectButton />
-                                {mintStatus !== MintStatus.unknown && (
-                                    <MintButton
-                                        mintStatus={mintStatus}
-                                        clickable={clickable}
-                                        action={mintButtonAction}
-                                    />
-                                )}
-                                {mintStatus === MintStatus.minted && (
-                                    <Button
-                                        alignSelf="center"
-                                        secondary
-                                        label={`see your Logbook`}
-                                        style={{ border: 'none' }}
-                                        href={`/logbook/${userTokenId}`}
-                                    /> // TODO this should
-                                )}
-                            </Box>
-                        </Box>
-
-                        <Image
-                            src={`/static/assets/pageDivider${isMobile ? 'Mobile' : 'Desktop'}.svg`}
-                            alt="Page divider"
-                        />
-                        <Box gap="medium" direction={isMobile ? 'column' : 'row'} justify="between">
-                            <Box gap="medium">
-                                <Image src={`/static/assets/metagameAsciiLogo.svg`} alt="Metagame ASCII logo" />
-                                <Text color="brand">
-                                    Metagame makes products that express activity and achievements in the ultimate
-                                    metagame - real life - to unlock access to new spaces, spectacles, and spoils.
-                                    <br />
-                                    <br />
-                                    We're creating the environments and tooling needed to foster the emergence of new
-                                    and existing values-based communities by helping them recognize and reward those
-                                    that further their goals. We're starting with NFTs earned from involvement gathered
-                                    from on and off-chain activities and will expand into more expressive mediums like
-                                    inventory and avatars.
-                                    <br />
-                                    <br />
-                                    Each of us was created on earth without our own consent - we didn't hit start, and
-                                    we can't press pause. But we can decide why, how, and where we play.
-                                </Text>
-                            </Box>
-                            <Image src={`/static/assets/exampleLogbook.svg`} alt="Example logbook" />
-                        </Box>
+                                There are $5,000 worth of bounties available to help improve evm-translator.
+                            </Text>
+                            <Image src="/metabot_small.png" alt="Metabot Head" height="84px" />
+                            <Button
+                                size="medium"
+                                secondary
+                                label="Go Bounty Hunting"
+                                margin="12px"
+                                href="https://evm-translator.xyz/contribute"
+                                target="_blank"
+                            />
+                        </LgbkLayer>
+                        <LgbkLayer show={showMintedModal} close={() => setShowMintedModal(false)}>
+                            <Image src={`/static/assets/congratsAscii.svg`} alt="Congrats ASCII" width="100%" />
+                            <Text textAlign="center">Congrats! You&apos;ve successfully minted your Logbook.</Text>
+                            <Image src="/metabot_small.png" alt="Metabot Head" height="84px" />
+                            <Button primary label="See your Logbook" href={`/logbook/${userTokenId}`} target="_blank" />
+                        </LgbkLayer>
                     </Box>
-                    <PlusBorder />
                 </Box>
-            </Box>
-            {/* <Box px={8} py={8} width="fit-content" margin="auto" maxW={maxW}>
-                <SimpleGrid columns={[1, 1, 1, 3]} spacing={16}>
-                <About heading={copy.heading1} text={copy.text1} />
-                <About heading={copy.heading2} text={copy.text2} />
-                <About heading={copy.heading3} text={copy.text3} />
-                </SimpleGrid>
-            </Box> */}
-
-            {/* <VStack justifyContent="center" spacing={4} px={4} py={8} bgColor="brand.700">
-            {!minted && !userTokenId ? (
-                <Button
-                onClick={userAddress ? mint : () => openWeb3Modal('Main Page Section')}
-                isLoading={minting}
-                loadingText="Minting..."
-                isDisabled={minted}
-                fontWeight="normal"
-                colorScheme="brand"
-                bgColor="brand.600"
-                // color="brand.900"
-                _hover={{ bg: 'brand.500' }}
-                size="lg"
-                height="60px"
-                minW="xs"
-                boxShadow="lg"
-                fontSize="4xl"
-                borderRadius="full">
-                {userAddress ? mintText() : 'Connect Wallet'}
-                </Button>
-                ) : (
-                    <Box fontSize={[24, 24, 36]} color="white">
-                    <Text>{`${userName}'s ${copy.title} (#${userTokenId}) has been minted.`}</Text>
-                    <Button
-                    colorScheme="brand"
-                    color="white"
-                    variant="outline"
-                    _hover={{ bgColor: 'brand.600' }}
-                    _active={{ bgColor: 'brand.500' }}
-                    mt={2}
-                    size="lg"
-                    rightIcon={<ExternalLinkIcon />}
-                    onClick={() => window.open(heartbeatShowerLink(userTokenId))}>
-                    View your Heartbeat
-                    </Button>
-                    </Box>
-                    )}
-                    {textUnderButton()}
-                </VStack> */}
-        </Stack>
+            </Stack>
+        </>
     )
 }
 

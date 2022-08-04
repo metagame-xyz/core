@@ -23,7 +23,7 @@ export const getSize = (metadata: NftMetadata): { width: number; height: number 
     const canvasWidth = 550
     const canvasHeight = sentences.length * sentenceSpaceSize + sentenceOffset + titleOffset
 
-    return { width: canvasWidth, height: canvasHeight }
+    return { width: canvasWidth, height: Math.round(canvasHeight) }
 }
 
 export default function generateSvg(metadata: NftMetadata): string {

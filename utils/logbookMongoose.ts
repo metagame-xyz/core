@@ -54,8 +54,6 @@ export class LogbookMongoose {
         try {
             const { address } = nftMetadata
 
-            console.log('nftMetadata', nftMetadata)
-
             const existingData = await cached.conn.models.NftMetadata.findOne({ address })
 
             if (existingData?.tokenId) {
@@ -65,8 +63,6 @@ export class LogbookMongoose {
             const result = await cached.conn.models.NftMetadata.findOneAndUpdate({ address }, nftMetadata, {
                 upsert: true,
             })
-
-            console.log('result', result)
         } catch (err) {
             console.error('mongoose addOrUpdateNftMetadata error', err)
         }
@@ -92,8 +88,6 @@ export class LogbookMongoose {
         try {
             const user = await cached.conn.models.NftMetadata.findOne({ address })
 
-            console.log(user)
-
             if (!user) return null
 
             const parsedUser = nftMetadataZ.safeParse(user.toObject())
@@ -114,8 +108,6 @@ export class LogbookMongoose {
         await this.connect()
         try {
             const user = await cached.conn.models.NftMetadata.findOne({ tokenId })
-
-            console.log(user)
 
             if (!user) return null
 

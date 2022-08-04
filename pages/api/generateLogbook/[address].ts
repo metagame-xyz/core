@@ -34,6 +34,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
         const user = await metabotMongoose.getUserByEthAddress(address)
         // timer.stopTimer(logData.third_party_name)
 
+        console.log('got user')
         if (!(user?.txHashList?.length > 0)) {
             throw new Error('No txHashList, or empty txHashList')
         }
@@ -42,15 +43,20 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
         // timer.startTimer('getTranslator')
         const translator = await getTranslator(address)
         // timer.stopTimer('getTranslator')
+        console.log('got translator')
 
         timer.startTimer('getTxHashFromDB')
         const decodedTx = await translator.getManyDecodedTxFromDB(user.txHashList)
+        // const decodedTx = await translator.databaseInterface.getManyDecodedByAddress(address)
         timer.stopTimer('getTxHashFromDB')
+
+        console.log('got decodedTx', decodedTx.length)
 
         timer.startTimer('interpretTxArr')
         const interpretedData = await translator.interpretDecodedTxArr(decodedTx, address)
         timer.stopTimer('interpretTxArr')
 
+        console.log('interpreted')
         // debugger
 
         logData.third_party_name = 'createSentences'
