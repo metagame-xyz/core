@@ -22,7 +22,7 @@ function IconLink({ Icon, url, ...props }) {
 
 const etherscanUrl = `https://${networkStrings.etherscan}etherscan.io/address/${LOGBOOK_CONTRACT_ADDRESS}`
 const twitterUrl = 'https://twitter.com/Metagame'
-const openseaUrl = `https://opensea.io/collection/logbook-xyz`
+const openseaUrl = `https://opensea.io/collection/logbook-by-metagame`
 
 const EtherscanIcon = (props) => (
     <Icon viewBox="0 0 52 52" {...props}>

@@ -97,6 +97,8 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 
         logData.extra = { sentences: sentences.length }
 
+        
+
         logSuccess(logData)
 
         // const svgBuffer = Buffer.from(svgString, 'utf-8')
