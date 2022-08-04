@@ -77,7 +77,7 @@ export class LogbookMongoose {
                 { upsert: true },
             )
 
-            return metadata.toObject()
+            return { ...metadata.toObject(), tokenId }
         } catch (err) {
             console.error('mongoose addOrUpdateNftMetadata error', err)
         }
