@@ -224,7 +224,7 @@ const Home = () => {
                 {
                     gasLimit: 2100000,
                     gasPrice: 8000000000,
-                    value: process.env.VERCEL_ENV === 'production' ? parseEther('0.02') : 0,
+                    value: parseEther('0.02'),
                 },
             )
             const txReceipt = await tx.wait()
