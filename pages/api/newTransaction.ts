@@ -33,14 +33,18 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
         const tokenIdStr = String(tokenId)
 
-        await OpenseaForceUpdate.enqueue(
-            {
-                tokenId: tokenIdStr,
-                attempt: 1,
-                newImageUrl: metadata.image,
-            },
-            { id: tokenIdStr, override: true },
-        )
+        try {
+            await OpenseaForceUpdate.enqueue(
+                {
+                    tokenId: tokenIdStr,
+                    attempt: 1,
+                    newImageUrl: metadata.image,
+                },
+                { id: tokenIdStr, override: true },
+            )
+        } catch (error) {
+            logError(logData, error)
+        }
 
         logSuccess(logData)
         res.status(200).send({
