@@ -120,8 +120,20 @@ export class LogbookMongoose {
 
             return parsedUser.success ? parsedUser.data : null
         } catch (err) {
-            console.error('mongoose getUserForAddress error', err)
+            console.error('mongoose getMetadataForTokenId error', err)
             return null
+        }
+    }
+
+    async getMetadataForExistingTokenIds(): Promise<NftMetadata[]> {
+        await this.connect()
+        try {
+            const metadataArr = await cached.conn.models.NftMetadata.find({ tokenId: { $exists: true } })
+
+            return metadataArr
+        } catch (err) {
+            console.error('mongoose getMetadataForExistingTokenIds error', err)
+            return []
         }
     }
 }
