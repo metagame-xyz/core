@@ -4,15 +4,12 @@ import { useEffect } from 'react'
 import { datadogRum } from '@datadog/browser-rum'
 import { darkTheme, RainbowKitProvider, Theme } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
-import '@rainbow-me/rainbowkit/styles.css'
-import { Grommet, ThemeType } from 'grommet'
 import { WagmiConfig } from 'wagmi'
 
 import { DATADOG_RUM_APPLICATION_ID, DATADOG_RUM_CLIENT_TOKEN, DATADOG_RUM_ENV } from 'utils/constants'
+import { appName } from 'utils/content'
 import { chains, wagmiClient } from 'utils/rainbowkit'
 
-// import Layout from 'components/Layout';
-// import EthereumProvider from '../providers/EthereumProvider';
 import '../styles/globals.css'
 import theme from '../styles/theme'
 
@@ -31,7 +28,7 @@ function App({ Component, pageProps }: AppProps): JSX.Element {
             applicationId: DATADOG_RUM_APPLICATION_ID,
             clientToken: DATADOG_RUM_CLIENT_TOKEN,
             site: 'datadoghq.com',
-            service: 'logbook',
+            service: appName,
             env: DATADOG_RUM_ENV,
             // Specify a version number to identify the deployed version of your application in Datadog
             // version: '1.0.0',
@@ -46,9 +43,7 @@ function App({ Component, pageProps }: AppProps): JSX.Element {
     return (
         <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider chains={chains} theme={customTheme}>
-                <Grommet theme={theme as ThemeType} background="backgroundDark" className="grommet-container">
-                    <Component {...pageProps} />
-                </Grommet>
+                <Component {...pageProps} />
             </RainbowKitProvider>
         </WagmiConfig>
     )

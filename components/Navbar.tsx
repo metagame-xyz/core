@@ -6,7 +6,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 import { copy } from 'utils/content'
 
-import { Etherscan, Logo, Opensea, Twitter } from 'components/Icons'
+import { Logo, Opensea, Twitter } from 'components/Icons'
 
 function Navbar(props) {
     // const { userName, openWeb3Modal, avatarUrl } = useEthereum();
@@ -34,7 +34,6 @@ function Navbar(props) {
                 <HStack align="center" spacing={[3, 4, 5, 6]}>
                     <Twitter />
                     <Opensea />
-                    <Etherscan />
                     {userName ? (
                         <Box bgColor="brand.700" color="white" px={4} py={3} borderRadius="full">
                             <HStack>
@@ -44,17 +43,6 @@ function Navbar(props) {
                         </Box>
                     ) : (
                         <ConnectButton />
-                        // <Button
-                        //     onClick={() => openWeb3Modal('Navbar')}
-                        //     fontWeight="normal"
-                        //     colorScheme="brand"
-                        //     bg="brand.700"
-                        //     size="lg"
-                        //     boxShadow="lg"
-                        //     fontSize="2xl"
-                        //     borderRadius="full">
-                        //     Connect
-                        // </Button>
                     )}
                 </HStack>
             </HStack>

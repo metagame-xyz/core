@@ -27,16 +27,7 @@ export function metadataToOpenSeaMetadata(metadata: NftMetadata): OpenSeaMetadat
         description: metadata.description,
         image: metadata.image,
         external_url: metadata.externalUrl,
-        attributes: [
-            {
-                trait_type: 'address',
-                value: metadata.address,
-            },
-            {
-                trait_type: 'sentence count',
-                value: metadata.sentences.length,
-            },
-        ],
+        attributes: [],
     }
 
     return openseaMetadata

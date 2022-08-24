@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
-import { Button } from 'grommet'
+import { Button } from '@chakra-ui/react'
 
 export const enum MintStatus {
     unknown = 'unknown',
     loading = 'Loading...',
-    can_mint = 'Mint for 0.02 ETH',
+    can_mint = 'Mint for some ETH',
     minting = 'Minting...',
-    minted = 'See your logbook',
+    minted = 'See your NFT',
     metabot = 'Get allowlisted',
     processing = 'Processing...',
 }
@@ -25,14 +25,9 @@ const MintButton = ({ mintStatus, clickable, action = (a) => a }) => {
             onMouseLeave={() => setActionLabel(mintStatus)}
             style={{ width: '100%' }}
         >
-            <Button
-                onClick={action}
-                size="large"
-                primary
-                disabled={!clickable}
-                label={actionLabel}
-                style={{ width: '100%' }}
-            />
+            <Button onClick={action} size="large" disabled={!clickable} style={{ width: '100%' }}>
+                {actionLabel}
+            </Button>
         </div>
     )
 }
