@@ -36,10 +36,3 @@ export const removeFromIPFS = async (ipfsURL: string): Promise<CID> => {
     const result = await client.pin.rm(cid)
     return result
 }
-
-export const listIPFSPins = async (): Promise<any> => {
-    for await (const { cid, type } of client.pin.ls()) {
-        console.log(`https://logbook.infura-ipfs.io/${cid.toString()}`)
-        // console.log({ cid, type });
-    }
-}

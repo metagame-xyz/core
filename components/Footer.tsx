@@ -1,35 +1,36 @@
-import { useContext } from 'react'
+import { Center, Flex, Grid, Link, Stack, Text } from '@chakra-ui/react'
 
-import { Anchor, Box, ResponsiveContext, Stack, Text } from 'grommet'
-
-import { Etherscan, Opensea, TwelveCircles, Twitter } from './Icons'
+import { TwelveCircles, Twitter } from './Icons'
 
 const hover = { color: 'brand.300' }
 
 export default function Footer(props) {
-    const isMobile = useContext(ResponsiveContext) === 'small'
-
     return (
-        <Box width="100%" direction="row" justify="stretch" align="center">
-            <Box justify="center" align="start" basis="1/2">
-                <Box
-                    justify="start"
-                    align="center"
-                    onClick={() => window.open('https://themetagame.xyz', '_blank')}
-                    direction={isMobile ? 'column' : 'row'}
-                    gap="xsmall"
-                >
-                    <TwelveCircles />
-                    <Text textAlign="center" size="xsmall">
-                        Metagame
-                    </Text>
-                </Box>
-            </Box>
-            <Box direction="row" align="center" justify="end" gap="xsmall" basis="1/2">
-                <Twitter boxSize={[6, 8]} _hover={hover} boxShadow={''} />
-                <Opensea boxSize={[6, 8]} _hover={hover} boxShadow={''} />
-                <Etherscan boxSize={[6, 8]} _hover={hover} boxShadow={''} />
-            </Box>
-        </Box>
+        <Flex width="100%" bgColor="brand.700">
+            <Grid
+                as="footer"
+                w={'100%'}
+                margin="auto"
+                p={4}
+                gap={1}
+                templateColumns="repeat(3, 1fr)"
+                color="brand.50"
+                {...props}
+            >
+                <Flex align="center"></Flex>
+                <Link _hover={{ textDecoration: 'none' }} isExternal href="https://www.themetagame.xyz">
+                    <Stack direction={['column', 'column', 'row']} spacing={2} align="center" justify="center">
+                        <TwelveCircles boxSize={8} color="white" />
+                        {/* pt=1 cuz this font sits too high */}
+                        <Center fontFamily="courier prime" pt={1} fontSize={['sm', 'md', 'xl', 'xl']}>
+                            The Metagame
+                        </Center>
+                    </Stack>
+                </Link>
+                <Stack direction={'row'} spacing={2} align="center" justify="flex-end" color="brand.100">
+                    <Twitter boxSize={[6, 8]} _hover={hover} boxShadow={''} />
+                </Stack>
+            </Grid>
+        </Flex>
     )
 }

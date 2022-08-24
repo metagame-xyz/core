@@ -1,5 +1,4 @@
 import {
-    LOGBOOK_CONTRACT_ADDRESS,
     networkScanAPIKeys,
     networkStrings,
     OPENSEA_API_KEY,
@@ -84,9 +83,9 @@ export async function fetcher(url: string, options = fetchOptions) {
     }
 }
 
-export async function forceUpdateOpenSeaMetadata(tokenId, forceMainnet = false): Promise<any> {
+export async function forceUpdateOpenSeaMetadata(contractAddress, tokenId, forceMainnet = false): Promise<any> {
     const networkString = forceMainnet ? 'api.' : networkStrings.openseaAPI
-    const url = `https://${networkString}opensea.io/api/v1/asset/${LOGBOOK_CONTRACT_ADDRESS}/${tokenId}/?force_update=true`
+    const url = `https://${networkString}opensea.io/api/v1/asset/${contractAddress}/${tokenId}/?force_update=true`
     return fetcher(url, openseaFetchOptions)
 }
 

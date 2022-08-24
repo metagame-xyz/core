@@ -7,17 +7,19 @@ export interface MetaProps {
     type?: string
 }
 
-const description = 'DESCRIPTION'
+export const appName = 'Template'
+
+const description = 'DESCRIPTION change me'
 
 export const headMetadata: MetaProps = {
-    title: 'Logbook by the Metagame',
+    title: 'TITLE Change me',
     description,
-    image: `https://${WEBSITE_URL}/site-preview.png`,
+    image: `https://${WEBSITE_URL}/images/site-preview.png`,
     type: 'website',
 }
 
 export const copy = {
-    title: 'Logbook by the Metagame',
+    title: 'Template',
     nameLowercase: 'NAME_LOWERCASE',
     heroSubheading: description,
     heading1: 'HEADING 1',

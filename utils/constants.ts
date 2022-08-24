@@ -24,16 +24,11 @@ export const DATADOG_RUM_CLIENT_TOKEN = process.env.NEXT_PUBLIC_DATADOG_RUM_CLIE
 export const DATADOG_RUM_ENV = process.env.NEXT_PUBLIC_DATADOG_RUM_ENV
 
 export const METABOT_DB_CONNECTION_STRING = process.env.METABOT_DB_CONNECTION_STRING
-export const LOGBOOK_DB_CONNECTION_STRING = process.env.LOGBOOK_DB_CONNECTION_STRING
 export const EVM_TRANSLATOR_CONNECTION_STRING = process.env.EVM_TRANSLATOR_CONNECTION_STRING
-
-export const URLBOX_API_KEY = process.env.URLBOX_API_KEY
-export const URL_BOX_API_SECRET = process.env.URL_BOX_API_SECRET
 
 export const isProdEnv = process.env.NODE_ENV === 'production'
 
 /* Frontend Constants */
-export const LOGBOOK_CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_LOGBOOK_CONTRACT_ADDRESS?.toLowerCase()
 export const NETWORK = process.env.NEXT_PUBLIC_NETWORK?.toLowerCase()
 export const INFURA_PROJECT_ID = process.env.NEXT_PUBLIC_INFURA_PROJECT_ID
 export const ALCHEMY_PROJECT_ID = process.env.NEXT_PUBLIC_ALCHEMY_PROJECT_ID
@@ -43,12 +38,7 @@ export const ALCHEMY_PROJECT_ID = process.env.NEXT_PUBLIC_ALCHEMY_PROJECT_ID
 export const WEBSITE_URL = process.env.NEXT_PUBLIC_WEBSITE_URL
 export const networkStrings = getNetworkString(NETWORK)
 export const THE_METAGAME_ETH_ADDRESS = '0x902A37155438982884ca26A5DBccf73f5ae8194b'
-export const VALIDATOR_PRIVATE_KEY = process.env.NEXT_PUBLIC_VALIDATOR_PRIVATE_KEY
-
-/* Events */
-export const connect_button_clicked = 'Connect Button Clicked'
-export const wallet_provider_clicked = 'Wallet Provider Clicked'
-export const wallet_provider_connected = 'Wallet Provider Connected'
+export const VALIDATOR_PRIVATE_KEY = process.env.VALIDATOR_PRIVATE_KEY
 
 type NetworkStrings = {
     alchemy: string
@@ -64,6 +54,17 @@ type NetworkStrings = {
 function getNetworkString(network: string): NetworkStrings {
     switch (network.toLowerCase()) {
         case 'ethereum':
+            return {
+                alchemy: 'eth-mainnet.',
+                ethers: 'homestead',
+                etherscan: '',
+                etherscanAPI: 'api.',
+                polygonscanAPI: 'api.',
+                opensea: '',
+                openseaAPI: 'api.',
+                web3Modal: 'mainnet',
+            }
+        case 'homestead':
             return {
                 alchemy: 'eth-mainnet.',
                 ethers: 'homestead',
@@ -108,3 +109,7 @@ export const productionNetworkApiURLs = {
 export const blackholeAddress = '0x0000000000000000000000000000000000000000'
 
 export const slackErrorsChannelId = ''
+
+// export const etherscanUrl = `https://${networkStrings.etherscan}etherscan.io/address/${}`
+export const twitterUrl = 'https://twitter.com/Metagame'
+export const openseaUrl = `https://opensea.io/collection/`
