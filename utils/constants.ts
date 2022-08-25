@@ -40,6 +40,9 @@ export const networkStrings = getNetworkString(NETWORK)
 export const THE_METAGAME_ETH_ADDRESS = '0x902A37155438982884ca26A5DBccf73f5ae8194b'
 export const VALIDATOR_PRIVATE_KEY = process.env.VALIDATOR_PRIVATE_KEY
 
+export const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID
+export const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET
+
 type NetworkStrings = {
     alchemy: string
     ethers: string
