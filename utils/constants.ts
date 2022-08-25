@@ -42,7 +42,9 @@ export const VALIDATOR_PRIVATE_KEY = process.env.VALIDATOR_PRIVATE_KEY
 
 export const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID
 export const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET
+export const DB_REQUEST_TOKEN = process.env.DB_REQUEST_TOKEN
 
+export const MONGOOSE_CONNECTION_STRING = process.env.MONGODB_CONNECTION_STRING
 type NetworkStrings = {
     alchemy: string
     ethers: string

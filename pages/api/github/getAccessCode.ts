@@ -11,6 +11,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             `http://github.com/login/oauth/access_token?client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}&code=${code}`,
         )
 
+        const { data: user } = await axios.get('https://api.github.com/user', {
+            headers: {
+                Accept: 'application/vnd.github+json',
+                Authorization: `token ${token}`,
+            },
+        })
+
+        console.log('TOKEN', user)
+
         // TODO: store token in DB
 
         res.status(200).json({ success: true })
