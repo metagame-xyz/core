@@ -14,6 +14,7 @@
         "latest": "yarn upgrade evm-translator@latest"
     },
     "dependencies": {
+        "@apollo/client": "^3.6.9",
         "@chakra-ui/icons": "^1.0.16",
         "@chakra-ui/react": "^2.2.9",
         "@datadog/browser-rum": "^4.16.0",
