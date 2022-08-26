@@ -7,7 +7,6 @@ import { ethers } from 'ethers'
 import {
     ALCHEMY_NOTIFY_TOKEN,
     ALCHEMY_PROJECT_ID,
-    DB_REQUEST_TOKEN,
     ETHERSCAN_API_KEY,
     EVENT_FORWARDER_AUTH_TOKEN,
     INFURA_PROJECT_ID,
