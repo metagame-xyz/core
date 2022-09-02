@@ -41,5 +41,5 @@ export default async function handler(req: any, res: NextApiResponse) {
         0,
     )
 
-    res.status(200).json(contributionCount)
+    return res.status(200).json(contributionCount)
 }
