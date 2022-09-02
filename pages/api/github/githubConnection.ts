@@ -2,7 +2,6 @@ import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from '@apollo/clien
 import { Address } from '@wagmi/core/dist/declarations/src/types'
 import axios from 'axios'
 
-import mongoose from 'utils/clients/mongoose'
 import { METABOT_BASE_API_URL } from 'utils/constants'
 
 class GithubConnection {
