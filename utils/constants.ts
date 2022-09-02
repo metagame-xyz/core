@@ -45,6 +45,9 @@ export const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET
 export const DB_REQUEST_TOKEN = process.env.DB_REQUEST_TOKEN
 
 export const MONGOOSE_CONNECTION_STRING = process.env.MONGODB_CONNECTION_STRING
+export const NOMAD_WHITEHAT_CONTRACT_ADDRESS = process.env.NOMAD_WHITEHAT_CONTRACT_ADDRESS
+export const LOGBOOK_CONTRACT_ADDRESS = process.env.LOGBOOK_CONTRACT_ADDRESS
+
 type NetworkStrings = {
     alchemy: string
     ethers: string
