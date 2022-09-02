@@ -6,23 +6,14 @@ import mongoose from 'utils/clients/mongoose'
 import { METABOT_BASE_API_URL } from 'utils/constants'
 
 class GithubConnection {
-    address: Address
-    username: string
     token: string
     client
 
-    constructor(address) {
-        this.address = address
+    constructor(token) {
+        this.token = token
     }
 
     async connect() {
-        await mongoose.connect()
-
-        const { data: user } = await axios(`${METABOT_BASE_API_URL}/api/db/getUserByEthAddress/${this.address}`)
-        if (!user) return
-        this.username = user.githubUsername
-        this.token = user.githubAccessToken
-
         const httpLink = new HttpLink({ uri: 'https://api.github.com/graphql' })
 
         const authLink = new ApolloLink((operation, forward) => {
