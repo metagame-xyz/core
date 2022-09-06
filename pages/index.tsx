@@ -60,7 +60,6 @@ const Home = () => {
 
             try {
                 if (address) {
-                    console.log('address', address)
                     const filter = contract.filters.Transfer(blackholeAddress, address)
                     const [event] = await contract.queryFilter(filter) // get first event, should only be one
                     if (event) {
@@ -88,8 +87,6 @@ const Home = () => {
                 if (!address) {
                     localMintStatus = MintStatus.unknown
                 }
-
-                console.log('tokenId', tokenId)
             } catch (error) {
                 console.error(error)
                 // toast(toastErrorData('Get User Minted Token Error', JSON.stringify(error)))
@@ -129,8 +126,6 @@ const Home = () => {
                 txHash: tx.hash,
                 tokenId: tokenId.toString(),
             })
-
-            console.log('Transaction:', tx.hash)
 
             setUserTokenId(tokenId.toNumber())
             setMintStatus(MintStatus.minted)

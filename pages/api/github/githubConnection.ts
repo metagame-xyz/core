@@ -14,13 +14,11 @@ class GithubConnection {
 
     async connect() {
         const httpLink = new HttpLink({ uri: 'https://api.github.com/graphql' })
-        console.log('tokennn', this.token)
 
         const authLink = new ApolloLink((operation, forward) => {
             // Retrieve the authorization token from local storage.
 
             // Use the setContext method to set the HTTP headers.
-            console.log('token', this.token)
             operation.setContext({
                 headers: {
                     authorization: this.token ? `Bearer ${this.token}` : '',

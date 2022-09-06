@@ -36,7 +36,6 @@ export default async function handler(req: any, res: NextApiResponse) {
         (contribution) => contribution?.repository?.name === repo,
     )
     if (!contributions || !contributions.length) {
-        console.log('no contributions', response?.data?.user?.contributionsCollection?.commitContributionsByRepository)
         return res.status(200).json(0)
     }
     const contributionCount = (contributions[0]?.contributions?.nodes || []).reduce(
@@ -44,6 +43,5 @@ export default async function handler(req: any, res: NextApiResponse) {
         0,
     )
 
-    console.log('contributions', contributions[0]?.contributions?.nodes)
     return res.status(200).json(contributionCount)
 }
