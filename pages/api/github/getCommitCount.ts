@@ -36,13 +36,10 @@ export default async function handler(req: any, res: NextApiResponse) {
         (contribution) => contribution?.repository?.name === repo,
     )
 
-    console.log(contributions)
-
     if (!contributions || !contributions.length) {
         return res.status(200).json(0)
     }
 
-    console.log(contributions.nodes)
     const contributionCount = (contributions[0]?.contributions?.nodes || []).reduce(
         (prev, cur) => prev + (cur?.commitCount || 0),
         0,
