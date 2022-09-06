@@ -21,7 +21,8 @@ class GithubConnection {
             // Use the setContext method to set the HTTP headers.
             operation.setContext({
                 headers: {
-                    authorization: this.token ? `Bearer ${this.token}` : '',
+                    authorization: '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',
+                    //authorization: this.token ? `Bearer ${this.token}` : '',
                 },
             })
 
