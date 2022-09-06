@@ -35,6 +35,9 @@ export default async function handler(req: any, res: NextApiResponse) {
     const contributions = (response?.data?.user?.contributionsCollection?.commitContributionsByRepository || []).filter(
         (contribution) => contribution?.repository?.name === repo,
     )
+
+    console.log(contributions)
+
     if (!contributions || !contributions.length) {
         return res.status(200).json(0)
     }
