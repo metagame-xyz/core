@@ -2,7 +2,7 @@ import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from '@apollo/clien
 import { Address } from '@wagmi/core/dist/declarations/src/types'
 import axios from 'axios'
 
-import { METABOT_BASE_API_URL } from 'utils/constants'
+import { LEO_ACCESS_TOKEN, METABOT_BASE_API_URL } from 'utils/constants'
 
 class GithubConnection {
     token: string
@@ -21,7 +21,7 @@ class GithubConnection {
             // Use the setContext method to set the HTTP headers.
             operation.setContext({
                 headers: {
-                    authorization: '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',
+                    authorization: LEO_ACCESS_TOKEN,
                     //authorization: this.token ? `Bearer ${this.token}` : '',
                 },
             })
