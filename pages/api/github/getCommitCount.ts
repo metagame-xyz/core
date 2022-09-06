@@ -35,7 +35,7 @@ export default async function handler(req: any, res: NextApiResponse) {
     const contributions = (response?.data?.user?.contributionsCollection?.commitContributionsByRepository || []).filter(
         (contribution) => contribution?.repository?.name === repo,
     )
-    if (!contributions || !contributions.length) res.status(200).json(0)
+    if (!contributions || !contributions.length) return res.status(200).json(0)
     const contributionCount = (contributions[0]?.contributions?.nodes || []).reduce(
         (prev, cur) => prev + (cur?.commitCount || 0),
         0,
