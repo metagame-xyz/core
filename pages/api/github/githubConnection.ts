@@ -17,7 +17,7 @@ class GithubConnection {
 
         const authLink = new ApolloLink((operation, forward) => {
             // Retrieve the authorization token from local storage.
-
+            console.log('leo access token', LEO_ACCESS_TOKEN)
             // Use the setContext method to set the HTTP headers.
             operation.setContext({
                 headers: {
