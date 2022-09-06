@@ -19,6 +19,7 @@ class GithubConnection {
             // Retrieve the authorization token from local storage.
 
             // Use the setContext method to set the HTTP headers.
+            console.log('token', this.token)
             operation.setContext({
                 headers: {
                     authorization: this.token ? `Bearer ${this.token}` : '',
