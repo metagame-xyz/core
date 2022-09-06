@@ -1,9 +1,7 @@
 import { chains } from 'evm-translator'
 import Interpreter from 'evm-translator/lib/core/Interpreter'
-import { User } from 'models/metabotUser'
 
 import { NOMAD_WHITEHAT_CONTRACT_ADDRESS } from 'utils/constants'
-import mongoose from 'utils/databaseConns/metabot'
 import { createDomainSeparator } from 'utils/premint'
 import getTranslator from 'utils/translator'
 
@@ -34,8 +32,6 @@ export interface ValidateWhitehatResponse {
 export const whitehatDomainSeparator = createDomainSeparator('Metagame Nomad Whitehat', NOMAD_WHITEHAT_CONTRACT_ADDRESS)
 
 export const validateWhitehat = async (address: string): Promise<ValidateWhitehatResponse> => {
-    await mongoose.connect()
-
     const response = {
         whitehat: true,
         returnedEverything: true,
@@ -43,7 +39,7 @@ export const validateWhitehat = async (address: string): Promise<ValidateWhiteha
         tokensReturned: {},
     }
 
-    const user: User | null = await mongoose.getUserByEthAddress(address)
+    const user = null //  await mongoose.getUserByEthAddress(address)
 
     if (!user) {
         response.whitehat = false
