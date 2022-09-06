@@ -1,8 +1,4 @@
 import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from '@apollo/client'
-import { Address } from '@wagmi/core/dist/declarations/src/types'
-import axios from 'axios'
-
-import { LEO_ACCESS_TOKEN, METABOT_BASE_API_URL } from 'utils/constants'
 
 class GithubConnection {
     token: string
@@ -17,12 +13,10 @@ class GithubConnection {
 
         const authLink = new ApolloLink((operation, forward) => {
             // Retrieve the authorization token from local storage.
-            console.log('leo access token', LEO_ACCESS_TOKEN)
             // Use the setContext method to set the HTTP headers.
             operation.setContext({
                 headers: {
-                    authorization: LEO_ACCESS_TOKEN,
-                    //authorization: this.token ? `Bearer ${this.token}` : '',
+                    authorization: this.token ? `Bearer ${this.token}` : '',
                 },
             })
 
