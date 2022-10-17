@@ -2,6 +2,12 @@ import { ethers, Wallet } from 'ethers'
 
 import { NETWORK, VALIDATOR_PRIVATE_KEY } from 'utils/constants'
 
+export type CheckResponse = {
+    valid: boolean
+    signature: ethers.Signature | null
+    data?: any
+}
+
 export const createDomainSeparator = (name: string, contractAddress: string, tokenId = '1'): string => {
     // tokenId is use for 1155s, where each tokenId has different mint requirements.
     // for 712s, tokenId is always 1.
