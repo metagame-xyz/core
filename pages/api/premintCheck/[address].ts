@@ -2,13 +2,9 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { ethers } from 'ethers'
 
-import { validateLogbookAllowList } from './checks/logbook'
+import { CheckResponse } from 'utils/premint'
 
-export type CheckResponse = {
-    valid: boolean
-    signature: ethers.Signature | null
-    data: any
-}
+import { validateLogbookAllowList } from './checks/logbook'
 
 const enum CheckType {
     logbook = 'logbook',

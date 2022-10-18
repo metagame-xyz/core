@@ -15,8 +15,6 @@ import {
     POCKET_NETWORK_ID,
 } from './constants'
 
-// const slackClient = new WebClient(SLACK_API_TOKEN);
-
 export const defaultProvider = getDefaultProvider(networkStrings.ethers, {
     etherscan: ETHERSCAN_API_KEY,
     infura: INFURA_PROJECT_ID,

@@ -29,6 +29,7 @@
         "evm-translator": "^0.3.8",
         "framer-motion": "^7.2.1",
         "ipfs-http-client": "50.1.2",
+        "lodash": "^4.17.21",
         "mongoose": "^6.4.4",
         "next": "^12.2.5",
         "next-api-middleware": "^2.0.1",
