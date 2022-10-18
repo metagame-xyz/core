@@ -332,7 +332,16 @@ const assetData: AssetData = [
 
 const checkResponse: CheckResponse = {
     valid: true,
-    signature: null, // TODO add real sig
+    signature: {
+        r: '0xa68e6a53467ff7ca037d7b376b714e85a6259ce77c2681e0f9b7a284d5292133',
+        s: '0x503d3dfc7f2105ed6477f840bcac2a6526c2e745411f6aea24092c89337ab8f8',
+        _vs: '0x503d3dfc7f2105ed6477f840bcac2a6526c2e745411f6aea24092c89337ab8f8',
+        recoveryParam: 0,
+        v: 27,
+        yParityAndS: '0x503d3dfc7f2105ed6477f840bcac2a6526c2e745411f6aea24092c89337ab8f8',
+        compact:
+            '0xa68e6a53467ff7ca037d7b376b714e85a6259ce77c2681e0f9b7a284d5292133503d3dfc7f2105ed6477f840bcac2a6526c2e745411f6aea24092c89337ab8f8',
+    },
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
