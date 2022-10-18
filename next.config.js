@@ -22,6 +22,15 @@ module.exports = {
                     },
                 ],
             },
+            {
+                source: '/api/:path*',
+                headers: [
+                    { key: 'origins', value: '*' },
+                    { key: 'Bypass-Tunnel-Reminder', value: '*' },
+                    { key: 'Access-Control-Allow-Origin', value: '*' },
+                    { key: 'Access-Control-Request-Methods', value: 'POST, GET' },
+                ],
+            },
         ]
     },
 }

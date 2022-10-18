@@ -37,7 +37,11 @@ export const isProdEnv = process.env.NODE_ENV === 'production'
 export const NETWORK = process.env.NEXT_PUBLIC_NETWORK?.toLowerCase()
 export const networkStrings = getNetworkString(NETWORK)
 
-// Network specific contract addresses
+export const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID
+export const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET
+export const DB_REQUEST_TOKEN = process.env.DB_REQUEST_TOKEN
+
+export const MONGOOSE_CONNECTION_STRING = process.env.MONGODB_CONNECTION_STRING
 export const NOMAD_WHITEHAT_CONTRACT_ADDRESS = process.env.NOMAD_WHITEHAT_CONTRACT_ADDRESS
 export const LOGBOOK_CONTRACT_ADDRESS = process.env.LOGBOOK_CONTRACT_ADDRESS
 

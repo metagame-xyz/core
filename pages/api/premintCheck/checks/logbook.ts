@@ -1,8 +1,6 @@
 import { ethers } from 'ethers'
-import { User } from 'models/metabotUser'
 
 import { LOGBOOK_CONTRACT_ADDRESS } from 'utils/constants'
-import mongoose from 'utils/databaseConns/metabot'
 import { createDomainSeparator, generateSignature } from 'utils/premint'
 
 export const logbookDomainSeparator = createDomainSeparator('Metagame Logbook', LOGBOOK_CONTRACT_ADDRESS)
@@ -13,9 +11,9 @@ export type ValidateLogbookResponse = {
 }
 
 export const validateLogbookAllowList = async (address: string): Promise<ValidateLogbookResponse> => {
-    await mongoose.connect()
+    // await mongoose.connect()
 
-    const user: User | null = await mongoose.getUserByEthAddress(address)
+    const user = null // await mongoose.getUserByEthAddress(address)
 
     const returnVal: ValidateLogbookResponse = {
         allowlist: false,
