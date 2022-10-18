@@ -1,44 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import _ from 'lodash'
+import { AssetData, CriteriaMap, LayerItemData, LayerItemRow, UserData } from 'types'
+import { IncomingLlamaUserData, LlamaTier, TierToLevel } from 'types/llama'
 
 import { validateLlamaPfpAllowList } from 'api/premintCheck/checks/llama'
-
-import { createDomainSeparator } from 'utils/premint'
-
-const tierToLevel = {
-    Traveler: 1,
-    Explorer: 2,
-    Mountaineer: 3,
-    Rancher: 4,
-}
-
-const enum LlamaTier {
-    Traveler = 'Traveler',
-    Explorer = 'Explorer',
-    Mountaineer = 'Mountaineer',
-    Rancher = 'Rancher',
-}
 
 const getMaxTier = (tiersBySeason: Record<number, LlamaTier>) => {
     const tiers = Object.values(tiersBySeason)
     const maxTier = tiers.reduce((acc: string, curr: string) => {
-        if (tierToLevel[curr] > tierToLevel[acc]) {
+        if (TierToLevel[curr] > TierToLevel[acc]) {
             return curr
         }
         return acc
     }, 'Traveler') as string
     return maxTier
-}
-
-type IncomingLlamaUserData = {
-    id: number
-    created_at: string
-    username: string
-    tier: LlamaTier
-    tier_by_season: Record<number, null | LlamaTier>
-    eth_login_address: string
-    admin: boolean
 }
 
 const llamaUserData: IncomingLlamaUserData = {
@@ -55,16 +31,6 @@ const llamaUserData: IncomingLlamaUserData = {
     },
     eth_login_address: '0xeB9f74528aA4F9cA15612c68dC3eE944dF808611',
     admin: true,
-}
-
-type LayerItemRow = {
-    project: string
-    category: string
-    modifiable: boolean
-    name: string
-    pngLink: string
-    earnedDescription: string
-    earnedCriteria: string | null
 }
 
 const llamaBackgroundSparklyRow: LayerItemRow = {
@@ -100,19 +66,17 @@ const llamaBodyBrownRow: LayerItemRow = {
 const layersArr = [llamaBackgroundSparklyRow, llamaBackgroundStarryRow, llamaBodyBrownRow]
 
 const llamaBackgroundCriteriaChecker = (criteriaRequirement: string) => (llamaUserData: IncomingLlamaUserData) => {
-    const llamaLevel = tierToLevel[llamaUserData.tier]
-    const criteriaLevel = tierToLevel[criteriaRequirement]
+    const llamaLevel = TierToLevel[llamaUserData.tier]
+    const criteriaLevel = TierToLevel[criteriaRequirement]
     return llamaLevel >= criteriaLevel
 }
 
 const llamaNecklaceCriteriaChecker = (criteriaRequirement: string) => (llamaUserData: IncomingLlamaUserData) => {
     const maxTier = getMaxTier(llamaUserData.tier_by_season)
-    const maxTierLevel = tierToLevel[maxTier]
-    const criteriaLevel = tierToLevel[criteriaRequirement]
+    const maxTierLevel = TierToLevel[maxTier]
+    const criteriaLevel = TierToLevel[criteriaRequirement]
     return maxTierLevel >= criteriaLevel
 }
-
-type CriteriaMap = Record<string, Record<string, (string) => any>>
 
 const llamaCriteriaMap: CriteriaMap = {
     background: {
@@ -129,13 +93,6 @@ const llamaCriteriaMap: CriteriaMap = {
     },
 }
 
-type LayerItemData = {
-    name: string
-    pngLink: string
-    earned: boolean
-    earnedDescription: string
-}
-
 const layerItemRowToLayerItem = (
     layerItemRow: LayerItemRow,
     userData: IncomingLlamaUserData,
@@ -149,19 +106,6 @@ const layerItemRowToLayerItem = (
         earnedDescription,
         earned: criteriaMap?.[category]?.[earnedCriteria]?.(userData) || null,
     }
-}
-
-type AssetData = {
-    category: string
-    modifiable: boolean
-    options: LayerItemData[]
-}[]
-
-type UserData = {
-    minted: boolean
-    tokenId: number | null
-    nftName: string | null
-    currentLayers: { category: string; name: string }[]
 }
 
 const userData: UserData = {
