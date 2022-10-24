@@ -1,10 +1,10 @@
 {
-    "name": "nextjs-template",
+    "name": "metagame-core",
     "version": "1.0.0",
     "private": false,
     "license": "GPL-3.0-or-later",
     "scripts": {
-        "dev": "concurrently --kill-others \"lt --port 3000 --subdomain template\" \"next dev\"",
+        "dev": "concurrently --kill-others \"lt --port 3000 --subdomain core\" \"next dev\"",
         "build": "next build",
         "start": "next start",
         "format": "prettier --write \"**/*.ts\" \"**/*.tsx\"",
@@ -24,6 +24,7 @@
         "@fontsource/lato": "^4.5.0",
         "@rainbow-me/rainbowkit": "^0.5.0",
         "axios": "^0.27.2",
+        "canvas": "^2.10.1",
         "datadog-winston": "^1.5.1",
         "ethers": "^5.5.1",
         "evm-translator": "^0.3.8",
