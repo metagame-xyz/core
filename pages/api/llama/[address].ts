@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+import { AddressZ } from 'evm-translator'
 import _ from 'lodash'
 import { AssetData, CriteriaMap, LayerItemData, LayerItemRow, UserData } from 'types'
 import { IncomingLlamaUserData, LlamaTier, TierToLevel } from 'types/llama'
@@ -94,22 +95,46 @@ const llamaUsersBaseUrl = 'https://community.llama.xyz/api/users/'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const address = req.query.address as string
-        const authToken = req.query.check || (token as string)
+        // const address = req.query.address as string
+        const authToken = req.query.jwt || (token as string)
         const llamaUserId = req.query.llamaUserId as string
 
-        const llamaData = await fetcher(llamaUsersBaseUrl + llamaUserId, {
-            headers: { authorization: `Bearer ${token}` },
-        })
+        let llamaData = null
+        try {
+            llamaData = (
+                await fetcher(llamaUsersBaseUrl + llamaUserId, {
+                    headers: { authorization: `Bearer ${authToken}` },
+                })
+            ).body
 
-        const testData = layerItemRowsToAssetData(allRows, llamaData.body, llamaCriteriaMap)
-        // const checkResponse = await validateLlamaPfpAllowList(address, jwt)
+            console.log('llamaData', llamaData)
+        } catch (e) {
+            if (e.status === 401) {
+                return res.status(401).json({ error: 'Unauthorized' })
+            } else {
+                console.log('Error!')
+                console.log(e.status)
+            }
+        }
 
-        console.log('llama data', llamaData)
+        if (!llamaData) {
+            return res.status(404).json({ error: 'Llama user not found' })
+        }
 
-        res.status(200).json(testData)
+        console.log('llamaData', llamaData)
+
+        const parseData = AddressZ.safeParse(llamaData.eth_login_address)
+        const address = parseData.success ? parseData.data : null
+
+        const testData = layerItemRowsToAssetData(allRows, llamaData, llamaCriteriaMap)
+        const checkResponse = await validateLlamaPfpAllowList(address)
+
+        // TODO: get this from the Metatgame database
+        // const userData: UserData = {
+
+        return res.status(200).json({ assetData: testData, checkResponse })
     } catch (error) {
         console.log(error)
-        res.status(500).json({ error: error.message })
+        return res.status(500).json({ error: error.message })
     }
 }
