@@ -41,6 +41,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const address = parseData.success ? parseData.data : null
 
         const assetData = layerItemRowsToAssetData(allRows, llamaData, llamaCriteriaMap)
+
+        // check if any other user is using the same layers. If they have the same body+eyes, inform them that they cant have the same combo
+
         const checkResponse = await validateLlamaPfpAllowList(address)
 
         // TODO: get this from the Metatgame database

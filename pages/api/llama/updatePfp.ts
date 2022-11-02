@@ -1,9 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { createCanvas, loadImage } from 'canvas'
+import { AddressZ, getEntries } from 'evm-translator'
 import { AssetData, LayerItemData } from 'types'
+import { IncomingLlamaUserData } from 'types/llama'
 
-import { getLlamaUserData, layerItemRowsToAssetData, llamaCriteriaMap } from 'utils/llama'
+import { addToIpfsFromBuffer } from 'utils/ipfs'
+import { getLlamaUserData, layerItemRowsToAssetData, llamaCriteriaMap, PROJECT_NAME } from 'utils/llama'
+import { NftMetadata } from 'utils/models'
+import nftMongoose from 'utils/nftDatabase'
 
 import { allRows } from './assetData'
 
@@ -52,16 +57,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     /****************/
     /*     AUTH     */
     /****************/
-    const { jwt, layers, llamaUserId } = req.body
+    const { jwt, layers, llamaUserId } = req.body as { jwt: string; llamaUserId: string; layers: RequestedPfpLayers }
 
     // use JWT to get Address, ENS, etc from llama backend
 
-    let incomingUserData = null
+    let incomingUserData: IncomingLlamaUserData = null
+    let incomingAddress = null
     try {
         incomingUserData = await getLlamaUserData(llamaUserId, jwt)
+        incomingAddress = AddressZ.parse(incomingUserData.eth_login_address)
     } catch (e) {
         if (e.status === 401) {
-            return res.status(401).json({ error: 'Unauthorized' })
+            return res.status(401).json({ error: 'No valid LlamaDAO JWT. Unauthorized' })
         } else {
             console.log('Error!')
             console.log(e.status)
@@ -72,7 +79,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(404).json({ error: 'Llama user not found' })
     }
 
-    // check if this user is allowed to use the layers they've requested
     const assetData = layerItemRowsToAssetData(allRows, incomingUserData, llamaCriteriaMap)
 
     const getLayer = (assetData: AssetData, layer: { category: string; name: string }): LayerItemData | undefined => {
@@ -85,12 +91,51 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const matchingAsset = getLayer(assetData, layer)
 
         if (!matchingAsset) {
-            return res.status(400).json({ error: 'Invalid layer' })
+            return res.status(400).json({ error: `Invalid layer. Either it doesn't exist or you haven't earned it` })
         }
     }
 
-    // generate the multi-layer image using canvas
+    /* check if this user is allowed to use the layers they've requested * /
 
+    /* get all none-modifiable categories */
+    const nonModifiableCategories = allRows
+        .filter((row) => row.modifiable === false)
+        .reduce((acc, row) => {
+            const uniques = acc.includes(row.category) ? acc : [...acc, row.category]
+            return uniques
+        }, [])
+
+    /* get metadata for all existing tokenIDs / Addresses */
+    const metadataArr = await nftMongoose.getAllNftMetadataByProject(PROJECT_NAME)
+
+    /* find the metadata that is using all of the same layers for nonModifiable categories. (if it's null, then they're allowed to use the layers) */
+    const matchingMetadata = metadataArr.find((metadata) => {
+        // filter attributes to only nonModifiable categories
+
+        const nonModifiableLayers = getEntries(metadata.layers).filter(([key]) => {
+            return nonModifiableCategories.includes(key)
+        })
+
+        // check if all nonModifiable categories are the same
+        return nonModifiableLayers.every(([key, value]) => {
+            const matchingLayer = layers.find((layer) => layer.category === key)
+            return matchingLayer && matchingLayer.name === value
+        })
+    })
+
+    // const matchingMetadata = null
+    console.log('matchingMetadata', matchingMetadata)
+
+    console.log('incomingUserData.eth_login_address', incomingAddress)
+    // if it's not this user's metadata, then they're not allowed to use the layers
+    if (matchingMetadata && matchingMetadata.address !== incomingAddress) {
+        // if (matchingMetadata && matchingMetadata.address !== '0x95155452e617a059b6b0c8af433032d554b03929') {
+        return res
+            .status(400)
+            .json({ error: `This configuration already in use by address: ${matchingMetadata.address}` })
+    }
+
+    // generate the multi-layer image using canvas
     const canvas = createCanvas(2400, 2400)
     const ctx = canvas.getContext('2d')
 
@@ -102,14 +147,41 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
     }
 
-    // return res.send(canvas.toBuffer('image/png'))
-    return res.status(200).json({ image: canvas.toDataURL() })
-
     // upload the image to IPFS, return hash
+    const ipfsUrl = await addToIpfsFromBuffer(canvas.toBuffer('image/png'))
 
-    // generate the metadata
+    const metadata: NftMetadata = {
+        project: PROJECT_NAME,
+        image: ipfsUrl,
+        name: `${incomingUserData.username}'s Llama`,
+        address: incomingAddress,
+        // address: '0x95155452e617a059b6b0c8af433032d554b03929',
+        description: `A Llama created by ${incomingUserData.username}. Llamas are only available to Contributors to Llama DAO. Some traits are chosen, some are earned. ${incomingUserData.username} is a ${incomingUserData.tier} within Llama DAO.`,
+        layers: layers.reduce((acc, layer) => {
+            acc[layer.category] = layer.name
+            return acc
+        }, {}) as Record<string, string>,
+        extra: {
+            tier: incomingUserData.tier,
+            username: incomingUserData.username,
+        },
+        timestamp: new Date().toISOString(),
+    }
 
-    // save the layers to the Metagame database
+    // add back the tokenId if it exists
+    if (matchingMetadata) metadata.tokenId = matchingMetadata.tokenId
 
+    // save the metadata to the Metagame database
+    let savedMetadata
+    if (JSON.stringify(metadata.layers) !== JSON.stringify(matchingMetadata.layers)) {
+        savedMetadata = await nftMongoose.createNftMetadata(metadata)
+    }
+
+    return res.status(200).json({
+        ipfsUrl,
+        metadata,
+        savedMetadata,
+        // image: canvas.toDataURL(),
+    })
     // return res.status(200).send({updated: true})
 }

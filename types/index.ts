@@ -9,6 +9,7 @@ export type LayerItemRow = {
 }
 
 export type LayerItemData = {
+    category: string
     name: string
     pngLink: string
     /** null means everyone can have this layer item */
