@@ -1,3 +1,5 @@
+import { getEntries } from 'evm-translator'
+
 import { NftMetadata } from './models'
 
 type Attributes = {
@@ -21,13 +23,17 @@ export type OpenSeaMetadata = {
 // const titleCaseEveryWord = (str: string) =>
 //     str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
 
-export function metadataToOpenSeaMetadata(metadata: NftMetadata): OpenSeaMetadata {
+export const metadataToOpenSeaMetadata = (metadata: NftMetadata): OpenSeaMetadata => {
+    const extraAsAttributes = getEntries(metadata.extra).map(([key, value]) => ({ trait_type: key, value }))
+    const layersAsAttributes = getEntries(metadata.layers).map(([key, value]) => ({ trait_type: key, value }))
+    const attributes = [...extraAsAttributes, ...layersAsAttributes]
+
     const openseaMetadata: OpenSeaMetadata = {
         name: metadata.name,
         description: metadata.description,
         image: metadata.image,
         external_url: metadata.externalUrl,
-        attributes: [],
+        attributes,
     }
 
     return openseaMetadata

@@ -114,6 +114,24 @@ export class NftMongoose {
         }
     }
 
+    async getNftMetadataByProjectAndTokenId(project: string, tokenId: string): Promise<NftMetadata | null> {
+        await this.connect()
+        try {
+            const nftMetadata = await cached.conn.models.Metadata.findOne({ project, tokenId }).sort({
+                timestamp: -1,
+            })
+
+            if (!nftMetadata) return null
+
+            const parsedMetadata = nftMetadata.toObject()
+
+            return parsedMetadata
+        } catch (err) {
+            console.error('mongoose getNftMetadataByProjectAndTokenId error', err)
+            return null
+        }
+    }
+
     async createNftMetadata(nftMetadata: NftMetadata): Promise<NftMetadata | null> {
         await this.connect()
         try {
