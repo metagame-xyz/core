@@ -91,6 +91,7 @@ export const layerItemRowsToAssetData = (
     // filter keys, add earned boolean
     const assetData = layerRowsByCategoryMap.map((val, key) => ({
         category: key,
+        zIndex: val[0].zIndex,
         modifiable: val[0].modifiable,
         options: val.map((obj) => layerItemRowToLayerItem(obj, userData, criteriaMap)),
     }))

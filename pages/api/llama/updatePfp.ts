@@ -5,12 +5,14 @@ import { AddressZ, getEntries } from 'evm-translator'
 import { AssetData, LayerItemData } from 'types'
 import { IncomingLlamaUserData } from 'types/llama'
 
+import { validateLlamaPfpAllowList } from 'api/premintCheck/checks/llama'
+
 import { addToIpfsFromBuffer } from 'utils/ipfs'
 import { getLlamaUserData, layerItemRowsToAssetData, llamaCriteriaMap, PROJECT_NAME } from 'utils/llama'
 import { NftMetadata } from 'utils/models'
 import nftMongoose from 'utils/nftDatabase'
 
-import { allRows } from './assetData'
+import { allRows, nonModifiableCategories } from './assetData'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
@@ -33,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     /**
      * This is the POST API you'll hit in two different places:
      * 1. Once the user has signed the mint transaction, but before you submit the transaction
-     * 2. When a user is updates their PFP
+     * 2. When a user updates their PFP
      *
      * You'll POST to here:
      * core.theMetagame.xyz/api/llama/updatePfp
@@ -76,6 +78,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         } else {
             console.log('Error!')
             console.log(e.status)
+            return res.status(500).json({ error: 'Internal Server Error', message: e.message })
         }
     }
 
@@ -106,14 +109,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const nftMetadataArr = await nftMongoose.getAllNftMetadataByProject(PROJECT_NAME)
     const existingNftMetadata = nftMetadataArr.find((metadata) => metadata.address === incomingAddress)
-
-    /* get all none-modifiable categories */
-    const nonModifiableCategories = allRows
-        .filter((row) => row.modifiable === false)
-        .reduce((acc, row) => {
-            const uniques = acc.includes(row.category) ? acc : [...acc, row.category]
-            return uniques
-        }, [])
 
     /* If they already have the NFT */
     if (existingNftMetadata) {
@@ -190,6 +185,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const canvas = createCanvas(2400, 2400)
     const ctx = canvas.getContext('2d')
 
+    // TODO sort layers by z-index
     for (const layer of requestedLayers) {
         const matchingAsset = getLayerIfEarned(assetData, layer)
         if (matchingAsset) {
@@ -223,11 +219,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (existingNftMetadata) metadata.tokenId = existingNftMetadata.tokenId
 
     // save the metadata to the Metagame database
-    const savedMetadata = await nftMongoose.createNftMetadata(metadata)
+    let savedMetadata: NftMetadata
+    try {
+        savedMetadata = await nftMongoose.createNftMetadata(metadata)
+    } catch (error) {
+        console.error(error)
+        return res.status(500).json({ error: 'error saving metadata to database' })
+    }
+
+    const checkResponse = await validateLlamaPfpAllowList(incomingAddress, jwt, llamaUserId)
 
     return res.status(200).json({
+        checkResponse,
         ipfsUrl,
-        metadata,
+        savedMetadata,
         existingNftMetadata,
     })
     // return res.status(200).send({updated: true})

@@ -10,10 +10,17 @@ const pngFolderUrl = getS3LayersFolderUrl(llamaS3BucketName)
 const getPngUrl = (category: string, name: string): string =>
     `${pngFolderUrl}${category}/${name.replaceAll(' ', '_')}.png`
 
+export const zIndexMap = {
+    Background: 0,
+    Body: 10,
+    Eyes: 20,
+}
+
 export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Background',
+        zIndex: 0,
         modifiable: true,
         name: 'Purple - Blue - Green',
         pngLink: getPngUrl('Background', 'Purple - Blue - Green'),
@@ -23,6 +30,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Background',
+        zIndex: 0,
         modifiable: true,
         name: 'Green - Blue',
         pngLink: getPngUrl('Background', 'Green - Blue'),
@@ -32,6 +40,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Background',
+        zIndex: 0,
         modifiable: true,
         name: 'Green',
         pngLink: getPngUrl('Background', 'Green'),
@@ -41,6 +50,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Background',
+        zIndex: 0,
         modifiable: true,
         name: 'Pink',
         pngLink: getPngUrl('Background', 'Pink'),
@@ -50,6 +60,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Background',
+        zIndex: 0,
         modifiable: true,
         name: 'Blue - Pink - Orange',
         pngLink: getPngUrl('Background', 'Blue - Pink - Orange'),
@@ -59,6 +70,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Background',
+        zIndex: 0,
         modifiable: true,
         name: 'Shooting Stars',
         pngLink: getPngUrl('Background', 'Shooting Stars'),
@@ -68,6 +80,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Background',
+        zIndex: 0,
         modifiable: true,
         name: 'Sparkly',
         pngLink: getPngUrl('Background', 'Sparkly'),
@@ -77,6 +90,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Body',
+        zIndex: 10,
         modifiable: false,
         name: 'Black',
         pngLink: getPngUrl('Body', 'Black'),
@@ -86,6 +100,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Body',
+        zIndex: 10,
         modifiable: false,
         name: 'Brown',
         pngLink: getPngUrl('Body', 'Brown'),
@@ -95,6 +110,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Body',
+        zIndex: 10,
         modifiable: false,
         name: 'Brown with Mane',
         pngLink: getPngUrl('Body', 'Brown with Mane'),
@@ -104,6 +120,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Body',
+        zIndex: 10,
         modifiable: false,
         name: 'Cream with Mane',
         pngLink: getPngUrl('Body', 'Cream with Mane'),
@@ -113,6 +130,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Body',
+        zIndex: 10,
         modifiable: false,
         name: 'Brown with Spots',
         pngLink: getPngUrl('Body', 'Brown with Spots'),
@@ -122,6 +140,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Body',
+        zIndex: 10,
         modifiable: false,
         name: 'Cream with Spots',
         pngLink: getPngUrl('Body', 'Cream with Spots'),
@@ -131,6 +150,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Body',
+        zIndex: 10,
         modifiable: false,
         name: 'Unkempt',
         pngLink: getPngUrl('Body', 'Unkempt'),
@@ -140,6 +160,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Body',
+        zIndex: 10,
         modifiable: false,
         name: 'Cream',
         pngLink: getPngUrl('Body', 'Cream'),
@@ -149,6 +170,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Eyes',
+        zIndex: 20,
         modifiable: false,
         name: 'Squinty',
         pngLink: getPngUrl('Eyes', 'Squinty'),
@@ -158,6 +180,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Eyes',
+        zIndex: 20,
         modifiable: false,
         name: 'Slanted Down',
         pngLink: getPngUrl('Eyes', 'Slanted Down'),
@@ -167,6 +190,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Eyes',
+        zIndex: 20,
         modifiable: false,
         name: 'Slanted Up',
         pngLink: getPngUrl('Eyes', 'Slanted Up'),
@@ -176,6 +200,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Eyes',
+        zIndex: 20,
         modifiable: false,
         name: 'Closed Down',
         pngLink: getPngUrl('Eyes', 'Closed Down'),
@@ -185,6 +210,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Eyes',
+        zIndex: 20,
         modifiable: false,
         name: 'Closed Up',
         pngLink: getPngUrl('Eyes', 'Closed Up'),
@@ -194,6 +220,7 @@ export const allRows: LayerItemRow[] = [
     {
         project: 'llamaPfp',
         category: 'Eyes',
+        zIndex: 20,
         modifiable: false,
         name: 'Open',
         pngLink: getPngUrl('Eyes', 'Open'),
@@ -201,3 +228,11 @@ export const allRows: LayerItemRow[] = [
         earnedDescription: null,
     },
 ]
+
+/* get all none-modifiable categories */
+export const nonModifiableCategories = allRows
+    .filter((row) => row.modifiable === false)
+    .reduce((acc, row) => {
+        const uniques = acc.includes(row.category) ? acc : [...acc, row.category]
+        return uniques
+    }, [])

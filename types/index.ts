@@ -1,6 +1,7 @@
 export type LayerItemRow = {
     project: string
     category: string
+    zIndex: number
     modifiable: boolean
     name: string
     pngLink: string
@@ -21,6 +22,7 @@ export type CriteriaMap = Record<string, Record<string, (string) => any>>
 
 export type AssetData = {
     category: string
+    zIndex: number
     modifiable: boolean
     options: LayerItemData[]
 }[]
