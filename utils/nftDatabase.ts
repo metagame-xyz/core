@@ -76,7 +76,7 @@ export class NftMongoose {
                         image: { $first: '$image' },
                         externalUrl: { $first: '$externalUrl' },
                         layers: { $first: '$layers' },
-                        extra: { $first: '$extras' },
+                        extra: { $first: '$extra' },
                         timestamp: { $first: '$timestamp' },
                     },
                 },

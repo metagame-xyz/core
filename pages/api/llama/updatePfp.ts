@@ -57,7 +57,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     /****************/
     /*     AUTH     */
     /****************/
-    const { jwt, layers, llamaUserId } = req.body as { jwt: string; llamaUserId: string; layers: RequestedPfpLayers }
+    const { jwt, requestedLayers, llamaUserId } = req.body as {
+        jwt: string
+        llamaUserId: string
+        requestedLayers: RequestedPfpLayers
+    }
 
     // use JWT to get Address, ENS, etc from llama backend
 
@@ -81,21 +85,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const assetData = layerItemRowsToAssetData(allRows, incomingUserData, llamaCriteriaMap)
 
-    const getLayer = (assetData: AssetData, layer: { category: string; name: string }): LayerItemData | undefined => {
-        return assetData
+    /* For each layer in layers, check to make sure it exists in the assetData. if it doesn't, return 400 */
+    for (let i = 0; i < requestedLayers.length; i++) {
+        const layer = requestedLayers[i]
+        const foundLayer = assetData
             .find((asset) => asset.category === layer.category)
-            ?.options.find((option) => option.name === layer.name && option.earned !== false)
-    }
+            ?.options.find((option) => option.name === layer.name)
 
-    for (const layer of layers) {
-        const matchingAsset = getLayer(assetData, layer)
-
-        if (!matchingAsset) {
-            return res.status(400).json({ error: `Invalid layer. Either it doesn't exist or you haven't earned it` })
+        if (!foundLayer) {
+            i = requestedLayers.length
+            return res
+                .status(400)
+                .json({ error: `Category: ${layer.category}, Name: ${layer.name} is not valid for ${PROJECT_NAME}` })
         }
     }
 
-    /* check if this user is allowed to use the layers they've requested * /
+    /* Check if the message (layers data) is signed by the same address of the Llama user they're trying to update */
+
+    /* Get the existing nftMetadata for this user's address if it exists */
+
+    const nftMetadataArr = await nftMongoose.getAllNftMetadataByProject(PROJECT_NAME)
+    const existingNftMetadata = nftMetadataArr.find((metadata) => metadata.address === incomingAddress)
 
     /* get all none-modifiable categories */
     const nonModifiableCategories = allRows
@@ -105,42 +115,83 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return uniques
         }, [])
 
-    /* get metadata for all existing tokenIDs / Addresses */
-    const metadataArr = await nftMongoose.getAllNftMetadataByProject(PROJECT_NAME)
+    /* If they already have the NFT */
+    if (existingNftMetadata) {
+        /* Check if they're trying to change non-modifiable layers: reject */
+        for (const requestedLayer of requestedLayers) {
+            if (
+                nonModifiableCategories.includes(requestedLayer.category) &&
+                requestedLayer.name !== existingNftMetadata.layers[requestedLayer.category]
+            ) {
+                return res.status(400).json({
+                    error: `you can't change the ${requestedLayer.category} layer to ${requestedLayer.name} from ${
+                        existingNftMetadata.layers[requestedLayer.category]
+                    }`,
+                })
+            }
+        }
 
-    /* find the metadata that is using all of the same layers for nonModifiable categories. (if it's null, then they're allowed to use the layers) */
-    const matchingMetadata = metadataArr.find((metadata) => {
-        // filter attributes to only nonModifiable categories
+        if (
+            requestedLayers.every((layer) => layer.name === existingNftMetadata.layers[layer.category]) &&
+            existingNftMetadata.extra.username === incomingUserData.username &&
+            existingNftMetadata.extra.tier === incomingUserData.tier
+        ) {
+            return res.status(400).json({
+                error: 'Nothing has changed. All the layers, your username, and the tier are the same. There is nothing to update',
+            })
+        }
+    }
 
-        const nonModifiableLayers = getEntries(metadata.layers).filter(([key]) => {
-            return nonModifiableCategories.includes(key)
+    /* If they don't already have the NFT */
+    if (!existingNftMetadata) {
+        /*
+        find the metadata that is using all of the same layers for nonModifiable categories.
+        (if it's null, then they're allowed to use the layers)
+        */
+        const matchingMetadata = nftMetadataArr.find((metadata) => {
+            // filter attributes to only nonModifiable categories
+            const nonModifiableLayers = getEntries(metadata.layers).filter(([key]) =>
+                nonModifiableCategories.includes(key),
+            )
+
+            // check if all nonModifiable categories are the same
+            return nonModifiableLayers.every(([key, value]) => {
+                const matchingLayer = requestedLayers.find((layer) => layer.category === key)
+                return matchingLayer && matchingLayer.name === value
+            })
         })
 
-        // check if all nonModifiable categories are the same
-        return nonModifiableLayers.every(([key, value]) => {
-            const matchingLayer = layers.find((layer) => layer.category === key)
-            return matchingLayer && matchingLayer.name === value
-        })
-    })
+        // if another address is using the nonModifiable layers, reject
+        if (matchingMetadata) {
+            return res
+                .status(400)
+                .json({ error: `This configuration already in use by address: ${matchingMetadata.address}` })
+        }
+    }
 
-    // const matchingMetadata = null
-    console.log('matchingMetadata', matchingMetadata)
+    /* check if this user is allowed to use the layers they've requested */
+    const getLayerIfEarned = (
+        assetData: AssetData,
+        layer: { category: string; name: string },
+    ): LayerItemData | undefined => {
+        return assetData
+            .find((asset) => asset.category === layer.category)
+            ?.options.find((option) => option.name === layer.name && option.earned !== false)
+    }
 
-    console.log('incomingUserData.eth_login_address', incomingAddress)
-    // if it's not this user's metadata, then they're not allowed to use the layers
-    if (matchingMetadata && matchingMetadata.address !== incomingAddress) {
-        // if (matchingMetadata && matchingMetadata.address !== '0x95155452e617a059b6b0c8af433032d554b03929') {
-        return res
-            .status(400)
-            .json({ error: `This configuration already in use by address: ${matchingMetadata.address}` })
+    for (const layer of requestedLayers) {
+        const matchingAsset = getLayerIfEarned(assetData, layer)
+        if (!matchingAsset) {
+            return res.status(400).json({ error: `you haven't earned this layer (${layer.category}: ${layer.name})` })
+        }
     }
 
     // generate the multi-layer image using canvas
     const canvas = createCanvas(2400, 2400)
     const ctx = canvas.getContext('2d')
 
-    for (const layer of layers) {
-        const matchingAsset = getLayer(assetData, layer)
+    for (const layer of requestedLayers) {
+        const matchingAsset = getLayerIfEarned(assetData, layer)
         if (matchingAsset) {
             const image = await loadImage(matchingAsset.pngLink)
             ctx.drawImage(image, 0, 0, 2400, 2400)
@@ -157,7 +208,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         address: incomingAddress,
         // address: '0x95155452e617a059b6b0c8af433032d554b03929',
         description: `A Llama created by ${incomingUserData.username}. Llamas are only available to Contributors to Llama DAO. Some traits are chosen, some are earned. ${incomingUserData.username} is a ${incomingUserData.tier} within Llama DAO.`,
-        layers: layers.reduce((acc, layer) => {
+        layers: requestedLayers.reduce((acc, layer) => {
             acc[layer.category] = layer.name
             return acc
         }, {}) as Record<string, string>,
@@ -169,19 +220,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // add back the tokenId if it exists
-    if (matchingMetadata) metadata.tokenId = matchingMetadata.tokenId
+    if (existingNftMetadata) metadata.tokenId = existingNftMetadata.tokenId
 
     // save the metadata to the Metagame database
-    let savedMetadata
-    if (JSON.stringify(metadata.layers) !== JSON.stringify(matchingMetadata.layers)) {
-        savedMetadata = await nftMongoose.createNftMetadata(metadata)
-    }
+    const savedMetadata = await nftMongoose.createNftMetadata(metadata)
 
     return res.status(200).json({
         ipfsUrl,
         metadata,
-        savedMetadata,
-        // image: canvas.toDataURL(),
+        existingNftMetadata,
     })
     // return res.status(200).send({updated: true})
 }
