@@ -53,7 +53,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 getEntries(metadata.layers)
                     .filter(([category]) => nonModifiableCategories.includes(category))
                     .sort(([categoryA], [categoryB]) => zIndexMap[categoryA] - zIndexMap[categoryB])
-                    .reduce((acc, [category, name]) => `${acc} ${category}:${name}`, ''),
+                    .reduce((acc, [category, name]) => `${acc} ${category}:${name}`, '')
+                    .trim(),
             )
         }
 

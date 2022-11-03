@@ -67,6 +67,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // use JWT to get Address, ENS, etc from llama backend
 
+    if (!jwt || !llamaUserId || !requestedLayers || requestedLayers.length === 0) {
+        return res.status(400).send('Missing jwt or llamaUserId or requestedLayers')
+    }
+
     let incomingUserData: IncomingLlamaUserData = null
     let incomingAddress = null
     try {
