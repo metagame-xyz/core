@@ -234,10 +234,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const checkResponse = await validateLlamaPfpAllowList(incomingAddress, jwt, llamaUserId)
 
     return res.status(200).json({
+        newMetadata: savedMetadata,
+        oldMetadata: existingNftMetadata,
         checkResponse,
-        ipfsUrl,
-        savedMetadata,
-        existingNftMetadata,
     })
     // return res.status(200).send({updated: true})
 }
