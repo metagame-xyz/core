@@ -5,6 +5,7 @@ import _ from 'lodash'
 
 import { validateLlamaPfpAllowList } from 'api/premintCheck/checks/llama'
 
+import { allowCors } from 'utils/cors'
 import { getLlamaUserData, layerItemRowsToAssetData, llamaCriteriaMap, PROJECT_NAME } from 'utils/llama'
 import nftMongoose from 'utils/nftDatabase'
 
@@ -12,7 +13,7 @@ import { allRows, nonModifiableCategories, zIndexMap } from './assetData'
 
 const token = ''
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
         // const address = req.query.address as string
         const jwt = (req.query.jwt || token) as string
@@ -68,3 +69,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(500).json({ error: error.message })
     }
 }
+
+export default allowCors(handler)
