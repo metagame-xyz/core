@@ -70,4 +70,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 }
 
-export default allowCors(handler)
+export default handler
