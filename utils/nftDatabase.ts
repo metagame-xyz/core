@@ -148,6 +148,23 @@ export class NftMongoose {
             return null
         }
     }
+
+    async addTokenIdForAddress(project: string, walletAddress: string, tokenId: string): Promise<NftMetadata | null> {
+        await this.connect()
+        try {
+            const address = AddressZ.parse(walletAddress)
+            const nftMetadata = await cached.conn.models.Metadata.findOneAndUpdate(
+                { project, address },
+                { tokenId },
+                { upsert: true },
+            )
+
+            return { ...nftMetadata.toObject(), tokenId }
+        } catch (err) {
+            console.error('mongoose addTokenIdForAddress error', err)
+            return null
+        }
+    }
 }
 
 export default new NftMongoose()

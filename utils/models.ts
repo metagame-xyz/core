@@ -31,3 +31,11 @@ export const NftMetadataSchema = new Schema<NftMetadata, NftMetadataModelType>({
     extra: { type: Object, required: false },
     timestamp: { type: String, required: true },
 })
+
+export const projectZ = z.object({
+    name: string,
+    description: string,
+    contractAddress: AddressZ,
+    goerliContractAddress: AddressZ, // should this just be in the dev database instead?
+    // TODO: where should admin <> project relationship be stored?
+})

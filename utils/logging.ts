@@ -90,8 +90,10 @@ export type LogData = {
     message?: any
     third_party_name?: string
     wallet_address?: string
+    contract_address?: string
     token_id?: string
     function_name?: string
+    nft_name?: string
     thrown_error?: any
     job_data?: any
     alert?: boolean
