@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
+// https://vercel.com/guides/how-to-enable-cors#enabling-cors-in-a-single-node.js-serverless-function
 export const allowCors = (fn) => async (req: NextApiRequest, res: NextApiResponse) => {
     res.setHeader('Access-Control-Allow-Credentials', 'true')
     res.setHeader('Access-Control-Allow-Origin', '*')

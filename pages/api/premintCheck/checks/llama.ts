@@ -25,7 +25,7 @@ export const validateLlamaPfpAllowList = async (
         console.log('Error!')
         console.log(e.status)
     }
-    
+
     if (incomingAddress) {
         returnVal.valid = true
         returnVal.signature = await generateSignature(address, llamaPfpDomainSeparator)

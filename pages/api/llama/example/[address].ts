@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import _ from 'lodash'
 import { LlamaTier } from 'types/llama'
+
 import { CheckResponse } from 'utils/premint'
 
 const defaultAvatarUrl = `https://community.llama.xyz/assets/default-avatar.png`
