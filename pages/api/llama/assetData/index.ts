@@ -14,6 +14,7 @@ export const zIndexMap = {
     Background: 0,
     Body: 10,
     Eyes: 20,
+    Ears: 30,
 }
 
 export const allRows: LayerItemRow[] = [
@@ -224,6 +225,16 @@ export const allRows: LayerItemRow[] = [
         modifiable: false,
         name: 'Open',
         pngLink: getPngUrl('Eyes', 'Open'),
+        earnedCriteria: null,
+        earnedDescription: null,
+    },
+    {
+        project: 'llamaPfp',
+        category: 'Ears',
+        zIndex: 30,
+        modifiable: true,
+        name: 'Plain',
+        pngLink: getPngUrl('Ears', 'Plain'),
         earnedCriteria: null,
         earnedDescription: null,
     },
