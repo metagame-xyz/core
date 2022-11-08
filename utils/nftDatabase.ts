@@ -157,7 +157,9 @@ export class NftMongoose {
                 { project, address },
                 { tokenId },
                 { upsert: true },
-            )
+            ).sort({
+                timestamp: -1,
+            })
 
             return { ...nftMetadata.toObject(), tokenId }
         } catch (err) {

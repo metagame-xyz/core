@@ -14,7 +14,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         function_name: 'newTransaction',
         message: `begin`,
         token_id: tokenId,
-        wallet_address: contractAddress,
+        wallet_address: minterAddress,
         contract_address: contractAddress,
         nft_name: project,
     }
@@ -28,6 +28,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             minterAddress: metadata.address,
             tokenId: metadata.tokenId,
             userName: metadata.name,
+            project: metadata.project,
         }
 
         const tokenIdStr = String(tokenId)
