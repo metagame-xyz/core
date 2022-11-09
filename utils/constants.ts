@@ -107,6 +107,9 @@ export const getS3LayersFolderUrl = (project: string): string => `https://${proj
 export const getR2LayersFolderUrl = (project: string): string =>
     `https://pub-f973221ec7dc4a44b71a25a1c673e6e8.r2.dev/${project}/Layers/`
 
+export const getTwicPicFolderUrl = (project: string): string =>
+    `https://metagame.twic.pics/nft-images/${project}/Layers/`
+
 export type ProductionNetworks = 'ethereum' | 'polygon' | 'fantom' | 'avalanche'
 
 export const networkScanAPIKeys = {

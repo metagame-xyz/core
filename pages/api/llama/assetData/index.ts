@@ -1,12 +1,13 @@
 import { LayerItemRow } from 'types'
 
-import { getR2LayersFolderUrl } from 'utils/constants'
+import { getTwicPicFolderUrl } from 'utils/constants'
 import { LLAMA_PROJECT_NAME } from 'utils/llama'
 
 export const llamaS3BucketName = 'llamaPfp'
 // https://llama-pfp.s3.us-east-1.amazonaws.com/Layers/Background/Blue_-_Pink_-_Orange.png
 // const pngFolderUrl = getS3LayersFolderUrl(llamaS3BucketName)
-const pngFolderUrl = getR2LayersFolderUrl(LLAMA_PROJECT_NAME)
+// const pngFolderUrl = getR2LayersFolderUrl(LLAMA_PROJECT_NAME)
+const pngFolderUrl = getTwicPicFolderUrl(LLAMA_PROJECT_NAME)
 
 const getPngUrl = (category: string, name: string): string =>
     `${pngFolderUrl}${category}/${name.replaceAll(' ', '_')}.png`
