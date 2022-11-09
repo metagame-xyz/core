@@ -6,7 +6,7 @@ import _ from 'lodash'
 import { validateLlamaPfpAllowList } from 'api/premintCheck/checks/llama'
 
 import { allowCors } from 'utils/cors'
-import { getLlamaUserData, layerItemRowsToAssetData, llamaCriteriaMap, PROJECT_NAME } from 'utils/llama'
+import { getLlamaUserData, layerItemRowsToAssetData, LLAMA_PROJECT_NAME, llamaCriteriaMap } from 'utils/llama'
 import nftMongoose from 'utils/nftDatabase'
 
 import { allRows, nonModifiableCategories, zIndexMap } from './assetData'
@@ -43,7 +43,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         const assetData = layerItemRowsToAssetData(allRows, llamaData, llamaCriteriaMap)
 
         // get all existing NFT Metdata
-        const nftMetadataArr = await nftMongoose.getAllNftMetadataByProject(PROJECT_NAME)
+        const nftMetadataArr = await nftMongoose.getAllNftMetadataByProject(LLAMA_PROJECT_NAME)
         const existingNftMetadata = nftMetadataArr.find((metadata) => metadata.address === address)
         const otherNftMetadata = nftMetadataArr.filter((metadata) => metadata.address !== address)
 

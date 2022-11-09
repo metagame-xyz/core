@@ -5,7 +5,7 @@ import { IncomingLlamaUserData, LlamaTier, TierToLevel } from 'types/llama'
 import { fetcher } from './requests'
 
 const llamaUsersBaseUrl = 'https://community.llama.xyz/api/users/'
-export const PROJECT_NAME = 'llamaPfp'
+export const LLAMA_PROJECT_NAME = 'llamaPfp'
 
 export const getLlamaUserData = async (userId: string, authToken: string): Promise<IncomingLlamaUserData> => {
     const data = (

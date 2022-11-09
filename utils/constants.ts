@@ -104,6 +104,9 @@ function getNetworkString(network: string): NetworkStrings {
 
 export const getS3LayersFolderUrl = (project: string): string => `https://${project}.s3.us-east-1.amazonaws.com/Layers/`
 
+export const getR2LayersFolderUrl = (project: string): string =>
+    `https://pub-f973221ec7dc4a44b71a25a1c673e6e8.r2.dev/${project}/Layers/`
+
 export type ProductionNetworks = 'ethereum' | 'polygon' | 'fantom' | 'avalanche'
 
 export const networkScanAPIKeys = {

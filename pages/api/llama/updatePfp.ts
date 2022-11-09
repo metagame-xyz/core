@@ -8,7 +8,7 @@ import { IncomingLlamaUserData } from 'types/llama'
 import { validateLlamaPfpAllowList } from 'api/premintCheck/checks/llama'
 
 import { addToIpfsFromBuffer } from 'utils/ipfs'
-import { getLlamaUserData, layerItemRowsToAssetData, llamaCriteriaMap, PROJECT_NAME } from 'utils/llama'
+import { getLlamaUserData, layerItemRowsToAssetData, LLAMA_PROJECT_NAME, llamaCriteriaMap } from 'utils/llama'
 import { NftMetadata } from 'utils/models'
 import nftMongoose from 'utils/nftDatabase'
 
@@ -103,7 +103,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             i = requestedLayers.length
             return res
                 .status(400)
-                .json({ error: `Category: ${layer.category}, Name: ${layer.name} is not valid for ${PROJECT_NAME}` })
+                .json({
+                    error: `Category: ${layer.category}, Name: ${layer.name} is not valid for ${LLAMA_PROJECT_NAME}`,
+                })
         }
     }
 
@@ -111,7 +113,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     /* Get the existing nftMetadata for this user's address if it exists */
 
-    const nftMetadataArr = await nftMongoose.getAllNftMetadataByProject(PROJECT_NAME)
+    const nftMetadataArr = await nftMongoose.getAllNftMetadataByProject(LLAMA_PROJECT_NAME)
     const existingNftMetadata = nftMetadataArr.find((metadata) => metadata.address === incomingAddress)
 
     /* If they already have the NFT */
@@ -202,7 +204,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const ipfsUrl = await addToIpfsFromBuffer(canvas.toBuffer('image/png'))
 
     const metadata: NftMetadata = {
-        project: PROJECT_NAME,
+        project: LLAMA_PROJECT_NAME,
         image: ipfsUrl,
         name: `${incomingUserData.username}'s Llama`,
         address: incomingAddress,
