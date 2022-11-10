@@ -23,7 +23,7 @@ export type UpdatePfpBody = {
     jwt: string
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
     console.log('updatePfp handler called')
     if (req.method !== 'POST') {
         /**
@@ -241,12 +241,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const checkResponse = await validateLlamaPfpAllowList(incomingAddress, jwt, llamaUserId)
 
-    return allowCors(
-        res.status(200).json({
-            newMetadata: savedMetadata,
-            oldMetadata: existingNftMetadata,
-            checkResponse,
-        }),
-    )
+    return res.status(200).json({
+        newMetadata: savedMetadata,
+        oldMetadata: existingNftMetadata,
+        checkResponse,
+    })
+
     // return res.status(200).send({updated: true})
 }
+
+export default allowCors(handler)
