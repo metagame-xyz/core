@@ -7,6 +7,7 @@ import { IncomingLlamaUserData } from 'types/llama'
 
 import { validateLlamaPfpAllowList } from 'api/premintCheck/checks/llama'
 
+import { allowCors } from 'utils/cors'
 import { addToIpfsFromBuffer } from 'utils/ipfs'
 import { getLlamaUserData, layerItemRowsToAssetData, LLAMA_PROJECT_NAME, llamaCriteriaMap } from 'utils/llama'
 import { NftMetadata } from 'utils/models'
@@ -14,7 +15,16 @@ import nftMongoose from 'utils/nftDatabase'
 
 import { allRows, nonModifiableCategories } from './assetData'
 
+type RequestedPfpLayers = { category: string; name: string }[]
+
+export type UpdatePfpBody = {
+    llamaUserId: string
+    requestedLayers: RequestedPfpLayers
+    jwt: string
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    console.log('updatePfp handler called')
     if (req.method !== 'POST') {
         /**
          * During development, it's useful to un-comment this block
@@ -30,8 +40,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(200).send(metadata)
     }
 
-    type RequestedPfpLayers = { category: string; name: string }[]
-
     /**
      * This is the POST API you'll hit in two different places:
      * 1. Once the user has signed the mint transaction, but before you submit the transaction
@@ -42,10 +50,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
      * including a body shaped like this:
      *
      */
-    const exampleBody: { jwt: string; llamaUserId: string; layers: RequestedPfpLayers } = {
+    const exampleBody: UpdatePfpBody = {
         jwt: 'abc123',
         llamaUserId: 'e209a559-41e8-4e45-b71e-fb10604e0107',
-        layers: [
+        requestedLayers: [
             { category: 'Background', name: 'Sparkly' },
             { category: 'Necklace', name: 'Green' },
             { category: 'Body', name: 'Brown' },
@@ -101,11 +109,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         if (!foundLayer) {
             i = requestedLayers.length
-            return res
-                .status(400)
-                .json({
-                    error: `Category: ${layer.category}, Name: ${layer.name} is not valid for ${LLAMA_PROJECT_NAME}`,
-                })
+            return res.status(400).json({
+                error: `Category: ${layer.category}, Name: ${layer.name} is not valid for ${LLAMA_PROJECT_NAME}`,
+            })
         }
     }
 
@@ -235,10 +241,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const checkResponse = await validateLlamaPfpAllowList(incomingAddress, jwt, llamaUserId)
 
-    return res.status(200).json({
-        newMetadata: savedMetadata,
-        oldMetadata: existingNftMetadata,
-        checkResponse,
-    })
+    return allowCors(
+        res.status(200).json({
+            newMetadata: savedMetadata,
+            oldMetadata: existingNftMetadata,
+            checkResponse,
+        }),
+    )
     // return res.status(200).send({updated: true})
 }
