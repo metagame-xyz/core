@@ -3,6 +3,14 @@ module.exports = {
     images: {
         dangerouslyAllowSVG: true,
         domains: ['ipfs.infura.io'],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'metagame-xyz.s3.us-east-1.amazonaws.com',
+                port: '',
+                pathname: '',
+            },
+        ],
     },
     webpack: (config, options) => {
         if (!options.isServer) {
