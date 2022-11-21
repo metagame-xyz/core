@@ -18,11 +18,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         // const address = req.query.address as string
         const jwt = (req.query.jwt || token) as string
         const llamaUserId = req.query.llamaUserId as string
+        const userAddress = req.query.address as string
 
         let llamaData = null
         let address = null
         try {
-            llamaData = await getLlamaUserData(llamaUserId, jwt)
+            llamaData = await getLlamaUserData(llamaUserId, jwt, userAddress)
             address = AddressZ.parse(llamaData.eth_login_address)
         } catch (e) {
             if (e.status === 401) {
