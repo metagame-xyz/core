@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import React, { useContext, useEffect, useState } from 'react'
 
 import { Button } from '@chakra-ui/react'
@@ -7,9 +8,9 @@ import { parseEther } from '@ethersproject/units'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { llamaPfpABI } from 'abis/llamaPfpABI'
 import { BigNumber, Contract, ethers } from 'ethers'
-import { getEntries } from 'evm-translator'
 import { AddressZ } from 'evm-translator/lib/interfaces/utils'
-import { useAccount, useEnsName, useNetwork, useProvider, useSigner } from 'wagmi'
+import { getEntries } from 'evm-translator/lib/utils'
+import { useAccount, useEnsName, useNetwork, useProvider, useSigner, useSignMessage } from 'wagmi'
 import { any } from 'zod'
 
 import { UpdatePfpBody } from 'api/llama/updatePfp'
@@ -20,9 +21,14 @@ import { fetcher } from 'utils/frontend'
 const jwt = ''
 const llamaUserId = 'e209a559-41e8-4e45-b71e-fb10604e0107'
 
-const url = `https://core-dev.themetagame.xyz/api/llama/0x17a059b6b0c8af433032d554b0392995155452e6?llamaUserId=${llamaUserId}&jwt=${jwt}`
+const devUrl = 'https://core-dev.themetagame.xyz'
+const localUrl = 'http://localhost:3000'
 
-const updatePfpUrl = 'https://core-dev.themetagame.xyz/api/llama/updatePfp'
+const domain = localUrl
+
+const url = `${domain}/api/llama/0x17a059b6b0c8af433032d554b0392995155452e6?llamaUserId=${llamaUserId}&jwt=${jwt}`
+
+const updatePfpUrl = `${domain}/api/llama/updatePfp`
 // const updatePfpUrl = 'http://localhost:3000/api/llama/updatePfp'
 
 const EXAMPLE_CONTRACT_ADDRESS = '0x0000000000000000000000000000000000000000'
@@ -42,6 +48,46 @@ const Home = () => {
 
     const llamaContract = new Contract(LLAMA_PFP_CONTRACT_ADDRESS, llamaPfpABI, provider)
     const contractWithSigner = llamaContract.connect(signer)
+
+    const body: UpdatePfpBody = {
+        llamaUserId,
+        requestedLayers: [
+            { category: 'Background', name: 'Purple - Blue - Green' },
+            { category: 'Body', name: 'Black' },
+            { category: 'Eyes', name: 'Squinty' },
+        ],
+        jwt,
+        signature: null,
+    }
+
+    const {
+        error: signError,
+        isLoading: userIsSigning,
+        signMessage,
+    } = useSignMessage({
+        async onSuccess(data, variables, context) {
+            console.log('signed message', data, variables, context)
+            body.signature = data
+            const returnData = await fetch(updatePfpUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body),
+            }).then((res) => res.json())
+
+            console.log('returnData', returnData)
+        },
+    })
+
+    console.log('signError', signError)
+    console.log('userIsSigning', userIsSigning)
+
+    const sign = () => {
+        // const layersMap = userData.existingNftMetadata.layers
+        // const layersArr = getEntries(layersMap).map(([key, value]) => ({ category: key, name: value }))
+        signMessage({ message: JSON.stringify(body.requestedLayers) })
+    }
 
     const mint = async () => {
         try {
@@ -68,6 +114,7 @@ const Home = () => {
                     { category: 'Eyes', name: 'Squinty' },
                 ],
                 jwt,
+                signature: null,
             }
 
             const returnData = await fetch(updatePfpUrl, {
@@ -108,6 +155,13 @@ const Home = () => {
             <ConnectButton />
             <Button onClick={mint}> mint </Button>
             <Button onClick={updatePfp}> update </Button>
+            <Button onClick={sign}> sign </Button>
+            <Image
+                src="https://metagame-xyz.s3.us-east-1.amazonaws.com/nft-images/llamaPfp/Layers/Body/Brown_with_Mane.png"
+                alt="llama"
+                width={50}
+                height={50}
+            />
         </>
     )
 }

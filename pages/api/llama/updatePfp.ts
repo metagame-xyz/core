@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+import { hashMessage } from '@ethersproject/hash'
 import { createCanvas, loadImage } from 'canvas'
+import { recoverAddress } from 'ethers/lib/utils'
 import { AddressZ, getEntries } from 'evm-translator'
 import { AssetData, LayerItemData } from 'types'
 import { IncomingLlamaUserData } from 'types/llama'
@@ -21,6 +23,7 @@ export type UpdatePfpBody = {
     llamaUserId: string
     requestedLayers: RequestedPfpLayers
     jwt: string
+    signature: string
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -62,21 +65,23 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             { category: 'ears', name: 'Purple Headset' },
             { category: 'eyes', name: 'Open' },
         ],
+        signature: '',
     }
 
     /****************/
     /*     AUTH     */
     /****************/
-    const { jwt, requestedLayers, llamaUserId } = req.body as {
+    const { jwt, requestedLayers, llamaUserId, signature } = req.body as {
         jwt: string
         llamaUserId: string
         requestedLayers: RequestedPfpLayers
+        signature: string
     }
 
     // use JWT to get Address, ENS, etc from llama backend
 
-    if (!jwt || !llamaUserId || !requestedLayers || requestedLayers.length === 0) {
-        return res.status(400).send('Missing jwt or llamaUserId or requestedLayers')
+    if (!jwt || !llamaUserId || !requestedLayers || requestedLayers.length === 0 || !signature) {
+        return res.status(400).send('Missing jwt or llamaUserId or requestedLayers or signature')
     }
 
     let incomingUserData: IncomingLlamaUserData = null
@@ -96,6 +101,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     if (!incomingUserData) {
         return res.status(404).json({ error: 'Llama user not found' })
+    }
+
+    // check if the llama user was the one that requested the update
+    const signerAddress = AddressZ.parse(recoverAddress(hashMessage(JSON.stringify(requestedLayers)), signature))
+    if (incomingAddress !== signerAddress) {
+        return res.status(401).json({ error: 'Invalid signature' })
     }
 
     const assetData = layerItemRowsToAssetData(allRows, incomingUserData, llamaCriteriaMap)
