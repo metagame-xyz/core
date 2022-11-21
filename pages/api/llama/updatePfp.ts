@@ -71,11 +71,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     /****************/
     /*     AUTH     */
     /****************/
-    const { jwt, requestedLayers, llamaUserId, signature } = req.body as {
+    const { jwt, requestedLayers, llamaUserId, signature, userAddress } = req.body as {
         jwt: string
         llamaUserId: string
         requestedLayers: RequestedPfpLayers
         signature: string
+        userAddress?: string
     }
 
     // use JWT to get Address, ENS, etc from llama backend
@@ -87,7 +88,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     let incomingUserData: IncomingLlamaUserData = null
     let incomingAddress = null
     try {
-        incomingUserData = await getLlamaUserData(llamaUserId, jwt)
+        incomingUserData = await getLlamaUserData(llamaUserId, jwt, userAddress)
         incomingAddress = AddressZ.parse(incomingUserData.eth_login_address)
     } catch (e) {
         if (e.status === 401) {

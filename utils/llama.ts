@@ -1,13 +1,24 @@
+import { getKeys } from 'evm-translator'
 import _ from 'lodash'
 import { AssetData, CriteriaMap, LayerItemData, LayerItemRow } from 'types'
 import { IncomingLlamaUserData, LlamaTier, TierToLevel } from 'types/llama'
+
+import { devLlamaUsers } from 'api/llama/example/hardcoded'
 
 import { fetcher } from './requests'
 
 const llamaUsersBaseUrl = 'https://community.llama.xyz/api/users/'
 export const LLAMA_PROJECT_NAME = 'llamaPfp'
 
-export const getLlamaUserData = async (userId: string, authToken: string): Promise<IncomingLlamaUserData> => {
+export const getLlamaUserData = async (
+    userId: string,
+    authToken: string,
+    userAddress: string = null,
+): Promise<IncomingLlamaUserData> => {
+    if (getKeys(devLlamaUsers).includes(userAddress) && process.env.VERCEL_ENV !== 'production') {
+        return devLlamaUsers[userAddress]
+    }
+
     const data = (
         await fetcher(llamaUsersBaseUrl + userId, {
             headers: {
