@@ -30,7 +30,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 return res.status(401).json({ error: 'Unauthorized' })
             } else {
                 console.log('Error!')
-                console.log(e.status)
+                console.log(e)
                 return res.status(500).json({ error: 'Internal Server Error', message: e.message })
             }
         }

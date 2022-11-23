@@ -20,7 +20,7 @@ export const validateLlamaPfpAllowList = async (
     let incomingUserData: IncomingLlamaUserData = null
     let incomingAddress = null
     try {
-        incomingUserData = await getLlamaUserData(llamaUserId, jwt)
+        incomingUserData = await getLlamaUserData(llamaUserId, jwt, address)
         incomingAddress = AddressZ.parse(incomingUserData.eth_login_address)
     } catch (e) {
         console.log('Error!')
