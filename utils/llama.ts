@@ -15,7 +15,7 @@ export const getLlamaUserData = async (
     authToken: string,
     userAddress: string = null,
 ): Promise<IncomingLlamaUserData> => {
-    const userAddressClean = userAddress.toLowerCase()
+    const userAddressClean = userAddress?.toLowerCase()
     if (getKeys(devLlamaUsers).includes(userAddressClean) && process.env.VERCEL_ENV !== 'production') {
         return devLlamaUsers[userAddressClean]
     }
