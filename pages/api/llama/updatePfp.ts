@@ -15,7 +15,7 @@ import { getLlamaUserData, layerItemRowsToAssetData, LLAMA_PROJECT_NAME, llamaCr
 import { NftMetadata } from 'utils/models'
 import nftMongoose from 'utils/nftDatabase'
 
-import { allRows, nonModifiableCategories } from './assetData'
+import { allRows, nonModifiableCategories, zIndexMap } from './assetData'
 
 type RequestedPfpLayers = { category: string; name: string }[]
 
@@ -209,7 +209,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const canvas = createCanvas(2400, 2400)
     const ctx = canvas.getContext('2d')
 
-    // TODO sort layers by z-index
+    // sort the layers by category z-index so that the background is drawn first
+    requestedLayers.sort((a, b) => zIndexMap[a.category] - zIndexMap[b.category])
+
     for (const layer of requestedLayers) {
         const matchingAsset = getLayerIfEarned(assetData, layer)
         if (matchingAsset) {
