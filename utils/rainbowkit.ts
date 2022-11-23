@@ -7,7 +7,7 @@ import { ALCHEMY_PROJECT_ID } from 'utils/constants'
 import { appName } from 'utils/content'
 
 const { chains, provider } = configureChains(
-    [chain.mainnet, chain.rinkeby],
+    [chain.mainnet, chain.goerli],
     [alchemyProvider({ apiKey: ALCHEMY_PROJECT_ID }), publicProvider()],
 )
 

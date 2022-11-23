@@ -42,8 +42,11 @@ export const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET
 export const DB_REQUEST_TOKEN = process.env.DB_REQUEST_TOKEN
 
 export const MONGOOSE_CONNECTION_STRING = process.env.MONGODB_CONNECTION_STRING
+export const NFT_METADATA_CONNECTION_STRING = process.env.NFT_METADATA_CONNECTION_STRING
+
 export const NOMAD_WHITEHAT_CONTRACT_ADDRESS = process.env.NOMAD_WHITEHAT_CONTRACT_ADDRESS
 export const LOGBOOK_CONTRACT_ADDRESS = process.env.LOGBOOK_CONTRACT_ADDRESS
+export const LLAMA_PFP_CONTRACT_ADDRESS = process.env.LLAMA_PFP_CONTRACT_ADDRESS
 
 /* Frontend Constants */
 // export const GOOGLE_ANALYTICS_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
@@ -97,6 +100,15 @@ function getNetworkString(network: string): NetworkStrings {
             }
     }
 }
+
+export const getS3LayersFolderUrl = (project: string): string =>
+    `https://metagame-xyz.s3.us-east-1.amazonaws.com/nft-images/${project}/Layers/`
+
+export const getR2LayersFolderUrl = (project: string): string =>
+    `https://pub-f973221ec7dc4a44b71a25a1c673e6e8.r2.dev/${project}/Layers/`
+
+export const getTwicPicFolderUrl = (project: string): string =>
+    `https://metagame.twic.pics/nft-images/${project}/Layers/`
 
 export type ProductionNetworks = 'ethereum' | 'polygon' | 'fantom' | 'avalanche'
 

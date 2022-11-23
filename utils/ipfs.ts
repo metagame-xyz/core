@@ -24,6 +24,12 @@ export const addToIpfsFromUrl = async (url: string): Promise<string> => {
     return ipfsScheme + file.path
 }
 
+export const addToIpfsFromBuffer = async (bufferData: Buffer): Promise<string> => {
+    // TODO: use the mutable folder structure
+    const file = await client.add(bufferData)
+    return ipfsScheme + file.path
+}
+
 export const addToIpfsFromSvgStr = async (svgStr: string): Promise<string> => {
     const arr = new TextEncoder().encode(svgStr)
 

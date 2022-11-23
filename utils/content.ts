@@ -7,7 +7,7 @@ export interface MetaProps {
     type?: string
 }
 
-export const appName = 'Template'
+export const appName = 'Core'
 
 const description = 'DESCRIPTION change me'
 

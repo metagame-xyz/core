@@ -57,7 +57,7 @@ const fetcherLogData: LogData = {
 export function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms))
 }
-export async function fetcher(url: string, options = fetchOptions) {
+export async function fetcher(url: string, options: Record<string, any> = fetchOptions) {
     let retry = 3
     while (retry > 0) {
         const response: Response = await fetch(url, options)

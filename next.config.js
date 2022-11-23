@@ -2,7 +2,15 @@ module.exports = {
     reactStrictMode: true,
     images: {
         dangerouslyAllowSVG: true,
-        domains: ['ipfs.infura.io'],
+        domains: ['ipfs.infura.io', 'metagame-xyz.s3.us-east-1.amazonaws.com'],
+        // remotePatterns: [
+        //     {
+        //         protocol: 'https',
+        //         hostname: 'metagame-xyz.s3.us-east-1.amazonaws.com',
+        //         port: '',
+        //         pathname: '',
+        //     },
+        // ],
     },
     webpack: (config, options) => {
         if (!options.isServer) {

@@ -18,7 +18,7 @@ export const createDomainSeparator = (name: string, contractAddress: string, tok
             [
                 ethers.utils.keccak256(ethers.utils.toUtf8Bytes(name)),
                 ethers.utils.keccak256(ethers.utils.toUtf8Bytes(tokenId)),
-                NETWORK === 'mainnet' ? 1 : 4, // TODO make this dynamic
+                NETWORK === 'mainnet' ? 1 : 5, // TODO make this dynamic
                 contractAddress,
             ],
         ),
@@ -27,7 +27,7 @@ export const createDomainSeparator = (name: string, contractAddress: string, tok
     return DOMAIN_SEPARATOR
 }
 
-export const generateSignature = async (address, domainSeparator) => {
+export const generateSignature = async (address: string, domainSeparator: string) => {
     const signer = new Wallet(VALIDATOR_PRIVATE_KEY, null)
 
     const payloadHash = ethers.utils.defaultAbiCoder.encode(['bytes32', 'address'], [domainSeparator, address])

@@ -1,24 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import _ from 'lodash'
+import { LlamaTier } from 'types/llama'
 
 import { CheckResponse } from 'utils/premint'
 
 const defaultAvatarUrl = `https://community.llama.xyz/assets/default-avatar.png`
-
-const tierToLevel = {
-    Traveler: 1,
-    Explorer: 2,
-    Mountaineer: 3,
-    Rancher: 4,
-}
-
-const enum LlamaTier {
-    Traveler = 'Traveler',
-    Explorer = 'Explorer',
-    Mountaineer = 'Mountaineer',
-    Rancher = 'Rancher',
-}
 
 /**
  * This is the shape of the data we'd like to receive from Llama's backend.
@@ -58,7 +45,7 @@ type LayerItemRow = {
     modifiable: boolean
     name: string
     pngLink: string
-    earnedDescription: string
+    earnedDescription: string | null
     earnedCriteria: string | null
 }
 
@@ -89,8 +76,9 @@ type UserData = {
 type LayerItemData = {
     name: string
     pngLink: string
+    /** null means everyone can have this layer item */
     earned: boolean | null
-    earnedDescription: string
+    earnedDescription: string | null
 }
 
 type AssetData = {
@@ -179,49 +167,49 @@ const assetData: AssetData = [
             {
                 name: 'Black',
                 pngLink: defaultAvatarUrl,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
                 earned: null,
             },
             {
                 name: 'Brown',
                 pngLink: defaultAvatarUrl,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
                 earned: null,
             },
             {
                 name: 'Brown with Mane',
                 pngLink: defaultAvatarUrl,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
                 earned: null,
             },
             {
                 name: 'Cream with Mane',
                 pngLink: defaultAvatarUrl,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
                 earned: null,
             },
             {
                 name: 'Brown with Spots',
                 pngLink: defaultAvatarUrl,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
                 earned: null,
             },
             {
                 name: 'Cream with Spots',
                 pngLink: defaultAvatarUrl,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
                 earned: null,
             },
             {
                 name: 'Unkempt',
                 pngLink: defaultAvatarUrl,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
                 earned: null,
             },
             {
                 name: 'Cream',
                 pngLink: defaultAvatarUrl,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
                 earned: null,
             },
         ],
@@ -252,13 +240,13 @@ const assetData: AssetData = [
                 name: 'Nose Ring',
                 pngLink: defaultAvatarUrl,
                 earned: null,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
             },
             {
                 name: 'Blue',
                 pngLink: defaultAvatarUrl,
                 earned: null,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
             },
         ],
     },
@@ -270,13 +258,13 @@ const assetData: AssetData = [
                 name: 'Blue Hexagon Glasses',
                 pngLink: defaultAvatarUrl,
                 earned: null,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
             },
             {
                 name: 'Purple Flat Glasses',
                 pngLink: defaultAvatarUrl,
                 earned: null,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
             },
         ],
     },
@@ -288,13 +276,13 @@ const assetData: AssetData = [
                 name: 'Yellow Headset',
                 pngLink: defaultAvatarUrl,
                 earned: null,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
             },
             {
                 name: 'Purple Headset',
                 pngLink: defaultAvatarUrl,
                 earned: null,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
             },
         ],
     },
@@ -306,37 +294,37 @@ const assetData: AssetData = [
                 name: 'Squinty',
                 pngLink: defaultAvatarUrl,
                 earned: null,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
             },
             {
                 name: 'Slanted Down',
                 pngLink: defaultAvatarUrl,
                 earned: null,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
             },
             {
                 name: 'Slanted Up',
                 pngLink: defaultAvatarUrl,
                 earned: null,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
             },
             {
                 name: 'Closed Down',
                 pngLink: defaultAvatarUrl,
                 earned: null,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
             },
             {
                 name: 'Closed Up',
                 pngLink: defaultAvatarUrl,
                 earned: null,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
             },
             {
                 name: 'Open',
                 pngLink: defaultAvatarUrl,
                 earned: null,
-                earnedDescription: 'Available to all',
+                earnedDescription: null,
             },
         ],
     },
@@ -344,7 +332,16 @@ const assetData: AssetData = [
 
 const checkResponse: CheckResponse = {
     valid: true,
-    signature: null, // TODO add real sig
+    signature: {
+        r: '0xa68e6a53467ff7ca037d7b376b714e85a6259ce77c2681e0f9b7a284d5292133',
+        s: '0x503d3dfc7f2105ed6477f840bcac2a6526c2e745411f6aea24092c89337ab8f8',
+        _vs: '0x503d3dfc7f2105ed6477f840bcac2a6526c2e745411f6aea24092c89337ab8f8',
+        recoveryParam: 0,
+        v: 27,
+        yParityAndS: '0x503d3dfc7f2105ed6477f840bcac2a6526c2e745411f6aea24092c89337ab8f8',
+        compact:
+            '0xa68e6a53467ff7ca037d7b376b714e85a6259ce77c2681e0f9b7a284d5292133503d3dfc7f2105ed6477f840bcac2a6526c2e745411f6aea24092c89337ab8f8',
+    },
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
