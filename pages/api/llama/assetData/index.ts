@@ -26,7 +26,7 @@ export const allRows: LayerItemRow[] = [
         name: 'Purple - Blue - Green',
         pngLink: getPngUrl('Background', 'Purple - Blue - Green'),
         earnedCriteria: 'Traveler',
-        earnedDescription: 'Reach Traveler Tier',
+        earnedDescription: 'Traveler',
     },
     {
         project: 'llamaPfp',
@@ -36,7 +36,7 @@ export const allRows: LayerItemRow[] = [
         name: 'Green - Blue',
         pngLink: getPngUrl('Background', 'Green - Blue'),
         earnedCriteria: 'Explorer',
-        earnedDescription: 'Reach Explorer Tier',
+        earnedDescription: 'Explorer',
     },
     {
         project: 'llamaPfp',
@@ -46,7 +46,7 @@ export const allRows: LayerItemRow[] = [
         name: 'Green',
         pngLink: getPngUrl('Background', 'Green'),
         earnedCriteria: 'Explorer',
-        earnedDescription: 'Reach Explorer Tier',
+        earnedDescription: 'Explorer',
     },
     {
         project: 'llamaPfp',
@@ -56,7 +56,7 @@ export const allRows: LayerItemRow[] = [
         name: 'Pink',
         pngLink: getPngUrl('Background', 'Pink'),
         earnedCriteria: 'Mountaineer',
-        earnedDescription: 'Reach Mountaineer Tier',
+        earnedDescription: 'Mountaineer',
     },
     {
         project: 'llamaPfp',
@@ -66,7 +66,7 @@ export const allRows: LayerItemRow[] = [
         name: 'Blue - Pink - Orange',
         pngLink: getPngUrl('Background', 'Blue - Pink - Orange'),
         earnedCriteria: 'Mountaineer',
-        earnedDescription: 'Reach Mountaineer Tier',
+        earnedDescription: 'Mountaineer',
     },
     {
         project: 'llamaPfp',
@@ -76,7 +76,7 @@ export const allRows: LayerItemRow[] = [
         name: 'Shooting Stars',
         pngLink: getPngUrl('Background', 'Shooting Stars'),
         earnedCriteria: 'Rancher',
-        earnedDescription: 'Reach Rancher Tier',
+        earnedDescription: 'Rancher',
     },
     {
         project: 'llamaPfp',
@@ -86,7 +86,7 @@ export const allRows: LayerItemRow[] = [
         name: 'Sparkly',
         pngLink: getPngUrl('Background', 'Sparkly'),
         earnedCriteria: 'Rancher',
-        earnedDescription: 'Reach Rancher Tier',
+        earnedDescription: 'Rancher',
     },
     {
         project: 'llamaPfp',
