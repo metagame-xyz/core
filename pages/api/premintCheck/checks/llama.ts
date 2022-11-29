@@ -5,7 +5,7 @@ import { LLAMA_PFP_CONTRACT_ADDRESS } from 'utils/constants'
 import { getLlamaUserData, LLAMA_PROJECT_NAME } from 'utils/llama'
 import { CheckResponse, createDomainSeparator, generateSignature } from 'utils/premint'
 
-const llamaPfpDomainSeparator = createDomainSeparator(LLAMA_PROJECT_NAME, LLAMA_PFP_CONTRACT_ADDRESS) // TODO add a contract address
+const llamaPfpDomainSeparator = createDomainSeparator(LLAMA_PROJECT_NAME, LLAMA_PFP_CONTRACT_ADDRESS)
 
 export const validateLlamaPfpAllowList = async (
     address: string,

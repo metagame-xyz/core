@@ -1,6 +1,6 @@
 import { ethers, Wallet } from 'ethers'
 
-import { NETWORK, VALIDATOR_PRIVATE_KEY } from 'utils/constants'
+import { NETWORK, networkStrings, VALIDATOR_PRIVATE_KEY } from 'utils/constants'
 
 export type CheckResponse = {
     valid: boolean
@@ -18,7 +18,7 @@ export const createDomainSeparator = (name: string, contractAddress: string, tok
             [
                 ethers.utils.keccak256(ethers.utils.toUtf8Bytes(name)),
                 ethers.utils.keccak256(ethers.utils.toUtf8Bytes(tokenId)),
-                NETWORK === 'mainnet' ? 1 : 5, // TODO make this dynamic
+                networkStrings.networkId,
                 contractAddress,
             ],
         ),

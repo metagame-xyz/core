@@ -60,21 +60,24 @@ type NetworkStrings = {
     opensea: string
     openseaAPI: string
     web3Modal: string
+    networkId?: number
 }
 
 function getNetworkString(network: string): NetworkStrings {
+    const defaultStrings = {
+        alchemy: `eth-${network}.`,
+        ethers: network,
+        etherscan: `${network}.`,
+        etherscanAPI: `api-${network}.`,
+        polygonscanAPI: `api-testnet.`,
+        opensea: 'testnets.',
+        openseaAPI: `testnets-api.`,
+        web3Modal: network,
+    }
+
     switch (network.toLowerCase()) {
         case 'ethereum':
-            return {
-                alchemy: 'eth-mainnet.',
-                ethers: 'homestead',
-                etherscan: '',
-                etherscanAPI: 'api.',
-                polygonscanAPI: 'api.',
-                opensea: '',
-                openseaAPI: 'api.',
-                web3Modal: 'mainnet',
-            }
+        case 'mainnet':
         case 'homestead':
             return {
                 alchemy: 'eth-mainnet.',
@@ -85,19 +88,12 @@ function getNetworkString(network: string): NetworkStrings {
                 opensea: '',
                 openseaAPI: 'api.',
                 web3Modal: 'mainnet',
+                networkId: 1,
             }
-
+        case 'goerli':
+            return { ...defaultStrings, networkId: 5 }
         default:
-            return {
-                alchemy: `eth-${network}.`,
-                ethers: network,
-                etherscan: `${network}.`,
-                etherscanAPI: `api-${network}.`,
-                polygonscanAPI: `api-testnet.`,
-                opensea: 'testnets.',
-                openseaAPI: `${network}-api.`, // rinkeby only for now
-                web3Modal: network,
-            }
+            return defaultStrings
     }
 }
 
