@@ -156,7 +156,6 @@ export class NftMongoose {
             const nftMetadata = await cached.conn.models.Metadata.findOneAndUpdate(
                 { project, address },
                 { tokenId },
-                { upsert: true },
             ).sort({
                 timestamp: -1,
             })
