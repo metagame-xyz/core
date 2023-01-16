@@ -5,7 +5,6 @@ import _ from 'lodash'
 
 import { validateLlamaPfpAllowList } from 'api/premintCheck/checks/llama'
 
-import { allowCors } from 'utils/cors'
 import { getLlamaUserData, layerItemRowsToAssetData, LLAMA_PROJECT_NAME, llamaCriteriaMap } from 'utils/llama'
 import nftMongoose from 'utils/nftDatabase'
 
