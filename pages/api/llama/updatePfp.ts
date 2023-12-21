@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { hashMessage } from '@ethersproject/hash'
-import { createCanvas, loadImage } from 'canvas'
+import { createCanvas, loadImage } from '@napi-rs/canvas'
 import { recoverAddress } from 'ethers/lib/utils'
 import { AddressZ, getEntries } from 'evm-translator'
 import { AssetData, LayerItemData } from 'types'
