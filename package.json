@@ -12,7 +12,7 @@
         "type-check": "tsc",
         "check": "yarn run type-check && yarn run lint && yarn run format",
         "latest": "yarn upgrade evm-translator@latest",
-        "vercel-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/ && next build"
+        "vercel-build": "next build"
     },
     "dependencies": {
         "@apollo/client": "^3.6.9",
